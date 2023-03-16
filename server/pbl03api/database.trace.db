@@ -1,0 +1,81 @@
+2023-03-16 15:59:59 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "select o1_0.order_id,o1_0.date_completed,o1_0.date_created,o1_0.status from [*]order o1_0 where o1_0.order_id=?"; expected "identifier"; SQL statement:
+select o1_0.order_id,o1_0.date_completed,o1_0.date_created,o1_0.status from order o1_0 where o1_0.order_id=? [42001-214]
+2023-03-16 16:14:58 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "select o1_0.order_id,o1_0.date_completed,o1_0.date_created,o1_0.status from [*]order o1_0 where o1_0.order_id=?"; expected "identifier"; SQL statement:
+select o1_0.order_id,o1_0.date_completed,o1_0.date_created,o1_0.status from order o1_0 where o1_0.order_id=? [42001-214]
+2023-03-16 16:17:48 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "select o1_0.order_id,o1_0.date_completed,o1_0.date_created,o1_0.status from [*]order o1_0 where o1_0.order_id=?"; expected "identifier"; SQL statement:
+select o1_0.order_id,o1_0.date_completed,o1_0.date_created,o1_0.status from order o1_0 where o1_0.order_id=? [42001-214]
+2023-03-16 16:18:42 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "select o1_0.order_id,o1_0.date_completed,o1_0.date_created,o1_0.status from [*]order o1_0 where o1_0.order_id=?"; expected "identifier"; SQL statement:
+select o1_0.order_id,o1_0.date_completed,o1_0.date_created,o1_0.status from order o1_0 where o1_0.order_id=? [42001-214]
+2023-03-16 16:20:17 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "select o1_0.order_id,o1_0.date_completed,o1_0.date_created,o1_0.status from [*]order o1_0 where o1_0.order_id=?"; expected "identifier"; SQL statement:
+select o1_0.order_id,o1_0.date_completed,o1_0.date_created,o1_0.status from order o1_0 where o1_0.order_id=? [42001-214]
+2023-03-16 16:20:40 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "select o1_0.order_id,o1_0.date_completed,o1_0.date_created,o1_0.status from [*]order o1_0 where o1_0.order_id=?"; expected "identifier"; SQL statement:
+select o1_0.order_id,o1_0.date_completed,o1_0.date_created,o1_0.status from order o1_0 where o1_0.order_id=? [42001-214]
+2023-03-16 16:23:37 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "select o1_0.order_id,o1_0.date_completed,o1_0.date_created,o1_0.status from [*]order o1_0 where o1_0.order_id=?"; expected "identifier"; SQL statement:
+select o1_0.order_id,o1_0.date_completed,o1_0.date_created,o1_0.status from order o1_0 where o1_0.order_id=? [42001-214]
+2023-03-16 16:24:17 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "select o1_0.order_id,o1_0.date_completed,o1_0.date_created,o1_0.status from [*]order o1_0 where o1_0.order_id=?"; expected "identifier"; SQL statement:
+select o1_0.order_id,o1_0.date_completed,o1_0.date_created,o1_0.status from order o1_0 where o1_0.order_id=? [42001-214]
+2023-03-16 16:24:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "select o1_0.order_id,o1_0.date_completed,o1_0.date_created,o1_0.status from [*]order o1_0 where o1_0.order_id=?"; expected "identifier"; SQL statement:
+select o1_0.order_id,o1_0.date_completed,o1_0.date_created,o1_0.status from order o1_0 where o1_0.order_id=? [42001-214]
+2023-03-16 16:28:06 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "select o1_0.order_id,o1_0.date_completed,o1_0.date_created,o1_0.status from [*]order o1_0 where o1_0.order_id=?"; expected "identifier"; SQL statement:
+select o1_0.order_id,o1_0.date_completed,o1_0.date_created,o1_0.status from order o1_0 where o1_0.order_id=? [42001-214]
+2023-03-16 16:28:08 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "select o1_0.order_id,o1_0.date_completed,o1_0.date_created,o1_0.status from [*]order o1_0 where o1_0.order_id=?"; expected "identifier"; SQL statement:
+select o1_0.order_id,o1_0.date_completed,o1_0.date_created,o1_0.status from order o1_0 where o1_0.order_id=? [42001-214]
+2023-03-16 16:28:08 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "select o1_0.order_id,o1_0.date_completed,o1_0.date_created,o1_0.status from [*]order o1_0 where o1_0.order_id=?"; expected "identifier"; SQL statement:
+select o1_0.order_id,o1_0.date_completed,o1_0.date_created,o1_0.status from order o1_0 where o1_0.order_id=? [42001-214]
+2023-03-16 16:28:09 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "select o1_0.order_id,o1_0.date_completed,o1_0.date_created,o1_0.status from [*]order o1_0 where o1_0.order_id=?"; expected "identifier"; SQL statement:
+select o1_0.order_id,o1_0.date_completed,o1_0.date_created,o1_0.status from order o1_0 where o1_0.order_id=? [42001-214]
+2023-03-16 16:34:46 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "select o1_0.order_id,o1_0.date_completed,o1_0.date_created,o1_0.status from [*]order o1_0 where o1_0.order_id=?"; expected "identifier"; SQL statement:
+select o1_0.order_id,o1_0.date_completed,o1_0.date_created,o1_0.status from order o1_0 where o1_0.order_id=? [42001-214]
+2023-03-16 16:35:41 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "select o1_0.order_id,o1_0.date_completed,o1_0.date_created,o1_0.status from [*]order o1_0 where o1_0.order_id=?"; expected "identifier"; SQL statement:
+select o1_0.order_id,o1_0.date_completed,o1_0.date_created,o1_0.status from order o1_0 where o1_0.order_id=? [42001-214]
+2023-03-16 16:37:55 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "select o1_0.order_id,o1_0.date_completed,o1_0.date_created from [*]order o1_0 where o1_0.order_id=?"; expected "identifier"; SQL statement:
+select o1_0.order_id,o1_0.date_completed,o1_0.date_created from order o1_0 where o1_0.order_id=? [42001-214]
+2023-03-16 16:38:09 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "select o1_0.order_id,o1_0.date_completed,o1_0.date_created from [*]order o1_0 where o1_0.order_id=?"; expected "identifier"; SQL statement:
+select o1_0.order_id,o1_0.date_completed,o1_0.date_created from order o1_0 where o1_0.order_id=? [42001-214]
+2023-03-16 16:40:11 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "select o1_0.order_id,o1_0.date_completed,o1_0.date_created from [*]order o1_0 where o1_0.order_id=?"; expected "identifier"; SQL statement:
+select o1_0.order_id,o1_0.date_completed,o1_0.date_created from order o1_0 where o1_0.order_id=? [42001-214]
+2023-03-16 16:40:45 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "select o1_0.order_id,o1_0.date_completed,o1_0.date_created from [*]order o1_0 where o1_0.order_id=?"; expected "identifier"; SQL statement:
+select o1_0.order_id,o1_0.date_completed,o1_0.date_created from order o1_0 where o1_0.order_id=? [42001-214]
+2023-03-16 16:40:46 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "select o1_0.order_id,o1_0.date_completed,o1_0.date_created from [*]order o1_0 where o1_0.order_id=?"; expected "identifier"; SQL statement:
+select o1_0.order_id,o1_0.date_completed,o1_0.date_created from order o1_0 where o1_0.order_id=? [42001-214]
+2023-03-16 16:40:46 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "select o1_0.order_id,o1_0.date_completed,o1_0.date_created from [*]order o1_0 where o1_0.order_id=?"; expected "identifier"; SQL statement:
+select o1_0.order_id,o1_0.date_completed,o1_0.date_created from order o1_0 where o1_0.order_id=? [42001-214]
+2023-03-16 16:41:20 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "create table [*]order (order_id bigint generated by default as identity, date_completed date, date_created date, primary key (order_id))"; expected "identifier"; SQL statement:
+create table order (order_id bigint generated by default as identity, date_completed date, date_created date, primary key (order_id)) [42001-214]
+2023-03-16 16:41:21 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "alter table if exists customer_orders add constraint FKd8r7bwa1h558fao1ithw67l8x foreign key (orders_order_id) references [*]order"; expected "identifier"; SQL statement:
+alter table if exists customer_orders add constraint FKd8r7bwa1h558fao1ithw67l8x foreign key (orders_order_id) references order [42001-214]
+2023-03-16 16:41:50 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "select o1_0.order_id,o1_0.date_completed,o1_0.date_created from [*]order o1_0 where o1_0.order_id=?"; expected "identifier"; SQL statement:
+select o1_0.order_id,o1_0.date_completed,o1_0.date_created from order o1_0 where o1_0.order_id=? [42001-214]
+2023-03-16 16:42:46 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "select o1_0.order_id,o1_0.date_completed,o1_0.date_created from [*]order o1_0 where o1_0.order_id=?"; expected "identifier"; SQL statement:
+select o1_0.order_id,o1_0.date_completed,o1_0.date_created from order o1_0 where o1_0.order_id=? [42001-214]
+2023-03-16 16:44:15 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "create table [*]order (order_id bigint not null, date_completed date, date_created date, primary key (order_id))"; expected "identifier"; SQL statement:
+create table order (order_id bigint not null, date_completed date, date_created date, primary key (order_id)) [42001-214]
+2023-03-16 16:44:15 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "alter table if exists customer_orders add constraint FKd8r7bwa1h558fao1ithw67l8x foreign key (orders_order_id) references [*]order"; expected "identifier"; SQL statement:
+alter table if exists customer_orders add constraint FKd8r7bwa1h558fao1ithw67l8x foreign key (orders_order_id) references order [42001-214]
