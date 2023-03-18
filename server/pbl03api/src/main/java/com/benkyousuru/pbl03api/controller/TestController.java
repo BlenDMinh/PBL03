@@ -1,51 +1,50 @@
 package com.benkyousuru.pbl03api.controller;
 
-import java.time.Instant;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.benkyousuru.pbl03api.model.entity.Category;
 import com.benkyousuru.pbl03api.model.entity.Customer;
-import com.benkyousuru.pbl03api.model.entity.Order;
-import com.benkyousuru.pbl03api.model.entity.Status;
+import com.benkyousuru.pbl03api.model.entity.Product;
+import com.benkyousuru.pbl03api.model.repository.CategoryRepository;
 import com.benkyousuru.pbl03api.model.repository.CustomerRepository;
-import com.benkyousuru.pbl03api.model.repository.OrderRepository;
+import com.benkyousuru.pbl03api.model.repository.ProductRepository;
 
 @RestController
 public class TestController {
     @Autowired
-    private CustomerRepository customerRepository;
+    private CategoryRepository categoryRepository;
+
     @Autowired
-    private OrderRepository orderRepository;
+    private CustomerRepository customerRepository;
 
-    @GetMapping("/")
-    public String F() {
-        // customerRepository.save(c);
-        return "Saved";
+    @Autowired
+    private ProductRepository productRepository;
+
+    @GetMapping("/api/category/add")
+    public String AddCategory() {
+        categoryRepository.save(Category.builder()
+                        .categoryName("Undefined")
+                        .build());
+        return "SAVED CATEGORY";
     }
 
-    @GetMapping("/customer/add")
-    public String addCus() {
-        Customer c = new Customer();
-        c.setCustomerId(Long.valueOf(0));
-        c.setSex(false);
-        c.setEmail("themysmine@gmail.com");
-        c.setDateOfBirth(Date.from(Instant.now()));
-        Order o = orderRepository.findById(Long.valueOf(0)).get();
-        c.addOrder(o);
-        customerRepository.save(c);
-        return "Saved Customer";
-    }
-
-    @GetMapping("/order/add")
-    public String addOr() {
-        Order o = new Order();
-        o.setOrderId(Long.valueOf(0));
-        o.setDateCreated(Date.from(Instant.now()));
-        o.setStatus(Status.INCOMPLETE);
-        orderRepository.save(o);
-        return "Saved Order";
+    @GetMapping("/api/product/add")
+    public String AddProduct() {
+        Category category = null;
+        for (Category e : categoryRepository.findAll())
+            category = e;
+        Product p = Product.builder()
+        .productName("aa")
+        .category(category)
+        .build();
+        productRepository.save(p);
+        category.setProducts(new ArrayList<>(Arrays.asList(p)));
+        categoryRepository.save(category);
+        return "SAVED PRODUCT";
     }
 }

@@ -8,5 +8,4 @@ public class Pbl03apiApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(Pbl03apiApplication.class, args);
 	}
-
 }

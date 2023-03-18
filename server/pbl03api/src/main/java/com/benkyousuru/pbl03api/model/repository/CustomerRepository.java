@@ -4,4 +4,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.benkyousuru.pbl03api.model.entity.Customer;
 
-public interface CustomerRepository extends CrudRepository<Customer, Long> {}
+public interface CustomerRepository extends CrudRepository<Customer, Integer> {
+    
+}

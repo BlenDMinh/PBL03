@@ -1,8 +1,5 @@
 package com.benkyousuru.pbl03api.model.entity;
 
-import java.sql.Date;
-import java.util.List;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -10,10 +7,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -26,23 +20,20 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Order {
+public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer orderId;
+    private Integer addressId;
 
-    @OneToOne(targetEntity = Address.class, fetch = FetchType.LAZY)
-    private Address address;
+    private String country;
+    private String city;
+    private String district;
+    private String ward;
+    private String apartmentNumber;
 
-    @Temporal(TemporalType.DATE)
-    private Date dateCreated;
-
-    @Temporal(TemporalType.DATE)
-    private Date dateCompleted;
+    @ManyToOne(targetEntity = Customer.class, fetch = FetchType.LAZY)
+    private Customer customer;
 
     @Enumerated(EnumType.ORDINAL)
-    private Status status;
-
-    @OneToMany(targetEntity = Product.class)
-    private List<Product> products;
+    private AddressType addressType;
 }

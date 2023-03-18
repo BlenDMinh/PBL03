@@ -3,86 +3,56 @@ package com.benkyousuru.pbl03api.model.entity;
 import java.util.Date;
 import java.util.List;
 
-import jakarta.annotation.Nonnull;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-import jakarta.persistence.GenerationType;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Nonnull
-    private Long CustomerId;
+    private Integer customerId;
 
-    @Column(name = "Sex", columnDefinition = "BIT")
-    @Nonnull
-    private Boolean Sex;
+    private String customerName;
+    
+    @Enumerated(EnumType.ORDINAL)
+    private Gender gender;
 
-    @Nonnull
-    private String Email;
+    private String email;
 
     @Temporal(TemporalType.DATE)
-    @Nonnull
-    private Date DateOfBirth;
+    private Date dateOfBirth;
 
-    @Nonnull
-    private String _Password;
+    @OneToOne(targetEntity = Address.class, fetch = FetchType.LAZY)
+    private Address homeAddress;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Order> Orders;
+    private String _password;
+    
+    @ManyToMany(targetEntity = Product.class, fetch = FetchType.LAZY)
+    private List<Product> cartProducts;
 
-    public Long getCustomerId() {
-        return CustomerId;
-    }
-    public void setCustomerId(Long customerId) {
-        CustomerId = customerId;
-    }
+    @OneToMany(targetEntity = Order.class, fetch = FetchType.LAZY)
+    private List<Order> orders;
 
-    public Boolean getSex() {
-        return Sex;
-    }
-
-    public void setSex(Boolean sex) {
-        Sex = sex;
-    }
-
-    public String getEmail() {
-        return Email;
-    }
-
-    public void setEmail(String email) {
-        Email = email;
-    }
-
-    public Date getDateOfBirth() {
-        return DateOfBirth;
-    }
-
-    public void setDateOfBirth(Date dateOfBirth) {
-        DateOfBirth = dateOfBirth;
-    }
-
-    public void set_Password(String _Password) {
-        this._Password = _Password;
-    }
-
-    public List<Order> getOrders() {
-        return Orders;
-    }
-
-    public void addOrder(Order o) {
-        Orders.add(o);
-    }
-
-    public void removeOrder(Order o) {
-        Orders.remove(o);
-    }
+    @OneToMany(targetEntity = Address.class, fetch = FetchType.LAZY)
+    private List<Address> deliveryAddresses;
 }
