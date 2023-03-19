@@ -2,6 +2,9 @@ package com.benkyousuru.pbl03api.model.entity;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import com.benkyousuru.pbl03api.model.model.CustomerModel;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -55,4 +58,20 @@ public class Customer {
 
     @OneToMany(targetEntity = Address.class, fetch = FetchType.LAZY)
     private List<Address> deliveryAddresses;
+
+    public Customer(CustomerModel model) {
+        this.customerId = model.getCustomerId();
+        this.customerName = model.getCustomerName();
+        this.gender = model.getGender();
+        this.email = model.getEmail();
+        this.dateOfBirth = model.getDateOfBirth();
+        if(model.getHomeAddress() != null)
+            this.homeAddress = new Address(model.getHomeAddress());
+        if(model.getCartProducts() != null)
+            this.cartProducts = model.getCartProducts().stream().map(e -> new Product(e)).collect(Collectors.toList());
+        if(model.getOrders() != null)
+            this.orders = model.getOrders().stream().map(e -> new Order(e)).collect(Collectors.toList());
+        if(model.getDeliveryAddresses() != null)
+            this.deliveryAddresses = model.getDeliveryAddresses().stream().map(e -> new Address(e)).collect(Collectors.toList());
+    }
 }

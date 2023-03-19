@@ -1,5 +1,7 @@
 package com.benkyousuru.pbl03api.model.entity;
 
+import com.benkyousuru.pbl03api.model.model.ProductModel;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -34,4 +36,17 @@ public class Product {
     private String userManual;
     private String preservedManual;
     private String description;
+
+    public Product(ProductModel product) {
+        this.sku = product.getSku();
+        this.productName = product.getProductName();
+        this.category = new Category(product.getCategory());
+        this.listedPrice = product.getListedPrice();
+        this.origin = product.getOrigin();
+        this.brand = product.getBrand();
+        this.ingridients = product.getIngridients();
+        this.userManual = product.getUserManual();
+        this.preservedManual = product.getPreservedManual();
+        this.description = product.getDescription();
+    }
 }

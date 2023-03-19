@@ -1,6 +1,9 @@
 package com.benkyousuru.pbl03api.model.entity;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
+import com.benkyousuru.pbl03api.model.model.CategoryModel;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -32,4 +35,13 @@ public class Category {
 
     @OneToMany(fetch = FetchType.LAZY)
     private List<Product> products;
+
+    public Category(CategoryModel category) {
+        this.categryId = category.getCategryId();
+        this.categoryName = category.getCategoryName();
+        if(category.getSubcategories() != null)
+            this.subcategories = category.getSubcategories().stream().map(e -> new Category(e)).collect(Collectors.toList());
+        if(category.getProducts() != null)
+            this.products = category.getProducts().stream().map(e -> new Product(e)).collect(Collectors.toList());
+    }
 }
