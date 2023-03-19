@@ -1,46 +1,44 @@
-package com.benkyousuru.pbl03api.model.service;
+package com.benkyousuru.pbl03api.model.service.implement;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import com.benkyousuru.pbl03api.model.model.OrderModel;
-import com.benkyousuru.pbl03api.model.service.Interface.IOrderService;
-import com.benkyousuru.pbl03api.model.repository.OrderRepository;
+import com.benkyousuru.pbl03api.model.model.ProductModel;
+import com.benkyousuru.pbl03api.model.repository.ProductRepository;
+import com.benkyousuru.pbl03api.model.service.IProductService;
 
-@Service
-public class OrderService implements IOrderService {
+public class ProductService implements IProductService {
     @Autowired
-    private OrderRepository orderRepository;
+    private ProductRepository productRepository;
 
     @Override
-    public List<OrderModel> getAll() {
+    public List<ProductModel> getAll() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getAll'");
     }
 
     @Override
-    public Optional<OrderModel> getById(Integer id) {
+    public Optional<ProductModel> getById(Integer id) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getById'");
     }
 
     @Override
-    public void insert(OrderModel model) {
+    public void insert(ProductModel model) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'insert'");
     }
 
     @Override
-    public void update(OrderModel model) {
+    public void update(ProductModel model) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'update'");
     }
 
     @Override
-    public void delete(OrderModel model) {
+    public void delete(ProductModel model) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'delete'");
     }
@@ -50,4 +48,5 @@ public class OrderService implements IOrderService {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'deleteById'");
     }
+    
 }
