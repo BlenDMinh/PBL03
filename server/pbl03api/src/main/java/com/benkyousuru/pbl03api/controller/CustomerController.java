@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.benkyousuru.pbl03api.model.model.CustomerModel;
-import com.benkyousuru.pbl03api.model.service.ICustomerService;
+import com.benkyousuru.pbl03api.model.service.Interface.ICustomerService;
 
 @RestController
 public class CustomerController {

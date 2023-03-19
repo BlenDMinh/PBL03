@@ -1,4 +1,4 @@
-package com.benkyousuru.pbl03api.model.service;
+package com.benkyousuru.pbl03api.model.service.Interface;
 
 import com.benkyousuru.pbl03api.model.model.ProductModel;
 
