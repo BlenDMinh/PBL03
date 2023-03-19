@@ -1,7 +1,10 @@
 package com.benkyousuru.pbl03api.model.entity;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import com.benkyousuru.pbl03api.model.model.OrderModel;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -45,4 +48,14 @@ public class Order {
 
     @OneToMany(targetEntity = Product.class)
     private List<Product> products;
+
+    public Order(OrderModel order) {
+        this.orderId = order.getOrderId();
+        this.address = new Address(order.getAddress());
+        this.dateCreated = order.getDateCreated();
+        this.dateCompleted = order.getDateCompleted();
+        this.status = order.getStatus();
+        if(order.getProducts() != null)
+            this.products = order.getProducts().stream().map(e -> new Product(e)).collect(Collectors.toList());
+    }
 }

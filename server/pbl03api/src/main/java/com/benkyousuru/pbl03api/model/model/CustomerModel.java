@@ -33,8 +33,13 @@ public class CustomerModel {
         this.gender = customer.getGender();
         this.email = customer.getEmail();
         this.dateOfBirth = customer.getDateOfBirth();
-        this.homeAddress = new AddressModel(customer.getHomeAddress());
-        this.cartProducts = customer.getCartProducts().stream().map(e -> new ProductModel(e)).collect(Collectors.toList());
-        this.orders = customer.getOrders().stream().map(e -> new OrderModel(e)).collect(Collectors.toList());
+        if(customer.getHomeAddress() != null)
+            this.homeAddress = new AddressModel(customer.getHomeAddress());
+        if(customer.getCartProducts() != null)
+            this.cartProducts = customer.getCartProducts().stream().map(e -> new ProductModel(e)).collect(Collectors.toList());
+        if(customer.getOrders() != null)
+            this.orders = customer.getOrders().stream().map(e -> new OrderModel(e)).collect(Collectors.toList());
+        if(customer.getDeliveryAddresses() != null)
+            this.deliveryAddresses = customer.getDeliveryAddresses().stream().map(e -> new AddressModel(e)).collect((Collectors.toList()));
     }
 }
