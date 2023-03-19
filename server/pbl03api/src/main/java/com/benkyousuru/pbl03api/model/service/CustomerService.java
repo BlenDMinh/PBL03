@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.benkyousuru.pbl03api.model.entity.Customer;
 import com.benkyousuru.pbl03api.model.model.CustomerModel;
 import com.benkyousuru.pbl03api.model.repository.CustomerRepository;
+import com.benkyousuru.pbl03api.model.service.Interface.ICustomerService;
 
 @Service
 public class CustomerService implements ICustomerService {
