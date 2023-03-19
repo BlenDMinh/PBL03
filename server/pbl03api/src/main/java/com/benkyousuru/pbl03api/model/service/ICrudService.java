@@ -1,4 +1,4 @@
-package com.benkyousuru.pbl03api.model.service.Interface;
+package com.benkyousuru.pbl03api.model.service;
 
 import java.util.List;
 import java.util.Optional;

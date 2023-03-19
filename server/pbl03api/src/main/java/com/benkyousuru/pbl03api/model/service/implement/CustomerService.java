@@ -1,4 +1,4 @@
-package com.benkyousuru.pbl03api.model.service;
+package com.benkyousuru.pbl03api.model.service.implement;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import com.benkyousuru.pbl03api.model.entity.Customer;
 import com.benkyousuru.pbl03api.model.model.CustomerModel;
 import com.benkyousuru.pbl03api.model.repository.CustomerRepository;
-import com.benkyousuru.pbl03api.model.service.Interface.ICustomerService;
+import com.benkyousuru.pbl03api.model.service.ICustomerService;
 
 @Service
 public class CustomerService implements ICustomerService {
@@ -78,5 +78,10 @@ public class CustomerService implements ICustomerService {
     @Override
     public void deleteById(Integer id) {
         customerRepository.deleteById(id);
-    }   
+    }
+
+    @Override
+    public void setPassword(Integer customerId, String password) {
+        customerRepository.updatePassword(customerId, password);
+    }
 }
