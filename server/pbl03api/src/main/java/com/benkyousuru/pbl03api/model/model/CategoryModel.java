@@ -21,7 +21,7 @@ public class CategoryModel {
     private String categoryName;
     private List<CategoryModel> subcategories;
     private List<ProductModel> products;
-    CategoryModel(Category category) {
+    public CategoryModel(Category category) {
         this.categryId = category.getCategryId();
         this.categoryName = category.getCategoryName();
         if(category.getSubcategories() != null)
