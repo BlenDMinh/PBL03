@@ -64,7 +64,6 @@ public class CustomerController {
     @Transactional
     public String update(@RequestBody CustomerModel model) {
         customerService.update(model);
-        customerService.setPassword(1, "aaa");
         return "Saved";
     }
 

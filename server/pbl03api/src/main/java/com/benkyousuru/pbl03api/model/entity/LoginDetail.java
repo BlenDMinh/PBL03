@@ -1,5 +1,6 @@
 package com.benkyousuru.pbl03api.model.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,6 +15,7 @@ import lombok.Setter;
 public class LoginDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "login_detail_id")
     private Integer loginDetailId;
 
     @OneToOne(mappedBy = "loginDetail")

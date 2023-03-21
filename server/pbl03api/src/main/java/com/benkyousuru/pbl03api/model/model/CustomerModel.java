@@ -22,10 +22,9 @@ public class CustomerModel {
     private Gender gender;
     private String email;
     private Date dateOfBirth;
-    private AddressModel homeAddress;
     private List<ProductModel> cartProducts;
     private List<OrderModel> orders;
-    private List<AddressModel> deliveryAddresses;
+    private List<AddressModel> addresses;
 
     public CustomerModel(Customer customer) {
         this.customerId = customer.getCustomerId();
@@ -33,13 +32,11 @@ public class CustomerModel {
         this.gender = customer.getGender();
         this.email = customer.getEmail();
         this.dateOfBirth = customer.getDateOfBirth();
-        if(customer.getHomeAddress() != null)
-            this.homeAddress = new AddressModel(customer.getHomeAddress());
         if(customer.getCartProducts() != null)
             this.cartProducts = customer.getCartProducts().stream().map(e -> new ProductModel(e)).collect(Collectors.toList());
         if(customer.getOrders() != null)
             this.orders = customer.getOrders().stream().map(e -> new OrderModel(e)).collect(Collectors.toList());
-        if(customer.getDeliveryAddresses() != null)
-            this.deliveryAddresses = customer.getDeliveryAddresses().stream().map(e -> new AddressModel(e)).collect((Collectors.toList()));
+        if(customer.getAddresses() != null)
+            this.addresses = customer.getAddresses().stream().map(e -> new AddressModel(e)).collect((Collectors.toList()));
     }
 }

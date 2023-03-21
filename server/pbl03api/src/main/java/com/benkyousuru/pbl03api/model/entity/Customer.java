@@ -2,11 +2,13 @@ package com.benkyousuru.pbl03api.model.entity;
 
 import java.util.Date;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 import com.benkyousuru.pbl03api.model.model.CustomerModel;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -35,6 +37,7 @@ import lombok.Setter;
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "customer_id")
     private Integer customerId;
 
     private String customerName;
@@ -47,21 +50,23 @@ public class Customer {
     @Temporal(TemporalType.DATE)
     private Date dateOfBirth;
 
-    @OneToOne(targetEntity = Address.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Address homeAddress;
-
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(referencedColumnName = "loginDetailId")
-    private LoginDetail loginDetail;
+    @JoinColumn(referencedColumnName = "login_detail_id")
+    @Builder.Default
+    private LoginDetail loginDetail = new LoginDetail();
     
     @ManyToMany(targetEntity = Product.class, fetch = FetchType.LAZY)
-    private List<Product> cartProducts;
+    @Builder.Default
+    private List<Product> cartProducts = new ArrayList<>();
 
-    @OneToMany(targetEntity = Order.class, fetch = FetchType.LAZY)
-    private List<Order> orders;
+    @OneToMany(targetEntity = Order.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "order_id")
+    @Builder.Default
+    private List<Order> orders = new ArrayList<>();
 
-    @OneToMany(targetEntity = Address.class, fetch = FetchType.LAZY)
-    private List<Address> deliveryAddresses;
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.PERSIST)
+    @Builder.Default
+    private List<Address> addresses = new ArrayList<>();
 
     public Customer(CustomerModel model) {
         this.customerId = model.getCustomerId();
@@ -69,13 +74,37 @@ public class Customer {
         this.gender = model.getGender();
         this.email = model.getEmail();
         this.dateOfBirth = model.getDateOfBirth();
-        if(model.getHomeAddress() != null)
-            this.homeAddress = new Address(model.getHomeAddress());
-        if(model.getCartProducts() != null)
-            this.cartProducts = model.getCartProducts().stream().map(e -> new Product(e)).collect(Collectors.toList());
-        if(model.getOrders() != null)
-            this.orders = model.getOrders().stream().map(e -> new Order(e)).collect(Collectors.toList());
-        if(model.getDeliveryAddresses() != null)
-            this.deliveryAddresses = model.getDeliveryAddresses().stream().map(e -> new Address(e)).collect(Collectors.toList());
+        if(this.addresses == null)
+            this.addresses = new ArrayList<>();
+        if(this.orders == null)
+            this.orders = new ArrayList<>();
+        if(this.cartProducts == null)
+            this.cartProducts = new ArrayList<>();
+        if(model.getCartProducts() != null) {
+            this.cartProducts.clear();
+            this.cartProducts.addAll(model.getCartProducts().stream().map(e -> new Product(e)).collect(Collectors.toList()));
+        }
+        if(model.getOrders() != null) {
+            this.orders.clear();
+            this.orders.addAll(model.getOrders().stream().map(e -> new Order(e)).collect(Collectors.toList()));
+        }
+        if(model.getAddresses() != null) {
+            this.addresses.clear();
+            model.getAddresses().forEach(e -> addAddress(new Address(e)));
+        }
+    }
+
+    public void setLoginDetail(LoginDetail loginDetail) {
+        this.loginDetail = loginDetail;
+        loginDetail.setCustomer(this);
+    }
+
+    public void addAddress(Address address) {
+        this.addresses.add(address);
+        address.setCustomer(this);
+    }
+
+    public void removeAddress(Address address) {
+
     }
 }

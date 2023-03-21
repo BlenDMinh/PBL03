@@ -10,15 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
 
-import com.benkyousuru.pbl03api.model.entity.Address;
 import com.benkyousuru.pbl03api.model.entity.Customer;
 import com.benkyousuru.pbl03api.model.entity.LoginDetail;
 import com.benkyousuru.pbl03api.model.entity.LoginSession;
-import com.benkyousuru.pbl03api.model.model.AddressModel;
 import com.benkyousuru.pbl03api.model.model.CustomerModel;
 import com.benkyousuru.pbl03api.model.model.LoginRequest;
 import com.benkyousuru.pbl03api.model.model.LoginResponse;
-import com.benkyousuru.pbl03api.model.repository.AddressRepository;
 import com.benkyousuru.pbl03api.model.repository.CustomerRepository;
 import com.benkyousuru.pbl03api.model.repository.LoginDetailRepository;
 import com.benkyousuru.pbl03api.model.repository.LoginSessionRepository;
@@ -44,9 +41,6 @@ public class CustomerService implements ICustomerService {
     @Autowired
     private LoginSessionRepository loginSessionRepository;
 
-    @Autowired
-    private AddressRepository addressRepository;
-
     @Override
     public List<CustomerModel> getAll() {
         return ((List<Customer>) customerRepository.findAll()).stream().map(e -> new CustomerModel(e)).collect(Collectors.toList());
@@ -65,19 +59,11 @@ public class CustomerService implements ICustomerService {
         Optional<Customer> customer = customerRepository.findById(model.getCustomerId());
         if(customer.isPresent())
             throw new RuntimeException("Customer with id = " + model.getCustomerId().toString() + " is already presented!");
-        if(model.getHomeAddress() != null)
-            addressRepository.save(new Address(model.getHomeAddress()));
-        if(model.getDeliveryAddresses() != null) {
-            for (AddressModel addressModel : model.getDeliveryAddresses()) {
-                addressRepository.save(new Address(addressModel));
-            }
-        }
         Customer sCustomer = new Customer(model);
         LoginDetail detail = new LoginDetail();
         detail.setCustomer(sCustomer);
         sCustomer.setLoginDetail(detail);
         customerRepository.save(sCustomer);
-        loginDetailRepository.save(detail);
     }
 
     @Override
@@ -97,12 +83,10 @@ public class CustomerService implements ICustomerService {
             n_Customer.setEmail(o_Customer.getEmail());
         if(n_Customer.getDateOfBirth() == null)
             n_Customer.setDateOfBirth(o_Customer.getDateOfBirth());
-        if(n_Customer.getHomeAddress() == null)
-            n_Customer.setHomeAddress(o_Customer.getHomeAddress());
         if(n_Customer.getCartProducts() == null)
             n_Customer.setCartProducts(o_Customer.getCartProducts());
-        if(n_Customer.getDeliveryAddresses() == null)
-            n_Customer.setDeliveryAddresses(o_Customer.getDeliveryAddresses());
+        if(n_Customer.getAddresses() == null)
+            n_Customer.setAddresses(o_Customer.getAddresses());
         customerRepository.save(n_Customer);
     }
 
