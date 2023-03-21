@@ -26,7 +26,7 @@ public class ProductModel {
     private String userManual;
     private String preservedManual;
     private String description;
-    ProductModel(Product product) {
+    public ProductModel(Product product) {
         this.sku = product.getSku();
         this.productName = product.getProductName();
         this.category = new CategoryModel(product.getCategory());
