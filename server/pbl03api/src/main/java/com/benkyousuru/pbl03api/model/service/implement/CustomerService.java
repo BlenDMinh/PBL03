@@ -1,5 +1,7 @@
 package com.benkyousuru.pbl03api.model.service.implement;
 
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -8,16 +10,42 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
 
+import com.benkyousuru.pbl03api.model.entity.Address;
 import com.benkyousuru.pbl03api.model.entity.Customer;
+import com.benkyousuru.pbl03api.model.entity.LoginDetail;
+import com.benkyousuru.pbl03api.model.entity.LoginSession;
+import com.benkyousuru.pbl03api.model.model.AddressModel;
 import com.benkyousuru.pbl03api.model.model.CustomerModel;
+import com.benkyousuru.pbl03api.model.model.LoginRequest;
+import com.benkyousuru.pbl03api.model.model.LoginResponse;
+import com.benkyousuru.pbl03api.model.repository.AddressRepository;
 import com.benkyousuru.pbl03api.model.repository.CustomerRepository;
+import com.benkyousuru.pbl03api.model.repository.LoginDetailRepository;
+import com.benkyousuru.pbl03api.model.repository.LoginSessionRepository;
 import com.benkyousuru.pbl03api.model.service.ICustomerService;
+import com.benkyousuru.pbl03api.model.service.IPasswordEncoder;
+import com.benkyousuru.pbl03api.model.service.implement.utils.TokenGenerator;
 
 @Service
 public class CustomerService implements ICustomerService {
 
     @Autowired
+    private TokenGenerator tokenGenerator;
+
+    @Autowired
+    private IPasswordEncoder passwordEncoder;
+
+    @Autowired
     private CustomerRepository customerRepository;
+
+    @Autowired
+    private LoginDetailRepository loginDetailRepository;
+
+    @Autowired
+    private LoginSessionRepository loginSessionRepository;
+
+    @Autowired
+    private AddressRepository addressRepository;
 
     @Override
     public List<CustomerModel> getAll() {
@@ -37,7 +65,19 @@ public class CustomerService implements ICustomerService {
         Optional<Customer> customer = customerRepository.findById(model.getCustomerId());
         if(customer.isPresent())
             throw new RuntimeException("Customer with id = " + model.getCustomerId().toString() + " is already presented!");
-        customerRepository.save(new Customer(model));
+        if(model.getHomeAddress() != null)
+            addressRepository.save(new Address(model.getHomeAddress()));
+        if(model.getDeliveryAddresses() != null) {
+            for (AddressModel addressModel : model.getDeliveryAddresses()) {
+                addressRepository.save(new Address(addressModel));
+            }
+        }
+        Customer sCustomer = new Customer(model);
+        LoginDetail detail = new LoginDetail();
+        detail.setCustomer(sCustomer);
+        sCustomer.setLoginDetail(detail);
+        customerRepository.save(sCustomer);
+        loginDetailRepository.save(detail);
     }
 
     @Override
@@ -82,6 +122,41 @@ public class CustomerService implements ICustomerService {
 
     @Override
     public void setPassword(Integer customerId, String password) {
-        customerRepository.updatePassword(customerId, password);
+        Optional<Customer> customer = customerRepository.findById(customerId);
+        if(customer.isEmpty())
+            return;
+        
+        LoginDetail detail = customer.get().getLoginDetail();
+        String hash = passwordEncoder.encrypt(password);
+        detail.setPassword(hash);
+        loginDetailRepository.save(detail);
+    }
+
+    @Override
+    public LoginResponse login(LoginRequest request) {
+        if(request.logginInByEmail()) {
+            List<Customer> customers = customerRepository.findByEmail(request.getEmail());
+            if(customers.size() < 1)
+                return null;
+            Customer customer = customers.get(0);
+            LoginDetail detail = customer.getLoginDetail();
+
+            System.out.println(request.getPassword() + " " + detail.getPassword());
+            boolean valuate = passwordEncoder.check(request.getPassword(), detail.getPassword());
+            System.out.println(valuate);
+            if(!valuate)
+                return null;
+            
+            String token = tokenGenerator.genToken(customer.getCustomerId().toString() + Date.from(Instant.now()));
+            LoginSession session = LoginSession.builder().customer(customer).token(token).dateCreated(Date.from(Instant.now())).build();
+            loginSessionRepository.save(session);
+            return new LoginResponse(new CustomerModel(customer), token);
+        } else if(request.logingInByToken()) {
+            Optional<LoginSession> session = loginSessionRepository.findById(request.getToken());
+            if(session.isEmpty())
+                return null;
+            return new LoginResponse(new CustomerModel(session.get().getCustomer()), request.getToken());
+        }
+        return null;
     }
 }
