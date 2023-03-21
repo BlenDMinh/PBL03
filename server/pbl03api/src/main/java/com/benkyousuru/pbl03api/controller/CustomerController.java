@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.benkyousuru.pbl03api.model.model.CustomerModel;
+import com.benkyousuru.pbl03api.model.model.LoginRequest;
+import com.benkyousuru.pbl03api.model.model.LoginResponse;
 import com.benkyousuru.pbl03api.model.service.ICustomerService;
 
 @RestController
@@ -42,10 +44,19 @@ public class CustomerController {
         return ResponseEntity.ok(customer.get());
     }
 
+    @PostMapping(basePath + "/login")
+    @Transactional
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
+        LoginResponse response = customerService.login(request);
+        if(response == null)
+            return ResponseEntity.badRequest().build();
+        return ResponseEntity.ok(response);
+    }
+
     @PostMapping(basePath)
-    public String insert(@RequestBody CustomerModel model, @RequestBody String password) {
+    @Transactional
+    public String insert(@RequestBody CustomerModel model) {
         customerService.insert(model);
-        System.out.println(password);
         return "Saved";
     }
 
@@ -69,5 +80,12 @@ public class CustomerController {
     public String deleteById(@PathVariable Integer id) {
         customerService.deleteById(id);
         return "Deleted";
+    }
+
+    @PostMapping(basePath + "/{id}/change_password")
+    @Transactional
+    public String changePassword(@PathVariable Integer id, @RequestBody String password) {
+        customerService.setPassword(id, password);
+        return "Changed";
     }
 }

@@ -4,6 +4,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.benkyousuru.pbl03api.model.entity.Address;
 
-public interface Addressepository extends CrudRepository<Address, Integer> {
+public interface AddressRepository extends CrudRepository<Address, Integer> {
     
 }
