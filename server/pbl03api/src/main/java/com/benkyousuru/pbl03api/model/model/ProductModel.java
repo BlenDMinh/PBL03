@@ -38,4 +38,18 @@ public class ProductModel {
         this.preservedManual = product.getPreservedManual();
         this.description = product.getDescription();
     }
+
+    public ProductModel(Product product, boolean chainFromCategory) {
+        this.sku = product.getSku();
+        this.productName = product.getProductName();
+        if(!chainFromCategory)
+            this.category = new CategoryModel(product.getCategory());
+        this.listedPrice = product.getListedPrice();
+        this.origin = product.getOrigin();
+        this.brand = product.getBrand();
+        this.ingridients = product.getIngridients();
+        this.userManual = product.getUserManual();
+        this.preservedManual = product.getPreservedManual();
+        this.description = product.getDescription();
+    }
 }

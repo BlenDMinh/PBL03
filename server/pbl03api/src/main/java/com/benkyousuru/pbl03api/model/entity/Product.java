@@ -29,7 +29,7 @@ public class Product {
     private String productName;
     
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "categoryId")
+    @JoinColumn(name = "category_id")
     private Category category;
 
     private Float listedPrice;
@@ -43,7 +43,6 @@ public class Product {
     public Product(ProductModel product) {
         this.sku = product.getSku();
         this.productName = product.getProductName();
-        this.category = new Category(product.getCategory());
         this.listedPrice = product.getListedPrice();
         this.origin = product.getOrigin();
         this.brand = product.getBrand();

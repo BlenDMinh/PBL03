@@ -1,14 +1,14 @@
 package com.benkyousuru.pbl03api.model.entity;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 import com.benkyousuru.pbl03api.model.model.CustomerModel;
 
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -37,7 +37,6 @@ import lombok.Setter;
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "customer_id")
     private Integer customerId;
 
     private String customerName;
@@ -55,18 +54,18 @@ public class Customer {
     @Builder.Default
     private LoginDetail loginDetail = new LoginDetail();
     
-    @ManyToMany(targetEntity = Product.class, fetch = FetchType.LAZY)
+    @ManyToMany(targetEntity = Product.class, fetch = FetchType.EAGER)
     @Builder.Default
     private List<Product> cartProducts = new ArrayList<>();
 
-    @OneToMany(targetEntity = Order.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "order_id")
     @Builder.Default
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Order> orders = new ArrayList<>();
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.PERSIST)
     @Builder.Default
-    private List<Address> addresses = new ArrayList<>();
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private Set<Address> addresses = new HashSet<>();
 
     public Customer(CustomerModel model) {
         this.customerId = model.getCustomerId();
@@ -75,19 +74,19 @@ public class Customer {
         this.email = model.getEmail();
         this.dateOfBirth = model.getDateOfBirth();
         if(this.addresses == null)
-            this.addresses = new ArrayList<>();
+            this.addresses = new HashSet<>();
         if(this.orders == null)
             this.orders = new ArrayList<>();
         if(this.cartProducts == null)
             this.cartProducts = new ArrayList<>();
-        if(model.getCartProducts() != null) {
-            this.cartProducts.clear();
-            this.cartProducts.addAll(model.getCartProducts().stream().map(e -> new Product(e)).collect(Collectors.toList()));
-        }
-        if(model.getOrders() != null) {
-            this.orders.clear();
-            this.orders.addAll(model.getOrders().stream().map(e -> new Order(e)).collect(Collectors.toList()));
-        }
+        // if(model.getCartProducts() != null) {
+        //     this.cartProducts.clear();
+        //     this.cartProducts.addAll(model.getCartProducts().stream().map(e -> new Product(e)).collect(Collectors.toList()));
+        // }
+        // if(model.getOrders() != null) {
+        //     this.orders.clear();
+        //     this.orders.addAll(model.getOrders().stream().map(e -> new Order(e)).collect(Collectors.toList()));
+        // }
         if(model.getAddresses() != null) {
             this.addresses.clear();
             model.getAddresses().forEach(e -> addAddress(new Address(e)));
