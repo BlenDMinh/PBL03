@@ -33,7 +33,7 @@ public class CustomerController {
 
     @GetMapping(basePath)
     public ResponseEntity<List<CustomerModel>> getAll() {
-        return ResponseEntity.of(Optional.of(customerService.getAll()));
+        return ResponseEntity.ok(customerService.getAll());
     }
 
     @GetMapping(basePath + "/{id}")
@@ -64,7 +64,6 @@ public class CustomerController {
     @Transactional
     public String update(@RequestBody CustomerModel model) {
         customerService.update(model);
-        customerService.setPassword(1, "aaa");
         return "Saved";
     }
 

@@ -6,12 +6,14 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.OptimisticLockingFailureException;
+import org.springframework.stereotype.Service;
 
 import com.benkyousuru.pbl03api.model.entity.Product;
 import com.benkyousuru.pbl03api.model.model.ProductModel;
 import com.benkyousuru.pbl03api.model.repository.ProductRepository;
 import com.benkyousuru.pbl03api.model.service.IProductService;
 
+@Service
 public class ProductService implements IProductService {
     @Autowired
     private ProductRepository productRepository;

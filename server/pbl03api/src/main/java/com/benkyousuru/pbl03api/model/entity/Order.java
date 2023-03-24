@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import com.benkyousuru.pbl03api.model.model.OrderModel;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -13,6 +14,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Temporal;
@@ -32,9 +34,10 @@ import lombok.Setter;
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "order_id")
     private Integer orderId;
 
-    @OneToOne(targetEntity = Address.class, fetch = FetchType.LAZY)
+    @OneToOne(targetEntity = Address.class)
     private Address address;
 
     @Temporal(TemporalType.DATE)
@@ -46,7 +49,8 @@ public class Order {
     @Enumerated(EnumType.ORDINAL)
     private Status status;
 
-    @OneToMany(targetEntity = Product.class)
+    @OneToMany(targetEntity = Product.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "productId")
     private List<Product> products;
 
     public Order(OrderModel order) {

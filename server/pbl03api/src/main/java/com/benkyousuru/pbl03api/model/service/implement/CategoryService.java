@@ -38,23 +38,23 @@ public class CategoryService implements ICategoryService {
 
     @Override
     public void insert(CategoryModel model) {
-        Optional<Category> category = categoryRepository.findById(model.getCategryId());
+        Optional<Category> category = categoryRepository.findById(model.getCategoryId());
         if (category.isPresent())
-            throw new RuntimeException("Category with id = " + model.getCategryId().toString() + " is already presented");
+            throw new RuntimeException("Category with id = " + model.getCategoryId().toString() + " is already presented");
         categoryRepository.save(new Category(model));    
     }
 
     @Override
     public void update(CategoryModel model) {
-        Optional<Category> category = categoryRepository.findById(model.getCategryId());
+        Optional<Category> category = categoryRepository.findById(model.getCategoryId());
         if (category.isEmpty())
-            throw new RuntimeException("Category with id = " + model.getCategryId().toString() + " does not exist!");
+            throw new RuntimeException("Category with id = " + model.getCategoryId().toString() + " does not exist!");
         Category o_Category = category.get();
         Category n_Category = new Category(model);
         if (n_Category.getCategoryName() == null)
             n_Category.setCategoryName(o_Category.getCategoryName());
-        if (n_Category.getCategryId() == null)
-            n_Category.setCategryId(o_Category.getCategryId());
+        if (n_Category.getCategoryId() == null)
+            n_Category.setCategoryId(o_Category.getCategoryId());
         if (n_Category.getProducts() == null)
             n_Category.setProducts(o_Category.getProducts());
         if (n_Category.getSubcategories() == null)

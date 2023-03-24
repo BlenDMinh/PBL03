@@ -1,15 +1,17 @@
 package com.benkyousuru.pbl03api.model.entity;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.benkyousuru.pbl03api.model.model.CategoryModel;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,22 +28,44 @@ import lombok.Setter;
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer categryId;
+    private Integer categoryId;
+
+    private Integer parentId;
 
     private String categoryName;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<Category> subcategories;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @Builder.Default
+    private List<Category> subcategories = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<Product> products;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "parent_id")
+    @Builder.Default
+    private List<Product> products = new ArrayList<>();
 
     public Category(CategoryModel category) {
-        this.categryId = category.getCategryId();
+        this.categoryId = category.getCategoryId();
         this.categoryName = category.getCategoryName();
-        if(category.getSubcategories() != null)
-            this.subcategories = category.getSubcategories().stream().map(e -> new Category(e)).collect(Collectors.toList());
-        if(category.getProducts() != null)
-            this.products = category.getProducts().stream().map(e -> new Product(e)).collect(Collectors.toList());
+        if(this.subcategories == null)
+            this.subcategories = new ArrayList<>();
+        if(this.products == null)
+            this.products = new ArrayList<>();
+        if(category.getSubcategories() != null) {
+            this.subcategories.clear();
+            category.getSubcategories().forEach(e -> addSubcategory(new Category(e)));
+        }
+        if(category.getProducts() != null) {
+            this.products.clear();
+            category.getProducts().forEach(e -> addProduct(new Product(e)));
+        }
+    }
+
+    public void addSubcategory(Category subCategory) {
+        this.subcategories.add(subCategory);
+    }
+
+    public void addProduct(Product product) {
+        this.products.add(product);
+        product.setCategory(this);
     }
 }
