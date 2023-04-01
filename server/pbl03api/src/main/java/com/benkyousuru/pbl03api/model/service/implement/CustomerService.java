@@ -95,7 +95,7 @@ public class CustomerService implements ICustomerService {
         try {
             customerRepository.delete(new Customer(model));
         } catch(OptimisticLockingFailureException e) {
-            // Object is not present in database
+            throw e;
         }
     }
 

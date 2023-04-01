@@ -67,7 +67,7 @@ public class CategoryService implements ICategoryService {
         try {
             categoryRepository.delete(new Category(model));
         } catch (OptimisticLockingFailureException e) {
-            // Object is not present in database
+            throw e;
         }
     }
 

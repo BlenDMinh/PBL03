@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -55,30 +56,50 @@ public class CustomerController {
 
     @PostMapping(basePath)
     @Transactional
-    public String insert(@RequestBody CustomerModel model) {
-        customerService.insert(model);
-        return "Saved";
+    public ResponseEntity<String> insert(@RequestBody CustomerModel model) {
+        try {
+            customerService.insert(model);
+            return ResponseEntity.ok("Saved");
+        } catch (RuntimeException e) {
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+        
     }
 
     @PutMapping(basePath)
     @Transactional
-    public String update(@RequestBody CustomerModel model) {
-        customerService.update(model);
-        return "Saved";
+    public ResponseEntity<String> update(@RequestBody CustomerModel model) {
+        try {
+            customerService.update(model);
+            return ResponseEntity.ok("Saved");
+        } catch (RuntimeException e) {
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+        
     }
 
     @DeleteMapping(basePath)
     @Transactional
-    public String delete(@RequestBody CustomerModel model) {
-        customerService.delete(model);
-        return "Deleted";
+    public ResponseEntity<String> delete(@RequestBody CustomerModel model) {
+        try {
+            customerService.delete(model);
+            return ResponseEntity.ok("Deleted");
+        } catch (RuntimeException e) {
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+        
     }
 
     @DeleteMapping(basePath + "/{id}")
     @Transactional
-    public String deleteById(@PathVariable Integer id) {
-        customerService.deleteById(id);
-        return "Deleted";
+    public ResponseEntity<String> deleteById(@PathVariable Integer id) {
+        try {
+            customerService.deleteById(id);
+            return ResponseEntity.ok("Deleted");
+        } catch (RuntimeException e) {
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+        
     }
 
     @PostMapping(basePath + "/{id}/change_password")
