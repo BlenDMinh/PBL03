@@ -2,15 +2,12 @@ import Head from "next/head";
 import Image from "next/image";
 import logo from "public/logo.png";
 import { BsCartPlus, BsFillPersonFill } from "react-icons/bs";
-import { useState } from "react";
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function Home() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
   return (
     <>
       <Head>
