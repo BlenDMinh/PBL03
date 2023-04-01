@@ -17,16 +17,16 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 public class CategoryModel {
-    private Integer categryId;
+    private Integer categoryId;
     private String categoryName;
     private List<CategoryModel> subcategories;
     private List<ProductModel> products;
     public CategoryModel(Category category) {
-        this.categryId = category.getCategryId();
+        this.categoryId = category.getCategoryId();
         this.categoryName = category.getCategoryName();
         if(category.getSubcategories() != null)
             this.subcategories = category.getSubcategories().stream().map(e -> new CategoryModel(e)).collect(Collectors.toList());
         if(category.getProducts() != null)
-            this.products = category.getProducts().stream().map(e -> new ProductModel(e)).collect(Collectors.toList());
+            this.products = category.getProducts().stream().map(e -> new ProductModel(e, true)).collect(Collectors.toList());
     }
 }
