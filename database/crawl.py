@@ -1,96 +1,96 @@
-import requests
+from concurrent.futures import ThreadPoolExecutor
+import requests as re
 import json
-import pandas as pd
+import csv
+from threading import Thread
 
+from categories import categories
 
-urls = [
-    {
-        "url": "https://api-crownx.winmart.vn/it/api/web/v2/item/category?orderByDesc=true&pageNumber={}&pageSize=8&slug=thit-hai-san-tuoi--c03&storeCode=1535", "name": "thit-hai-san-tuoi"
-    },
-    {
-        "url": "https://api-crownx.winmart.vn/it/api/web/v2/item/category?orderByDesc=true&pageNumber={}&pageSize=8&slug=trung-dau-hu--c33&storeCode=1535", "name": "trung-dau-hu"
-    },
-    {
-        "url": "https://api-crownx.winmart.vn/it/api/web/v2/item/category?orderByDesc=true&pageNumber={}&pageSize=8&slug=rau-cu--c02&storeCode=1535", "name": "rau-cu"
-    },
-    {
-        "url": "https://api-crownx.winmart.vn/it/api/web/v2/item/category?orderByDesc=true&pageNumber={}&pageSize=8&slug=trai-cay-tuoi--c32&storeCode=1535", "name": "trai-cay-tuoi"
-    },
-    {
-        "url": "https://api-crownx.winmart.vn/it/api/web/v2/item/category?orderByDesc=true&pageNumber={}&pageSize=8&slug=thuc-pham-che-bien--c04&storeCode=1535", "name": "thuc-pham-che-bien"
-    },
-    {
-        "url": "https://api-crownx.winmart.vn/it/api/web/v2/item/category?orderByDesc=true&pageNumber={}&pageSize=8&slug=thuc-pham-dong-lanh--c05&storeCode=1535", "name": "thuc-pham-dong-lanh"
-    },
-    {
-        "url": "https://api-crownx.winmart.vn/it/api/web/v2/item/category?orderByDesc=true&pageNumber={}&pageSize=8&slug=mi-thuc-pham-an-lien--c34&storeCode=1535", "name": "mi-thuc-pham-an-lien"
-    },
-    {
-        "url": "https://api-crownx.winmart.vn/it/api/web/v2/item/category?orderByDesc=true&pageNumber={}&pageSize=8&slug=thuc-pham-kho--c06&storeCode=1535", "name": "thuc-pham-kho"
-    },
-    {
-        "url": "https://api-crownx.winmart.vn/it/api/web/v2/item/category?orderByDesc=true&pageNumber={}&pageSize=8&slug=gia-vi--c35&storeCode=1535", "name": "gia-vi"
-    },
-    {
-        "url": "https://api-crownx.winmart.vn/it/api/web/v2/item/category?orderByDesc=true&pageNumber={}&pageSize=8&slug=banh-keo--c07&storeCode=1535", "name": "banh-keo"
-    },
-    {
-        "url": "https://api-crownx.winmart.vn/it/api/web/v2/item/category?orderByDesc=true&pageNumber={}&pageSize=8&slug=sua-san-pham-tu-sua--c08&storeCode=1535", "name": "sua-san-pham-tu-sua"
-    },
-    {
-        "url": "https://api-crownx.winmart.vn/it/api/web/v2/item/category?orderByDesc=true&pageNumber={}&pageSize=8&slug=do-uong-giai-khat--c09&storeCode=1535", "name": "do-uong-giai-khat"
-    },
-    {
-        "url": "https://api-crownx.winmart.vn/it/api/web/v2/item/category?orderByDesc=true&pageNumber=2&pageSize=8&slug=nuoc-uong-co-con--c31&storeCode=1535", "name": "nuoc-uong-co-con"
-    },
-    {
-        "url": "https://api-crownx.winmart.vn/it/api/web/v2/item/category?orderByDesc=true&pageNumber={}&pageSize=8&slug=hoa-pham-tay-rua--c10&storeCode=1535", "name": "hoa-pham-tay-rua"
-    },
-    {
-        "url": "https://api-crownx.winmart.vn/it/api/web/v2/item/category?orderByDesc=true&pageNumber={}&pageSize=8&slug=cham-soc-ca-nhan--c11&storeCode=1535", "name": "cham-soc-ca-nhan"
-    },
-    {
-        "url": "https://api-crownx.winmart.vn/it/api/web/v2/item/category?orderByDesc=true&pageNumber={}&pageSize=8&slug=cham-soc-be--c12&storeCode=1535", "name": "cham-soc-be"
-    },
-    {
-        "url": "https://api-crownx.winmart.vn/it/api/web/v2/item/category?orderByDesc=true&pageNumber={}&pageSize=8&slug=do-gia-dung--c25&storeCode=1535", "name": "do-gia-dung"
-    },
-    {
-        "url": "https://api-crownx.winmart.vn/it/api/web/v2/item/category?orderByDesc=true&pageNumber={}&pageSize=8&slug=dien-gia-dung--c26&storeCode=1535", "name": "dien-gia-dung"
-    },
-    {
-        "url": "https://api-crownx.winmart.vn/it/api/web/v2/item/category?orderByDesc=true&pageNumber={}&pageSize=8&slug=van-phong-pham-do-choi--c27&storeCode=1535", "name": "van-phong-pham-do-choi"
-    },
-]
+img = []
 
-for _url in urls:
-    records = []
-    i = 0
-    for i in range(5000):
-        i += 1
-        subUrl = _url['url'].format(i)
-        response = requests.get(subUrl)
-        print(_url['name'] + ": " + str(i))
+def dfs(category):
+    json_category = dict()
+    json_category['categoryId'] = category['parent']['code'].replace('MENU', '')
+    json_category['categoryName'] = category['parent']['name']
+    if category['parent']['seoName'] != None:
+        json_category['__seoName'] = category['parent']['seoName']
+        json_category['products'] = crawl(category['parent']['seoName'])
+    
+    json_category['subcategories'] = []
+    for sub in category['lstChild']:
+        json_category['subcategories'].append(dfs(sub))
+    return json_category
 
-        if response.status_code == 200:
-            data = json.loads(response.content.decode('utf-8'))
+def crawl(category):
+    print(f'Crawling {category}')
+    page_size = 1000000
 
-            try:
-                for dataFilter in data['data']['items']:
-                    record = {
-                        'itemNo': dataFilter['itemNo'],
-                        'name': dataFilter['name'],
-                        'price': dataFilter['price'],
-                        'salePrice': dataFilter['salePrice'],
-                        'brand': dataFilter['brand'],
-                    }
-                    records.append(record)
-            except:
-                print("Done " + _url['name'])
-                break
-        else:
-            print(
-                f'Request failed with status code {response.status_code}: {response.content}')
+    url = f'https://api-crownx.winmart.vn/it/api/web/v2/item/category?slug={category}&storeCode=1535&&pageSize={page_size}'
 
-    df = pd.DataFrame(records)
-    df.to_csv(_url['name'] + '.csv', index=False, encoding='utf-8-sig')
+    r = re.get(url)
+    data = json.loads(r.content)
+    
+    json_data = []
+
+    with open(f'./data/{category}.csv', 'w', encoding='utf-8', newline='') as f:
+        writer = csv.writer(f)
+        writer.writerow(['sku', 'productName', 'category', 'listedPrice', 'brand', '__mediaUrl'])
+        if(data["data"]["items"] == None):
+            return json_data
+        for item in data["data"]["items"]:
+            data = download_item(item)
+            writer.writerow([data[0], data[1], category, data[2], data[3], data[4]])
+            json_data.append(data[0])
+            
+    return json_data
+
+def download_item(item):
+    sku = item['itemNo']
+    name = item['name'].encode().decode()
+    listedPrice = item['price']
+    brand = item['brand']
+    
+    if(item['mediaUrl'] != None):
+        img.append((item['mediaUrl'].encode().decode(), sku))
+    
+    return sku, name, listedPrice, brand,  "" if item['mediaUrl'] == None else item['mediaUrl'].encode().decode()
+
+def download_image(img):
+    url = img[0]
+    name = img[1]
+    try:
+        img_data = re.get(url).content
+        with open(f'./image/{name}.jpg', 'wb') as imhandler:
+            imhandler.write(img_data)
+        print(f'Done downloading {url}')
+        update_progress()
+    except Exception as e:
+        print(f'Error downloading {url}')
+        print(e)
+        input("Press Enter to continue...")
+
+data = []
+
+import os
+import sys
+import math
+import progressbar
+
+l = len(categories['data'])
+for i in progressbar.progressbar(range(l), redirect_stdout = True):
+    data.append(dfs(categories['data'][i]))
+
+with open('categories.txt', 'w', encoding='utf-8') as f:
+    f.write(str(data))
+
+count = 0
+
+def update_progress():
+    global count
+    count += 1
+    os.system('cls')
+    sys.stdout.write('(%d / %d) [%-60s] %d%%\n' % (count, len(img), math.floor(count / len(img) * 60) * '=', math.floor(count / len(img) * 100)))
+    sys.stdout.flush()
+
+executor = ThreadPoolExecutor(max_workers=100)
+results = executor.map(download_image, img)
