@@ -2,19 +2,9 @@ import Head from "next/head";
 import Image from "next/image";
 import logo from "public/logo.png";
 import { BsCartPlus, BsFillPersonFill } from "react-icons/bs";
-<<<<<<< Updated upstream
-import { useState } from "react";
-=======
 import { IoSearchCircle } from "react-icons/io5";
->>>>>>> Stashed changes
-
-function classNames(...classes: any[]) {
-  return classes.filter(Boolean).join(" ");
-}
 
 export default function Home() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
   return (
     <>
       <Head>
