@@ -12,6 +12,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,7 +29,7 @@ import lombok.Setter;
 @Builder
 public class Category {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    // @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer categoryId;
 
     private Integer parentId;
@@ -38,8 +40,8 @@ public class Category {
     @Builder.Default
     private List<Category> subcategories = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "parent_id")
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "categorys_products", joinColumns = @JoinColumn(name = "product_id"))
     @Builder.Default
     private List<Product> products = new ArrayList<>();
 
@@ -66,6 +68,5 @@ public class Category {
 
     public void addProduct(Product product) {
         this.products.add(product);
-        product.setCategory(this);
     }
 }

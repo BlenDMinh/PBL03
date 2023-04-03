@@ -17,8 +17,6 @@ public class ProductModel {
     private Integer sku;   
     private String productName;
     
-    private CategoryModel category;
-
     private Float listedPrice;
     private String origin;
     private String brand;
@@ -29,7 +27,6 @@ public class ProductModel {
     public ProductModel(Product product) {
         this.sku = product.getSku();
         this.productName = product.getProductName();
-        this.category = new CategoryModel(product.getCategory());
         this.listedPrice = product.getListedPrice();
         this.origin = product.getOrigin();
         this.brand = product.getBrand();
@@ -42,8 +39,6 @@ public class ProductModel {
     public ProductModel(Product product, boolean chainFromCategory) {
         this.sku = product.getSku();
         this.productName = product.getProductName();
-        if(!chainFromCategory)
-            this.category = new CategoryModel(product.getCategory());
         this.listedPrice = product.getListedPrice();
         this.origin = product.getOrigin();
         this.brand = product.getBrand();
