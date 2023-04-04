@@ -8,11 +8,11 @@ export default function Privacy() {
       <Head>
         <title>Siêu thị Winmart</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" href="/favicon.png"></link>
       </Head>
       <Navbar />
-      <main className="mx-auto max-w-6xl my-12 font-serif">
-        <h3 className="text-center font-bold text-xl my-6 uppercase">
+      <main className="mx-auto max-w-6xl my-4 font-serif">
+        <h3 className="text-center font-bold text-xl uppercase">
           CHÍNH SÁCH BẢO MẬT VÀ CHIA SẺ THÔNG TIN
         </h3>
         <ul className="list-inside list-decimal">

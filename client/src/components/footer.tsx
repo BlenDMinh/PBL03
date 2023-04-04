@@ -7,7 +7,7 @@ export default function Footer() {
   const router = useRouter();
 
   return (
-    <div className="mt-8">
+    <div className="mt-6">
       <footer className="bg-[#2c2c2c] font-own">
         <div className="border-b border-[#8b8b8b]">
           <div className="mx-auto flex gap-x-10 max-w-6xl justify-between text-white text-xs py-4">
