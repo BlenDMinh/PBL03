@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { useRouter } from "next/router";
 import logo from "public/logo.png";
 import { BsCartPlus, BsFillPersonFill } from "react-icons/bs";
 import { BsSearch } from "react-icons/bs";
@@ -27,17 +28,19 @@ export default function Navbar() {
     "Văn phòng phẩm - đồ chơi",
   ];
 
+  const router = useRouter();
+
   return (
     <>
       <main>
-        <header className="bg-[#ed1c24] font-own text-base font-semibold border-none outline-none">
+        <header className="bg-[#ed1c24] text-base font-semibold border-none outline-none">
           <nav
             className="mx-auto flex max-w-6xl items-center justify-between"
             aria-label="Global"
           >
-            <div>
+            <a onClick={() => router.push("/")}>
               <Image src={logo} alt="WinMart logo" width={175} />
-            </div>
+            </a>
 
             <div className="flex bg-white rounded-xl">
               <div className="relative border-r-2 group/item">
