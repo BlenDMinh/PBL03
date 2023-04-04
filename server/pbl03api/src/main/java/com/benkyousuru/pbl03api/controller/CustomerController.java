@@ -55,7 +55,6 @@ public class CustomerController {
     }
 
     @PostMapping(basePath)
-    @Transactional
     public ResponseEntity<String> insert(@RequestBody CustomerModel model) {
         try {
             customerService.insert(model);

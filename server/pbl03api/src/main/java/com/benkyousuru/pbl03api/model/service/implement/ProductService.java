@@ -52,8 +52,6 @@ public class ProductService implements IProductService {
         Product n_Product = new Product(model);
         if (n_Product.getBrand() == null)
             n_Product.setBrand(o_Product.getBrand());
-        if (n_Product.getCategory() == null)
-            n_Product.setCategory(o_Product.getCategory());
         if (n_Product.getDescription() == null)
             n_Product.setDescription(o_Product.getDescription());
         if (n_Product.getIngridients() == null)

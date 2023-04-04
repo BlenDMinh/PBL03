@@ -40,7 +40,6 @@ public class OrderController {
     }
 
     @PostMapping(basePath)
-    @Transactional
     public ResponseEntity<String> insert(@RequestBody OrderModel model) {
         try {
             orderService.insert(model);

@@ -40,7 +40,6 @@ public class CategoryController {
     }
 
     @PostMapping(basePath)
-    @Transactional
     public ResponseEntity<String> insert(@RequestBody CategoryModel model) {
         try {
             categoryService.insert(model);

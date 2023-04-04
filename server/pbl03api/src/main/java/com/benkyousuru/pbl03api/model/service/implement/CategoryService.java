@@ -38,6 +38,7 @@ public class CategoryService implements ICategoryService {
 
     @Override
     public void insert(CategoryModel model) {
+        System.out.println(model.getCategoryId() + " " + model.getCategoryName());
         Optional<Category> category = categoryRepository.findById(model.getCategoryId());
         if (category.isPresent())
             throw new RuntimeException("Category with id = " + model.getCategoryId().toString() + " is already presented");
