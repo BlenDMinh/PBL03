@@ -11,5 +11,10 @@ public class SpringRestConfiguration implements RepositoryRestConfigurer {
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config, CorsRegistry cors) {
         config.disableDefaultExposure();
         config.setBasePath("/api");
+        cors.addMapping("/**").allowedOrigins("http://localhost:3000");
+        cors.addMapping("/**").allowedMethods("GET", "POST", "PUT", "DELETE");
+        cors.addMapping("/**").allowedHeaders("*");
+        cors.addMapping("/**").allowCredentials(true);
+        cors.addMapping("/**").maxAge(3600);
     }
 }
