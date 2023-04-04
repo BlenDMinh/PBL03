@@ -48,7 +48,7 @@ export default function Navbar() {
                   Danh mục sản phẩm
                   <AiOutlineDown className="ml-1 text-xs" />
                 </a>
-                <div className="invisible group-hover/item:visible -mt-3 pt-3 rounded-b-lg overflow-hidden absolute z-10 shadow-lg w-52 bg-white py-1">
+                <div className="invisible group-hover/item:visible -mt-3 pt-3 rounded-b-lg overflow-hidden absolute z-10 shadow-lg w-52 bg-white py-2">
                   {categories.map((value, index) => {
                     return (
                       <a
