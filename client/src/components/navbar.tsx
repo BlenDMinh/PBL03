@@ -31,8 +31,8 @@ export default function Navbar() {
   const router = useRouter();
 
   return (
-    <div className="pb-28">
-      <header className="bg-[#ed1c24] text-sm font-semibold border-none outline-none overflow-hidden fixed w-full top-0 z-30">
+    <div className="pb-24">
+      <header className="bg-[#ed1c24] text-sm font-semibold border-none outline-none fixed w-full top-0 z-50">
         <nav
           className="mx-auto h-20 flex max-w-6xl items-center justify-between"
           aria-label="Global"
@@ -40,23 +40,22 @@ export default function Navbar() {
           <a className="cursor-pointer" onClick={() => router.push("/")}>
             <Image src={logo} alt="WinMart logo" width={150} quality={100} />
           </a>
-
           <div className="flex bg-white rounded-xl">
-            <div className="relative border-r-2 group/item">
+            <div className="relative border-r-2 group/item h-full">
               <a
                 href="#"
-                className="text-sm flex items-center justify-center p-2 w-48"
+                className="text-sm flex items-center justify-center p-2 w-52"
               >
                 Danh mục sản phẩm
                 <AiOutlineDown className="ml-1 text-xs mt-1" />
               </a>
-              <div className="invisible group-hover/item:visible -mt-3 pt-3 rounded-b-lg overflow-hidden absolute z-10 shadow-lg w-52 bg-white py-2">
+              <div className="invisible group-hover/item:visible -mt-2 pt-3 rounded-b-xl overflow-hidden absolute shadow-lg w-52 bg-white py-2">
                 {categories.map((value, index) => {
                   return (
                     <a
                       href="#"
                       key={index}
-                      className="text-sm font-normal block px-3 py-2 hover:bg-[#ed1c24] hover:text-white"
+                      className="text-xs font-normal block px-3 py-2 hover:bg-[#ed1c24] hover:text-white"
                     >
                       {value}
                     </a>
@@ -69,7 +68,7 @@ export default function Navbar() {
               className="flex items-center justify-center overflow-hidden"
             >
               <input
-                className="font-normal outline-none w-80 placeholder:text-slate-400 pl-3 py-2"
+                className="font-normal text-xs outline-none w-60 placeholder:text-slate-400 pl-3 py-2 z-30"
                 type="search"
                 placeholder="Tìm kiếm sản phẩm"
               />
@@ -78,7 +77,6 @@ export default function Navbar() {
               </button>
             </form>
           </div>
-
           <div className="grid gap-1 grid-cols-2 text-white">
             <a href="#" className="flex justify-center leading-5 p-2">
               <BsCartPlus className="text-xl mr-1" />
