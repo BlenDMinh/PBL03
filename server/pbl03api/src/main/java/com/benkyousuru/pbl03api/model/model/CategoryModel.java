@@ -1,7 +1,6 @@
 package com.benkyousuru.pbl03api.model.model;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.benkyousuru.pbl03api.model.entity.Category;
 
@@ -24,9 +23,13 @@ public class CategoryModel {
     public CategoryModel(Category category) {
         this.categoryId = category.getCategoryId();
         this.categoryName = category.getCategoryName();
-        if(category.getSubcategories() != null)
-            this.subcategories = category.getSubcategories().stream().map(e -> new CategoryModel(e)).collect(Collectors.toList());
-        if(category.getProducts() != null)
-            this.products = category.getProducts().stream().map(e -> new ProductModel(e, true)).collect(Collectors.toList());
+        if(category.getSubcategories() != null && category.getSubcategories().size() > 0) {
+            this.subcategories = category.getSubcategories().stream().map(e -> new CategoryModel(e)).toList();
+            this.products = null;
+        } else {
+            this.subcategories = null;
+            // if(category.getProducts() != null)
+            //     this.products = category.getProducts().stream().map(e -> new ProductModel(e)).toList();
+        }
     }
 }

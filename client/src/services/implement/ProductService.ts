@@ -1,13 +1,17 @@
 import { ProductModel } from '@/models/ProductModel';
-import baseUrl from 'next/config'
 import { IProductService } from '../IProductService';
+import { http } from '../utils/http';
 
 export class ProductService implements IProductService {
-    readonly baseUrl = baseUrl + 'product/';
-    async getById(id: Number): Promise<ProductModel> {
-        throw new Error('Method not implemented.');
+    readonly baseUrl = process.env.apiUrl + '/api/product';
+
+    getAll(pageNum: Number, pageSize: Number): Promise<ProductModel> {
+        return http.get<ProductModel>(this.baseUrl + `?pageNum=${pageNum}&pageSize=${pageSize}`);
     }
-    async getByCategory(categoryId: Number): Promise<ProductModel[]> {
-        throw new Error('Method not implemented.');
+    getById(id: Number): Promise<ProductModel> {
+        return http.get<ProductModel>(this.baseUrl + `/${id}`);
+    }
+    getByCategory(categoryId: Number, pageNum: Number, pageSize: Number): Promise<ProductModel[]> {
+        return http.get<ProductModel[]>(this.baseUrl + `?category=${categoryId}&pageNum=${pageNum}&pageSize=${pageSize}`);
     }
 }

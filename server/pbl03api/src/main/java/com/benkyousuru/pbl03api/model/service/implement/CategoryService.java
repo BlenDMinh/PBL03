@@ -1,6 +1,5 @@
 package com.benkyousuru.pbl03api.model.service.implement;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,10 +20,8 @@ public class CategoryService implements ICategoryService {
 
     @Override
     public List<CategoryModel> getAll() {
-        List<Category> categories = (List<Category>) categoryRepository.findAll();
-        List<CategoryModel> categoryModels = new ArrayList<>();
-        for(Category category : categories)
-            categoryModels.add(new CategoryModel(category));
+        Category root = categoryRepository.findById(0).get();
+        List<CategoryModel> categoryModels = root.getSubcategories().stream().map(e -> new CategoryModel(e)).toList();
         return categoryModels;
     }
 
@@ -33,7 +30,8 @@ public class CategoryService implements ICategoryService {
         Optional<Category> category = categoryRepository.findById(id);
         if(category.isEmpty())
             return Optional.empty();
-        return Optional.of(new CategoryModel(category.get()));
+        CategoryModel model = new CategoryModel(category.get());
+        return Optional.of(model);
     }
 
     @Override
@@ -76,5 +74,4 @@ public class CategoryService implements ICategoryService {
     public void deleteById(Integer id) {
         categoryRepository.deleteById(id);
     }
-    
 }

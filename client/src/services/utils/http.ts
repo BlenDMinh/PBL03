@@ -1,0 +1,19 @@
+export class http {
+    static get<T>(url: string, headers: Headers = new Headers(), body: BodyInit = ""): Promise<T> {
+        return new Promise<T>(async (onResolve, onError) => {
+            headers.append('Accept', 'application/json')
+            try {
+                fetch(url, {
+                    method: 'GET',
+                    headers: headers
+                }).then(r => {
+                    if(!r.ok)
+                        throw new Error(`Error! status: ${r.status}`);
+                    return r.json();
+                }).then(e => onResolve(e as T));
+            } catch(e) {
+                onError(e);
+            }
+        });
+    }
+}
