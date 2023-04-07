@@ -6,21 +6,31 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.OptimisticLockingFailureException;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import com.benkyousuru.pbl03api.model.entity.Category;
 import com.benkyousuru.pbl03api.model.entity.Product;
 import com.benkyousuru.pbl03api.model.model.ProductModel;
+import com.benkyousuru.pbl03api.model.repository.CategoryRepository;
 import com.benkyousuru.pbl03api.model.repository.ProductRepository;
 import com.benkyousuru.pbl03api.model.service.IProductService;
 
 @Service
 public class ProductService implements IProductService {
     @Autowired
+    private CategoryRepository categoryRepository;
+    @Autowired
     private ProductRepository productRepository;
 
     @Override
     public List<ProductModel> getAll() {
-        List<Product> products = (List<Product>) productRepository.findAll();
+        return new ArrayList<>();
+    }
+
+    @Override
+    public List<ProductModel> getAll(int pageNumber, int pageSize) {
+        List<Product> products = productRepository.findAll(PageRequest.of(pageNumber, pageSize)).toList();
         List<ProductModel> productModels = new ArrayList<>();
         for(Product product : products)
             productModels.add(new ProductModel(product));
@@ -36,11 +46,19 @@ public class ProductService implements IProductService {
     }
 
     @Override
+    public List<ProductModel> getByCategory(int categoryId, int pageNumber, int pageSize) {
+        Optional<Category> category = categoryRepository.findById(categoryId);
+        if(category.isEmpty())
+            return new ArrayList<>();
+        return productRepository.findAllByCategory(category.get(), PageRequest.of(pageNumber, pageSize)).stream().map(e -> new ProductModel(e)).toList();
+    }
+
+    @Override
     public void insert(ProductModel model) {
         Optional<Product> product = productRepository.findById(model.getSku());
         if (product.isPresent())
             throw new RuntimeException("Product with id = " + model.getSku().toString() + " is already presented");
-        productRepository.save(new Product(model));  
+        productRepository.save(new Product(model));
     }
 
     @Override
@@ -84,5 +102,4 @@ public class ProductService implements IProductService {
     public void deleteById(Integer id) {
         productRepository.deleteById(id);
     }
-    
 }

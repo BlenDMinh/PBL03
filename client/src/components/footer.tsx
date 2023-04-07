@@ -7,19 +7,18 @@ export default function Footer() {
   const router = useRouter();
 
   return (
-    <div className="mt-6">
-      <footer className="bg-[#2c2c2c] font-own">
+    <>
+      <footer className="bg-[#2c2c2c]">
         <div className="border-b border-[#8b8b8b]">
-          <div className="mx-auto flex gap-x-10 max-w-6xl justify-between text-white text-xs py-4">
+          <div className="mx-auto flex gap-x-12 max-w-6xl justify-between text-white text-xs py-4">
             <div className="w-1/4">
               <Image
                 src={logo}
                 alt="WinMart logo"
                 width={125}
                 className="ml-3"
-                quality={100}
               />
-              <p className="py-1 text-justify">
+              <p className="py-1">
                 Công Ty Cổ Phần Dịch Vụ Thương Mại Tổng Hợp WinCommerce
               </p>
               <p className="py-1">Mã số doanh nghiệp: 0104918404</p>
@@ -32,30 +31,20 @@ export default function Footer() {
                 alt="Xác nhận của Bộ Công thương"
                 width={125}
                 className="my-1"
-                quality={100}
               />
             </div>
 
             <div className="w-1/4">
-              <h4 className="text-[#8b8b8b] font-bold my-4 block text-sm">
+              <h4 className="text-[#8b8b8b] font-bold my-4 block text-base">
                 Về chúng tôi
               </h4>
               <a
                 className="py-1 block cursor-pointer hover:text-[#ed1c24]"
-                onClick={() => router.push("/info/about")}
+                onClick={() => router.push("/about/about")}
               >
                 Giới thiệu về WinMart
               </a>
               <a className="py-1 block cursor-pointer hover:text-[#ed1c24]">
-                Danh sách cửa hàng
-              </a>
-              <a className="py-1 block cursor-pointer hover:text-[#ed1c24]">
-                Quản lý chất lượng
-              </a>
-              <a
-                className="py-1 block cursor-pointer hover:text-[#ed1c24]"
-                onClick={() => router.push("/info/privacy")}
-              >
                 Chính sách bảo mật và chia sẻ thông tin
               </a>
               <a className="py-1 block cursor-pointer hover:text-[#ed1c24]">
@@ -64,7 +53,7 @@ export default function Footer() {
             </div>
 
             <div className="w-1/4">
-              <h4 className="text-[#8b8b8b] font-bold my-4 block text-sm">
+              <h4 className="text-[#8b8b8b] font-bold my-4 block text-base">
                 Hỗ trợ khách hàng
               </h4>
               <a className="py-1 block cursor-pointer hover:text-[#ed1c24]">
@@ -82,7 +71,7 @@ export default function Footer() {
             </div>
 
             <div className="w-1/4">
-              <h4 className="text-[#8b8b8b] font-bold my-4 block text-sm">
+              <h4 className="text-[#8b8b8b] font-bold my-4 block text-base">
                 Chăm sóc khách hàng
               </h4>
               <a className="py-1 block cursor-pointer hover:text-[#ed1c24]">
@@ -95,9 +84,9 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mx-auto gap-x-6 flex max-w-6xl justify-between text-white text-xs py-6">
+        <div className="mx-auto gap-x-8 flex max-w-6xl justify-between text-white text-xs py-6">
           <div className="w-1/3 p-4 rounded-lg bg-[#464646]">
-            <h3 className="text-[#FFB2B2] font-bold mb-3 block text-base">
+            <h3 className="text-[#FFB2B2] font-bold mb-3 block text-lg">
               Địa chỉ giao dịch Hà Nội:
             </h3>
             <p className="py-1">
@@ -110,7 +99,7 @@ export default function Footer() {
           </div>
 
           <div className="w-1/3 p-4 rounded-lg bg-[#464646]">
-            <h3 className="text-[#FFB2B2] font-bold mb-3 block text-base">
+            <h3 className="text-[#FFB2B2] font-bold mb-3 block text-lg">
               Trụ sở chính:
             </h3>
             <p className="py-1">
@@ -123,7 +112,7 @@ export default function Footer() {
           </div>
 
           <div className="w-1/3 p-4 rounded-lg bg-[#464646]">
-            <h3 className="text-[#FFB2B2] font-bold mb-3 block text-base">
+            <h3 className="text-[#FFB2B2] font-bold mb-3 block text-lg">
               Địa chỉ giao dịch TP.HCM:
             </h3>
             <p className="py-1">
@@ -136,6 +125,6 @@ export default function Footer() {
           </div>
         </div>
       </footer>
-    </div>
+    </>
   );
 }

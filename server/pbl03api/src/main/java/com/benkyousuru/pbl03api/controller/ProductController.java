@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.benkyousuru.pbl03api.controller.utils.HttpResponseDefaultHeaders;
 import com.benkyousuru.pbl03api.model.model.ProductModel;
 import com.benkyousuru.pbl03api.model.service.IProductService;
 
@@ -27,8 +29,10 @@ public class ProductController {
     private IProductService productService;
 
     @GetMapping(basePath)
-    public ResponseEntity<List<ProductModel>> getAll() {
-        return ResponseEntity.ok(productService.getAll());
+    public ResponseEntity<List<ProductModel>> getAll(@RequestParam(name = "category", required = false) Integer categoryId, @RequestParam Integer pageNum, @RequestParam Integer pageSize) {
+        if(categoryId == null)
+            return ResponseEntity.ok().headers(HttpResponseDefaultHeaders.Instance).body(productService.getAll(pageNum, pageSize));
+        return ResponseEntity.ok().headers(HttpResponseDefaultHeaders.Instance).body(productService.getByCategory(categoryId, pageNum, pageSize));
     }
 
     @GetMapping(basePath + "/{id}")
