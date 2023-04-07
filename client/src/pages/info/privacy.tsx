@@ -11,7 +11,7 @@ export default function Privacy() {
         <link rel="icon" type="image/png" href="/favicon.png"></link>
       </Head>
       <Navbar />
-      <main className="mx-auto max-w-6xl my-4 font-serif">
+      <div className="mx-auto max-w-6xl my-4 font-serif">
         <h3 className="text-center font-bold text-xl uppercase">
           CHÍNH SÁCH BẢO MẬT VÀ CHIA SẺ THÔNG TIN
         </h3>
@@ -274,7 +274,7 @@ export default function Privacy() {
             </ul>
           </li>
         </ul>
-      </main>
+      </div>
       <Footer />
     </>
   );
