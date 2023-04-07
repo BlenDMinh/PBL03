@@ -1,10 +1,9 @@
 import Head from "next/head";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
+import Slider from "@/components/productSlide";
 
 export default function Home() {
-  const router = useRouter();
-
   return (
     <div className="font-own">
       <Head>
@@ -13,6 +12,9 @@ export default function Home() {
         <link rel="icon" type="image/png" href="/favicon.png"></link>
       </Head>
       <Navbar />
+      <div className="mx-auto">
+        <Slider />
+      </div>
       <Footer />
     </div>
   );
