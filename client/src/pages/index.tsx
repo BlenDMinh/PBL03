@@ -11,6 +11,12 @@ export default function Home() {
         <link rel="icon" type="image/png" href="/favicon.png"></link>
       </Head>
       <Navbar />
+<<<<<<< Updated upstream
+=======
+      <div className="mx-auto max-w-6xl">
+        <Slider />
+      </div>
+>>>>>>> Stashed changes
       <Footer />
     </>
   );
