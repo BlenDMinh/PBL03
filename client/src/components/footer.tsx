@@ -1,7 +1,5 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
-import Logo from "public/Logo.png";
-import Confirm from "public/Confirm.png";
 
 export default function Footer() {
   const router = useRouter();
@@ -11,7 +9,13 @@ export default function Footer() {
       <div className="border-b border-[#8b8b8b]">
         <div className="mx-auto flex gap-x-12 max-w-6xl justify-between text-white text-xs py-4">
           <div className="w-1/4">
-            <Image src={Logo} alt="WinMart Logo" width={125} className="ml-3" />
+            <Image
+              src="/Logo.png"
+              alt="WinMart Logo"
+              height={125}
+              width={125}
+              className="ml-3"
+            />
             <p className="py-1">
               Công Ty Cổ Phần Dịch Vụ Thương Mại Tổng Hợp WinCommerce
             </p>
@@ -21,8 +25,9 @@ export default function Footer() {
               thứ 44, ngày 15 tháng 09 năm 2021
             </p>
             <Image
-              src={Confirm}
+              src="/Confirm.png"
               alt="Xác nhận của Bộ Công thương"
+              height={125}
               width={125}
               className="my-1"
             />
@@ -37,6 +42,12 @@ export default function Footer() {
               onClick={() => router.push("/about/about")}
             >
               Giới thiệu về WinMart
+            </a>
+            <a className="py-1 block cursor-pointer hover:text-[#ed1c24]">
+              Danh sách cửa hàng
+            </a>
+            <a className="py-1 block cursor-pointer hover:text-[#ed1c24]">
+              Quản lý chất lượng
             </a>
             <a className="py-1 block cursor-pointer hover:text-[#ed1c24]">
               Chính sách bảo mật và chia sẻ thông tin

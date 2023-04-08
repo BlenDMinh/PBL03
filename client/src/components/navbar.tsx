@@ -1,8 +1,6 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { BsCartPlus, BsFillPersonFill, BsSearch } from "react-icons/bs";
-import { AiOutlineDown } from "react-icons/ai";
-import Logo from "public/Logo.png";
+import { BsSearch, BsChevronDown, BsCart, BsPerson } from "react-icons/bs";
 
 export default function Navbar() {
   const categories = [
@@ -30,31 +28,30 @@ export default function Navbar() {
   const router = useRouter();
 
   return (
-    <header className="bg-[#ed1c24] text-base font-semibold border-none outline-none">
-      <nav
-        className="mx-auto flex max-w-6xl items-center justify-between"
-        aria-label="Global"
-      >
-        <a onClick={() => router.push("/")}>
-          <Image src={Logo} alt="WinMart Logo" width={175} />
+    <header className="bg-[#ed1c24] sticky top-0 w-full">
+      <div className="max-w-6xl mx-auto flex justify-between items-center text-sm">
+        <a className="cursor-pointer" onClick={() => router.push("/")}>
+          <Image
+            src="/Logo.png"
+            alt={"Winmart Logo"}
+            height={150}
+            width={150}
+          />
         </a>
 
-        <div className="flex bg-white rounded-xl">
-          <div className="relative border-r-2 group/item">
-            <a
-              href="#"
-              className="text-sm flex items-center justify-center p-3 w-52"
-            >
+        <div className="bg-white overflow-hidden rounded-lg flex items-center justify-center py-0.5">
+          <div className="group">
+            <h5 className="relative px-6 font-semibold flex items-center">
               Danh mục sản phẩm
-              <AiOutlineDown className="ml-1 text-xs" />
-            </a>
-            <div className="invisible group-hover/item:visible -mt-3 pt-3 rounded-b-lg overflow-hidden absolute z-10 shadow-lg w-52 bg-white py-2">
-              {categories.map((value, index) => {
+              <BsChevronDown className="text-xs ml-1 mt-0.5" />
+            </h5>
+            <div className="invisible group-hover:visible absolute bg-white shadow-lg rounded-b-lg py-1">
+              {categories.map((value, index): any => {
                 return (
                   <a
-                    href="#"
+                    href=""
                     key={index}
-                    className="text-sm font-medium block px-3.5 py-1.5 hover:bg-[#ed1c24] hover:text-white"
+                    className="text-black block hover:bg-[#ed1c24] hover:text-white px-3.5 py-2"
                   >
                     {value}
                   </a>
@@ -62,32 +59,30 @@ export default function Navbar() {
               })}
             </div>
           </div>
-          <form
-            action=""
-            className="flex items-center justify-center overflow-hidden"
-          >
+
+          <form action="" className="border-l-2 flex items-center">
             <input
-              className="text-xs font-normal outline-none w-80 placeholder:text-slate-400 pl-3 py-3"
-              type="search"
+              type="text"
               placeholder="Tìm kiếm sản phẩm"
+              className="border-none outline-none px-3 py-2 w-72"
             />
-            <button className="p-4">
+            <button type="submit" className="p-2">
               <BsSearch />
             </button>
           </form>
         </div>
 
-        <div className="grid gap-1 grid-cols-2 text-white">
-          <a href="#" className="flex justify-center leading-5 p-2">
-            <BsCartPlus className="text-xl mr-1" />
+        <div className="font-semibold text-white flex text-base">
+          <button className="px-1 ml-2 flex items-center">
+            <BsCart className="mr-1" />
             Giỏ hàng
-          </a>
-          <a href="#" className="flex justify-center leading-5 p-2">
-            <BsFillPersonFill className="text-xl mr-1" />
+          </button>
+          <button className="px-1 ml-2 flex items-center">
+            <BsPerson className="mr-1" />
             Hội viên
-          </a>
+          </button>
         </div>
-      </nav>
+      </div>
     </header>
   );
 }
