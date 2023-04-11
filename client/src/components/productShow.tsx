@@ -1,6 +1,7 @@
 import { BsCartPlus } from "react-icons/bs";
+import { ProductModel } from "@/models/ProductModel";
 
-export default function AddToCart() {
+export default function ProductShow(product: ProductModel) {
   return (
     <button className="flex px-4 py-2 items-center shadow-md rounded-md border-2 border-[#ed1c24] hover:bg-[#ed1c24] hover:text-white">
       <BsCartPlus />

@@ -1,14 +1,15 @@
 import Head from "next/head";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
-import AddToCart from "@/components/addToCart";
-import { BsCartPlus } from "react-icons/bs";
+import ProductShow from "@/components/productShow";
+import { ProductModel } from "@/models/ProductModel";
 import { ProductService } from "@/services/implement/ProductService";
 
 export default function Home() {
+  var obj: ProductModel[];
   var service = new ProductService();
   service.getByCategory(51, 0, 8).then((e) => {
-    console.log(e);
+    obj = e;
   });
 
   return (
@@ -20,9 +21,9 @@ export default function Home() {
       </Head>
       <Navbar />
       <div className="max-w-6xl mx-auto flex justify-between py-2">
-        <AddToCart />
-        <AddToCart />
-        <AddToCart />
+        <ProductShow />
+        <ProductShow />
+        <ProductShow />
       </div>
       <Footer />
     </div>
