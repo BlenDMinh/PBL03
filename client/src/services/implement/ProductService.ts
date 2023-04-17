@@ -4,6 +4,9 @@ import { http } from '../utils/http';
 
 export class ProductService implements IProductService {
     readonly baseUrl = process.env.apiUrl + '/api/product';
+    getProductImagePath(id: Number): string {
+       return this.baseUrl + `/image/${id}`;
+    }
 
     getAll(pageNum: Number, pageSize: Number): Promise<ProductModel> {
         return http.get<ProductModel>(this.baseUrl + `?pageNum=${pageNum}&pageSize=${pageSize}`);

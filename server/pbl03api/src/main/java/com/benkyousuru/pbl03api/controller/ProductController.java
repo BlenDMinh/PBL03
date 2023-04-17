@@ -89,8 +89,7 @@ public class ProductController {
             return ResponseEntity.ok("Deleted");
         } catch (RuntimeException e) {
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
-        
+        }        
     }
 
     @GetMapping(value = basePath + "/image/{id}", produces = MediaType.IMAGE_JPEG_VALUE)
