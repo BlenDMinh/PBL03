@@ -1,8 +1,12 @@
+import { FC } from "react";
+import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/router";
-import { BsSearch, BsChevronDown, BsCart, BsPerson } from "react-icons/bs";
+import WinmartLogo from "/public/WinmartLogo.png";
+import { ChevronDown, Search, ShoppingCart, User } from "lucide-react";
 
-export default function Navbar() {
+interface NavbarProps {}
+
+const Navbar: FC<NavbarProps> = ({}) => {
   const categories = [
     "Bánh kẹo",
     "Chăm sóc bé",
@@ -25,64 +29,74 @@ export default function Navbar() {
     "Văn phòng phẩm - đồ chơi",
   ];
 
-  const router = useRouter();
-
   return (
-    <header className="bg-[#ed1c24] sticky top-0 w-full">
-      <div className="max-w-6xl mx-auto flex justify-between items-center text-sm">
-        <a className="cursor-pointer" onClick={() => router.push("/")}>
+    <header className="bg-winmart sticky top-0 w-full text-sm font-normal">
+      <div className="max-w-7xl mx-auto flex justify-between items-center py-2">
+        <Link href="/">
           <Image
-            src="/Logo.png"
+            src={WinmartLogo}
             alt={"Winmart Logo"}
-            height={150}
             width={150}
+            height={150}
+            priority={true}
+            title="Logo"
           />
-        </a>
+        </Link>
 
-        <div className="bg-white overflow-hidden rounded-lg flex items-center justify-center py-0.5">
-          <div className="group">
-            <h5 className="relative px-6 font-semibold flex items-center">
+        <div className="flex items-center justify-center bg-slate-100 border-2 border-gray-400 rounded-full">
+          <div className="group border-r-2 border-gray-400 p-2 relative w-48">
+            <h5 className="flex items-center justify-center">
               Danh mục sản phẩm
-              <BsChevronDown className="text-xs ml-1 mt-0.5" />
+              <span>
+                <ChevronDown />
+              </span>
             </h5>
-            <div className="invisible group-hover:visible absolute bg-white shadow-lg rounded-b-lg py-1">
-              {categories.map((value, index): any => {
+
+            <div className="invisible group-hover:visible absolute flex flex-col z-50 bg-slate-100 w-48 -ml-2 rounded-lg shadow-md py-1 mt-1 border-gray-100 border-2">
+              {categories.map((value: any, index: any) => {
                 return (
-                  <a
-                    href=""
+                  <Link
+                    href="/"
                     key={index}
-                    className="text-black block hover:bg-[#ed1c24] hover:text-white px-3.5 py-2"
+                    className="text-gray-900 hover:bg-winmart hover:text-zinc-100 px-3 py-1"
                   >
                     {value}
-                  </a>
+                  </Link>
                 );
               })}
             </div>
           </div>
 
-          <form action="" className="border-l-2 flex items-center">
+          <form action="" className="flex items-center justify-center">
             <input
               type="text"
-              placeholder="Tìm kiếm sản phẩm"
-              className="border-none outline-none px-3 py-2 w-72"
+              name="search"
+              id="search"
+              title="search"
+              placeholder="Tìm sản phẩm"
+              className="outline-none bg-slate-100 p-2 w-56"
             />
-            <button type="submit" className="p-2">
-              <BsSearch />
+
+            <button type="submit" title="Tìm kiếm" className="p-2 mx-1">
+              <Search />
             </button>
           </form>
         </div>
 
-        <div className="font-semibold text-white flex text-base">
-          <button className="px-1 ml-2 flex items-center">
-            <BsCart className="mr-1" />
-            Giỏ hàng
+        <div className="text-zinc-100 flex gap-x-4">
+          <button className="flex items-center justify-center">
+            <ShoppingCart />
+            <span className="mx-2">Giỏ hàng</span>
           </button>
-          <button className="px-1 ml-2 flex items-center">
-            <BsPerson className="mr-1" />
-            Hội viên
+
+          <button className="flex items-center justify-center">
+            <User />
+            <span className="mx-2">Hội viên</span>
           </button>
         </div>
       </div>
     </header>
   );
-}
+};
+
+export default Navbar;
