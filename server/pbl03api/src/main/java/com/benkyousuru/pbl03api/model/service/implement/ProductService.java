@@ -1,10 +1,21 @@
 package com.benkyousuru.pbl03api.model.service.implement;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
+import java.util.zip.ZipInputStream;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -18,6 +29,8 @@ import com.benkyousuru.pbl03api.model.service.IProductService;
 
 @Service
 public class ProductService implements IProductService {
+    @Value("${app.product_image_path}")
+    private String PRODUCT_RESOURCE_PATH;
     @Autowired
     private CategoryRepository categoryRepository;
     @Autowired
@@ -101,5 +114,25 @@ public class ProductService implements IProductService {
     @Override
     public void deleteById(Integer id) {
         productRepository.deleteById(id);
+    }
+
+    @Override
+    public byte[] getImageById(int productId) throws IOException  {
+        InputStream imageStream = new FileInputStream(PRODUCT_RESOURCE_PATH + "\\" + productId + ".jpg");
+        try {
+            byte[] image = IOUtils.toByteArray(imageStream);
+            imageStream.close();
+            return image;
+        } catch(Exception e) {
+            e.printStackTrace();
+        } finally {
+            if(imageStream != null)
+                imageStream.close();
+        }
+        Resource nullImageResource = new ClassPathResource("null.jpg");
+        InputStream nullStream = nullImageResource.getInputStream();
+        byte[] nullImage = IOUtils.toByteArray(nullStream);
+        nullStream.close();
+        return nullImage;
     }
 }

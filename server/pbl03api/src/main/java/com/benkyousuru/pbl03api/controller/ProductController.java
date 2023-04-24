@@ -94,7 +94,6 @@ public class ProductController {
 
     @GetMapping(value = basePath + "/image/{id}", produces = MediaType.IMAGE_JPEG_VALUE)
     public @ResponseBody byte[] getProductImage(@PathVariable Integer id) throws IOException {
-        InputStream in = getClass().getClassLoader().getResourceAsStream("image/" + id + ".jpg");
-        return IOUtils.toByteArray(in);
+        return productService.getImageById(id);
     }
 }
