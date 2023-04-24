@@ -104,6 +104,7 @@ public class Customer {
     }
 
     public void removeAddress(Address address) {
-
+        address.setCustomer(null);
+        this.addresses.remove(address);
     }
 }

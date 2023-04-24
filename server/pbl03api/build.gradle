@@ -23,6 +23,7 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok:1.18.26'
 	annotationProcessor 'org.projectlombok:lombok:1.18.26'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation 'commons-io:commons-io:2.11.0'
 }
 
 tasks.named('test') {

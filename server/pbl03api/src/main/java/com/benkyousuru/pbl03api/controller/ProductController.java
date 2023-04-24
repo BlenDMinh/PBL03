@@ -1,10 +1,14 @@
 package com.benkyousuru.pbl03api.controller;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.benkyousuru.pbl03api.controller.utils.HttpResponseDefaultHeaders;
@@ -74,7 +79,6 @@ public class ProductController {
         } catch (RuntimeException e) {
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
-        
     }
 
     @DeleteMapping(basePath + "/{id}")
@@ -85,8 +89,11 @@ public class ProductController {
             return ResponseEntity.ok("Deleted");
         } catch (RuntimeException e) {
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
-        
+        }        
     }
 
+    @GetMapping(value = basePath + "/image/{id}", produces = MediaType.IMAGE_JPEG_VALUE)
+    public @ResponseBody byte[] getProductImage(@PathVariable Integer id) throws IOException {
+        return productService.getImageById(id);
+    }
 }
