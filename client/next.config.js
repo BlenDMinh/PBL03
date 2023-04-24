@@ -7,6 +7,14 @@ const nextConfig = {
   images: {
     domains: ["localhost:8080"]
   },
-}
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**.vn",
+      },
+    ],
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
