@@ -17,7 +17,7 @@ const product: Product = {
 export default function Home() {
   return (
     <main className="bg-gray-300">
-      <Navbar user={product} />
+      <Navbar user={undefined} />
       <Footer />
     </main>
   );
