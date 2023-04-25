@@ -33,8 +33,8 @@ const Navbar: FC<NavbarProps> = ({ user }) => {
   ];
 
   return (
-    <div className="sticky top-0 w-screen bg-winmart mb-4 text-sm">
-      <div className="max-w-7xl mx-auto py-2">
+    <header className="sticky top-0 w-screen bg-winmart mb-4 text-sm">
+      <div className="max-w-6xl mx-auto py-2">
         <div className="flex items-center justify-between">
           <Link href="/">
             <Image
@@ -121,7 +121,7 @@ const Navbar: FC<NavbarProps> = ({ user }) => {
           </div>
         </div>
       </div>
-    </div>
+    </header>
   );
 };
 
