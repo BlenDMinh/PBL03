@@ -33,7 +33,7 @@ const Navbar: FC<NavbarProps> = ({ user }) => {
   ];
 
   return (
-    <header className="sticky top-0 w-screen bg-winmart mb-4 text-sm">
+    <header className="sticky top-0 w-screen bg-winmart mb-4 text-sm text-gray-900">
       <div className="max-w-6xl mx-auto py-2">
         <div className="flex items-center justify-between">
           <Link href="/">
@@ -64,7 +64,7 @@ const Navbar: FC<NavbarProps> = ({ user }) => {
                       <Link
                         href="/"
                         key={id}
-                        className="hover:bg-winmart hover:text-white rounded-md hover:shadow-md px-3 py-1"
+                        className="hover:bg-winmart hover:text-white rounded-md hover:shadow-md px-3 py-1 font-light"
                       >
                         <span>{val}</span>
                       </Link>

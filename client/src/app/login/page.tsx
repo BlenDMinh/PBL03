@@ -7,7 +7,7 @@ import WinmartLogoRed from "/public/WinmartLogoRed.png";
 const Login: FC = ({}) => {
   return (
     <main className="w-screen h-screen bg-[#f0f8ff]">
-      <div className="max-w-2xl mx-auto h-full flex flex-col justify-center items-center -mt-8 bg-white">
+      <div className="max-w-2xl mx-auto h-full flex flex-col justify-center items-center bg-white">
         <Image
           src={WinmartLogoRed}
           alt={"Winmart Logo"}
