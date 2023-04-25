@@ -12,6 +12,9 @@ const nextConfig = {
       },
     ],
   },
+  env: {
+    apiUrl: "http://localhost:8080"
+  }
 };
 
 module.exports = nextConfig;

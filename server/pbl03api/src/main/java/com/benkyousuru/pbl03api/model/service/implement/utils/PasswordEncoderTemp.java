@@ -7,7 +7,7 @@ import com.benkyousuru.pbl03api.model.service.IPasswordEncoder;
 
 @Component
 public class PasswordEncoderTemp implements IPasswordEncoder {
-    final int ROUND = 15;
+    final int ROUND = 4;
     public String encrypt(String password) {
         return BCrypt.hashpw(password, BCrypt.gensalt(ROUND));
     }

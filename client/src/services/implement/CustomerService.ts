@@ -4,7 +4,10 @@ import { Customer } from "@/models/Customer";
 import { LoginRequest } from "@/models/LoginRequest";
 import { LoginResponse } from "@/models/LoginResponse";
 import { ICustomerService } from "../ICustomerService";
+import { injectable } from "inversify";
+import "reflect-metadata";
 
+@injectable()
 export class CustomerService implements ICustomerService {
   readonly baseUrl = process.env.apiUrl + "/api/customer";
 
@@ -15,7 +18,7 @@ export class CustomerService implements ICustomerService {
     throw new Error("Method not implemented.");
   }
   login(request: LoginRequest): Promise<LoginResponse> {
-    return http.post(this.baseUrl + "/login", new Headers());
+    return http.post<LoginResponse>(this.baseUrl + "/login", new Headers(), JSON.stringify(request));
   }
   logout(): void {
     throw new Error("Method not implemented.");

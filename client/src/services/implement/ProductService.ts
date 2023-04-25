@@ -1,7 +1,10 @@
 import { http } from "../utils/http";
 import { Product } from "@/models/Product";
 import { IProductService } from "../IProductService";
+import { injectable } from "inversify";
+import "reflect-metadata";
 
+@injectable()
 export class ProductService implements IProductService {
   readonly baseUrl = process.env.apiUrl + "/api/product";
   getProductImagePath(id: Number): string {
