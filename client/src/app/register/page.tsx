@@ -16,12 +16,12 @@ const Page: FC = ({}) => {
           alt={"Winmart Logo"}
           title="Winmart Logo"
           priority={true}
-          width={150}
-          height={150}
+          width={225}
+          height={225}
         />
 
         <div className="flex flex-col text-sm gap-y-6">
-          <h5 className="text-base font-semibold">Đăng ký hội viên</h5>
+          <h5 className="text-base">Đăng ký hội viên</h5>
           <form action="" method="POST" className="flex flex-col gap-y-4">
             <input
               type="email"
@@ -96,7 +96,7 @@ const Page: FC = ({}) => {
           </span>
         </div>
 
-        <Link href="/register">
+        <Link href="/login">
           <button
             title="Đăng nhập"
             className="hover:bg-gray-200 w-60 border border-winmart p-2 rounded-lg shadow-md text-winmart bg-zinc-50 mx-auto"
