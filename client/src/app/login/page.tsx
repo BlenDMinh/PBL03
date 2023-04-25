@@ -73,7 +73,7 @@ const Login: FC = ({}) => {
           </span>
         </div>
 
-        <Link href="/login">
+        <Link href="/register">
           <button
             title="Đăng ký"
             className="hover:bg-gray-200 w-60 border border-winmart p-2 rounded-lg shadow-md text-winmart bg-zinc-50"

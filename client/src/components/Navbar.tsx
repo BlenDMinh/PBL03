@@ -33,7 +33,7 @@ const Navbar: FC<NavbarProps> = ({ user }) => {
   ];
 
   return (
-    <header className="sticky top-0 w-screen bg-winmart mb-4 text-sm text-gray-900">
+    <header className="sticky top-0 w-screen bg-winmart mb-6 text-sm text-gray-900 z-50">
       <div className="max-w-6xl mx-auto py-2">
         <div className="flex items-center justify-between">
           <Link href="/">
@@ -58,7 +58,7 @@ const Navbar: FC<NavbarProps> = ({ user }) => {
 
               <div className="absolute">
                 <div className="h-1"></div>
-                <div className="p-1 bg-gray-50 border border-gray-400 rounded-md shadow-md z-50 invisible group-hover:visible flex flex-col">
+                <div className="p-1 bg-gray-50 border border-gray-400 rounded-md shadow-md z-50 hidden group-hover:flex flex-col">
                   {categories.map((val, id) => {
                     return (
                       <Link
@@ -109,15 +109,27 @@ const Navbar: FC<NavbarProps> = ({ user }) => {
               <span>Giỏ hàng</span>
             </button>
 
-            <button
-              title="Hội viên"
-              className="text-white flex items-center gap-x-2 p-2"
-            >
-              <span>
-                <User />
-              </span>
-              {user ? <span>{user.customerName}</span> : <span>Hội viên</span>}
-            </button>
+            {user ? (
+              <button
+                title="Hội viên"
+                className="text-white flex items-center gap-x-2 p-2"
+              >
+                <span>
+                  <User />
+                </span>
+                <span>{user.customerName}</span>
+              </button>
+            ) : (
+              <Link
+                href="/login"
+                className="text-white flex items-center gap-x-2 p-2"
+              >
+                <span>
+                  <User />
+                </span>
+                <span>Hội viên</span>
+              </Link>
+            )}
           </div>
         </div>
       </div>

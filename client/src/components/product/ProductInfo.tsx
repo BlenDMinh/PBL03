@@ -24,11 +24,12 @@ const ProductInfo: FC<ProductInfoProps> = ({ product, imgURL }) => {
           width={500}
           height={500}
           priority={true}
+          quality={100}
           className="rounded-lg"
         />
 
         <div className="w-1/2 text-sm text-gray-900 flex flex-col">
-          <h5 className="text-xl font-semibold mb-1">{product.productName}</h5>
+          <h5 className="text-2xl font-semibold mb-1">{product.productName}</h5>
           <span className="text-gray-500 mb-8">
             SKU: {product.sku.toString()}
           </span>
@@ -49,7 +50,7 @@ const ProductInfo: FC<ProductInfoProps> = ({ product, imgURL }) => {
 
           <div className="h-px w-full bg-gray-400 my-6"></div>
 
-          <div className="flex gap-x-16 items-center">
+          <div className="flex gap-x-20 items-center">
             <span>Số lượng</span>
             <div className="flex items-center border border-gray-400 rounded-lg overflow-hidden">
               <button
