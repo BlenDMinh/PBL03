@@ -2,7 +2,7 @@
 
 import { CustomerService } from "@/services/implement/CustomerService";
 import { LoginRequest } from "@/models/LoginRequest";
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import { appContainer } from "@/container";
 import { ICustomerService } from "@/services/ICustomerService";
 import { TYPES } from "@/types";
@@ -12,10 +12,13 @@ import { loggedInCustomer } from "../api/customer/login/route";
 import { Product } from "@/models/Product";
 
 const Page : FC = ({}) => {
-    http.get('http://localhost:3000/api/product/10003037').then((e) => console.log(e));
+    const [products, setProducts] = useState<Product[]>([]);
+    useEffect(() => {
+        http.get<Product[]>('http://localhost:3000/api/product?pageNum=0&pageSize=8').then((e) => setProducts(e));
+    }, []);
     return (
         <main>
-
+            {JSON.stringify(products)}
         </main>
     );
 }
