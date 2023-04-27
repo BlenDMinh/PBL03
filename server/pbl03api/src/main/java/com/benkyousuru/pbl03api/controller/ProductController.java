@@ -38,8 +38,8 @@ public class ProductController {
     @GetMapping(basePath)
     public ResponseEntity<List<ProductModel>> getAll(@RequestParam(name = "category", required = false) Integer categoryId, @RequestParam Integer pageNum, @RequestParam Integer pageSize) {
         if(categoryId == null)
-            return ResponseEntity.ok().headers(HttpResponseDefaultHeaders.Instance).body(productService.getAll(pageNum, pageSize));
-        return ResponseEntity.ok().headers(HttpResponseDefaultHeaders.Instance).body(productService.getByCategory(categoryId, pageNum, pageSize));
+            return ResponseEntity.ok().body(productService.getAll(pageNum, pageSize));
+        return ResponseEntity.ok().body(productService.getByCategory(categoryId, pageNum, pageSize));
     }
 
     @GetMapping(basePath + "/{id}")

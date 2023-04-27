@@ -11,8 +11,8 @@ export class ProductService implements IProductService {
     return this.baseUrl + `/image/${id}`;
   }
 
-  getAll(pageNum: Number, pageSize: Number): Promise<Product> {
-    return http.get<Product>(
+  getAll(pageNum: Number, pageSize: Number): Promise<Product[]> {
+    return http.get<Product[]>(
       this.baseUrl + `?pageNum=${pageNum}&pageSize=${pageSize}`
     );
   }

@@ -8,7 +8,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.annotation.WebFilter;
-import jakarta.servlet.http.HttpServletResponse;
 
 @WebFilter("/**")
 public class HttpResponseFilter implements Filter {
@@ -16,11 +15,11 @@ public class HttpResponseFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
-        HttpServletResponse eResponse = (HttpServletResponse) response;
-        eResponse.addHeader("Access-Control-Allow-Origin", "http://localhost:3000");
-        eResponse.addHeader("Access-Control-Allow-Credentials", "true");
-        eResponse.addHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT, OPTIONS");
-        eResponse.addHeader("Access-Control-Allow-Headers", "Origin, Content-Type, Accept");
-        chain.doFilter(request, response);
+        // HttpServletResponse eResponse = (HttpServletResponse) response;
+        // eResponse.addHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+        // eResponse.addHeader("Access-Control-Allow-Credentials", "true");
+        // eResponse.addHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT, OPTIONS");
+        // eResponse.addHeader("Access-Control-Allow-Headers", "Origin, Content-Type, Accept");
+        // chain.doFilter(request, response);
     }
 }

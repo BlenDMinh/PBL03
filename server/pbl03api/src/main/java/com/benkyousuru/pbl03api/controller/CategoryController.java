@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.benkyousuru.pbl03api.controller.utils.HttpResponseDefaultHeaders;
 import com.benkyousuru.pbl03api.model.model.CategoryModel;
 import com.benkyousuru.pbl03api.model.service.ICategoryService;
 
@@ -31,7 +30,7 @@ public class CategoryController {
 
     @GetMapping(basePath)
     public ResponseEntity<List<CategoryModel>> getAll() {
-        return ResponseEntity.ok().headers(HttpResponseDefaultHeaders.Instance).body(categoryService.getAll());
+        return ResponseEntity.ok().body(categoryService.getAll());
     }
 
     @GetMapping(basePath + "/{id}")
@@ -39,7 +38,7 @@ public class CategoryController {
         Optional<CategoryModel> category = categoryService.getById(id);
         if (category.isEmpty())
             return ResponseEntity.notFound().build();
-        return ResponseEntity.ok().headers(HttpResponseDefaultHeaders.Instance).body(category.get());
+        return ResponseEntity.ok().body(category.get());
     }
 
     @PostMapping(basePath)
