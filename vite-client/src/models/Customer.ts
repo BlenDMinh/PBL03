@@ -5,12 +5,12 @@ import { Order, OrdersSchema } from "./Order";
 import { Product, ProductsSchema } from "./Product";
 
 export interface Customer {
-  email: String;
+  email: string;
   gender: Gender;
   orders: Order[];
   dateOfBirth: Date;
-  customerId: Number;
-  customerName: String;
+  customerId: number;
+  customerName: string;
   addresses: Address[];
   cartProducts: Product[];
 }
@@ -23,5 +23,5 @@ export const CustoemrSchema = z.object({
   orders: OrdersSchema,
   dateOfBirth: z.date(),
   addresses: AddressesSchema,
-  cartProducts: ProductsSchema
+  cartProducts: ProductsSchema,
 });

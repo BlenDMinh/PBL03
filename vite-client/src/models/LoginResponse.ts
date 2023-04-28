@@ -1,6 +1,6 @@
 import { Customer } from "./Customer";
 
 export interface LoginResponse {
-  token: String;
+  token: string;
   customer: Customer;
 }

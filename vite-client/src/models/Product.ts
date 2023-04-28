@@ -1,15 +1,15 @@
 import { z } from "zod";
 
 export interface Product {
-  sku: Number;
-  productName: String;
-  listedPrice: Number;
-  origin: String;
-  brand: String;
-  ingridients: String;
-  userManual: String;
-  preservedManual: String;
-  description: String;
+  sku: number;
+  productName: string;
+  listedPrice: number;
+  origin: string;
+  brand: string;
+  ingridients: string;
+  userManual: string;
+  preservedManual: string;
+  description: string;
 }
 
 export const ProductSchema = z.object({

@@ -1,5 +1,5 @@
 export interface LoginRequest {
-  email?: String;
-  token?: String;
-  password?: String;
+  email?: string;
+  token?: string;
+  password?: string;
 }

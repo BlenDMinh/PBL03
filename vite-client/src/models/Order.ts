@@ -5,7 +5,7 @@ import { z } from "zod";
 
 export interface Order {
   status: Status;
-  orderId: Number;
+  orderId: number;
   address: Address;
   dateCreated: Date;
   dateCompleted: Date;
@@ -18,7 +18,7 @@ export const OrderSchema = z.object({
   address: AddressSchema,
   dateCreated: z.date(),
   dateCompleted: z.date(),
-  product: ProductsSchema
+  product: ProductsSchema,
 });
 
 export const OrdersSchema = z.array(OrderSchema);
