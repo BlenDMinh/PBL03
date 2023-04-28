@@ -1,6 +1,6 @@
 import "./App.css";
 import { useQuery } from "@tanstack/react-query";
-import { ProductsSchema } from "./models/Product";
+import { ProductsSchema } from "./_models/Product";
 
 function App() {
   const getProducts = () =>

@@ -1,7 +1,8 @@
-import { Address } from "./Address";
-import { Gender } from "./Gender";
-import { Order } from "./Order";
-import { Product } from "./Product";
+import { z } from "zod";
+import { Address, AddressesSchema } from "./Address";
+import { Gender, GenderEnum } from "./Gender";
+import { Order, OrdersSchema } from "./Order";
+import { Product, ProductsSchema } from "./Product";
 
 export interface Customer {
   email: String;
@@ -13,3 +14,14 @@ export interface Customer {
   addresses: Address[];
   cartProducts: Product[];
 }
+
+export const CustoemrSchema = z.object({
+  customerId: z.number(),
+  customerName: z.string(),
+  email: z.string(),
+  gender: GenderEnum,
+  orders: OrdersSchema,
+  dateOfBirth: z.date(),
+  addresses: AddressesSchema,
+  cartProducts: ProductsSchema
+});
