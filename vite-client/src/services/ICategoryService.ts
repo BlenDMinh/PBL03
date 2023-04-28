@@ -1,6 +1,7 @@
-import { Category } from "@/models/Category";
+import { z } from "zod";
+import { CategoriesSchema, CategorySchema } from "../models/Category";
 
 export interface ICategoryService {
-  getAll(): Promise<Category[]>;
-  getById(id: Number): Promise<Category>;
+  getAll(): Promise<z.infer<typeof CategoriesSchema>>;
+  getById(id: Number): Promise<z.infer<typeof CategorySchema>>;
 }

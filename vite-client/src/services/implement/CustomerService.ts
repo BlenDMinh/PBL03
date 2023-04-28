@@ -1,15 +1,15 @@
 import { http } from "../utils/http";
-import { Product } from "@/models/Product";
-import { Customer } from "@/models/Customer";
-import { LoginRequest } from "@/models/LoginRequest";
-import { LoginResponse } from "@/models/LoginResponse";
+import { Product } from "../../models/Product";
+import { Customer } from "../../models/Customer";
+import { LoginRequest } from "../../models/LoginRequest";
+import { LoginResponse } from "../../models/LoginResponse";
 import { ICustomerService } from "../ICustomerService";
-import { injectable } from "inversify";
 import "reflect-metadata";
+import dotenv from 'dotenv'
 
-@injectable()
+dotenv.config();
 export class CustomerService implements ICustomerService {
-  readonly baseUrl = process.env.apiUrl + "/api/customer";
+  readonly baseUrl = process.env.VITE_API_URL + "/api/customer";
 
   update(): void {
     throw new Error("Method not implemented.");
