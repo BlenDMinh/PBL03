@@ -1,15 +1,18 @@
 import { http } from "../utils/http";
 import { Product } from "@/models/Product";
 import { IProductService } from "../IProductService";
+import { injectable } from "inversify";
+import "reflect-metadata";
 
+@injectable()
 export class ProductService implements IProductService {
   readonly baseUrl = process.env.apiUrl + "/api/product";
   getProductImagePath(id: Number): string {
     return this.baseUrl + `/image/${id}`;
   }
 
-  getAll(pageNum: Number, pageSize: Number): Promise<Product> {
-    return http.get<Product>(
+  getAll(pageNum: Number, pageSize: Number): Promise<Product[]> {
+    return http.get<Product[]>(
       this.baseUrl + `?pageNum=${pageNum}&pageSize=${pageSize}`
     );
   }

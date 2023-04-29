@@ -7,7 +7,7 @@ import WinmartLogoRed from "/public/WinmartLogoRed.png";
 const Login: FC = ({}) => {
   return (
     <main className="w-screen h-screen bg-[#f0f8ff]">
-      <div className="max-w-2xl mx-auto h-full flex flex-col justify-center items-center -mt-8 bg-white">
+      <div className="max-w-xl mx-auto h-full flex flex-col justify-center items-center bg-white">
         <Image
           src={WinmartLogoRed}
           alt={"Winmart Logo"}
@@ -73,7 +73,7 @@ const Login: FC = ({}) => {
           </span>
         </div>
 
-        <Link href="/login">
+        <Link href="/register">
           <button
             title="Đăng ký"
             className="hover:bg-gray-200 w-60 border border-winmart p-2 rounded-lg shadow-md text-winmart bg-zinc-50"

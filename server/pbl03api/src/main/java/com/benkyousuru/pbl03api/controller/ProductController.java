@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +28,7 @@ import com.benkyousuru.pbl03api.model.service.IProductService;
 import jakarta.transaction.Transactional;
 
 @RestController
+@CrossOrigin(origins = "*")
 public class ProductController {
     static final String basePath = "/api/product";
 
@@ -36,8 +38,8 @@ public class ProductController {
     @GetMapping(basePath)
     public ResponseEntity<List<ProductModel>> getAll(@RequestParam(name = "category", required = false) Integer categoryId, @RequestParam Integer pageNum, @RequestParam Integer pageSize) {
         if(categoryId == null)
-            return ResponseEntity.ok().headers(HttpResponseDefaultHeaders.Instance).body(productService.getAll(pageNum, pageSize));
-        return ResponseEntity.ok().headers(HttpResponseDefaultHeaders.Instance).body(productService.getByCategory(categoryId, pageNum, pageSize));
+            return ResponseEntity.ok().body(productService.getAll(pageNum, pageSize));
+        return ResponseEntity.ok().body(productService.getByCategory(categoryId, pageNum, pageSize));
     }
 
     @GetMapping(basePath + "/{id}")
