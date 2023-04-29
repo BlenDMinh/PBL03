@@ -7,12 +7,14 @@ ReactDOM.render(
   <React.StrictMode>
     <main className="w-screen h-screen bg-[#f0f8ff] text-gray-900 text-sm">
       <div className="max-w-xl mx-auto h-full flex flex-col justify-center items-center bg-white gap-y-6">
-        <img
-          src={WinmartLogoRed}
-          alt={"Winmart Logo"}
-          title="Winmart Logo"
-          className="w-80 h-auto"
-        />
+        <a href="/">
+          <img
+            src={WinmartLogoRed}
+            alt={"Winmart Logo"}
+            title="Winmart Logo"
+            className="w-80 h-auto"
+          />
+        </a>
 
         <div className="flex flex-col text-sm gap-y-6">
           <h5 className="text-base my-2">Đăng ký hội viên</h5>
