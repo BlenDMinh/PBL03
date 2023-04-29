@@ -116,7 +116,7 @@ function Navbar(props: NavbarProps) {
               </button>
             ) : (
               <a
-                href="/login"
+                href="/login/"
                 className="text-white flex items-center gap-x-2 p-2"
               >
                 <span>
