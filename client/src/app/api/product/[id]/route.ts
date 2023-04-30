@@ -6,7 +6,7 @@ import { NextRequest } from "next/server";
 
 var service: IProductService = appContainer.get<IProductService>(TYPES.ProductService);
 
-export async function GET(req: NextRequest)  {
+export async function GET(req: NextRequest) {
     // getStaticPaths();
     // var params = useParams();
     // return await service.getById(parseInt(params.id as string));

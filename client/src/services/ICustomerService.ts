@@ -4,12 +4,14 @@ import { LoginRequest } from "@/models/LoginRequest";
 import { LoginResponse } from "@/models/LoginResponse";
 
 export interface ICustomerService {
-  register(customer: Customer, password: string): void;
-  login(request: LoginRequest): Promise<LoginResponse>;
+  register(customer: Customer, password: string): Promise<void>;
+  login(request: LoginRequest | undefined): Promise<LoginResponse>;
   logout(): void;
   update(): void;
 
   getCartProducts(): Promise<Product[]>;
   addProductToCart(sku: Number): void;
   removeProductFromCart(sku: Number): void;
+
+  loggedInCustomer: Customer | undefined;
 }

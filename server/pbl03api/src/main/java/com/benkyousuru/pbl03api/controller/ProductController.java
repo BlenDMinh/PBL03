@@ -1,11 +1,9 @@
 package com.benkyousuru.pbl03api.controller;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 import java.util.Optional;
 
-import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -21,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.benkyousuru.pbl03api.controller.utils.HttpResponseDefaultHeaders;
 import com.benkyousuru.pbl03api.model.model.ProductModel;
 import com.benkyousuru.pbl03api.model.service.IProductService;
 
@@ -51,23 +48,21 @@ public class ProductController {
     }
 
     @PostMapping(basePath)
-    public ResponseEntity<String> insert(@RequestBody ProductModel model) {
+    public ResponseEntity<ProductModel> insert(@RequestBody ProductModel model) {
         try {
-            productService.insert(model);
-            return ResponseEntity.ok("Saved");
+            return ResponseEntity.ok(productService.insert(model));
         } catch(RuntimeException e) {
-            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return ResponseEntity.badRequest().build();
         }
     }
 
     @PutMapping(basePath)
     @Transactional
-    public ResponseEntity<String> update(@RequestBody ProductModel model){
+    public ResponseEntity<ProductModel> update(@RequestBody ProductModel model){
         try {
-            productService.update(model);
-            return ResponseEntity.ok("Saved");
+            return ResponseEntity.ok(productService.update(model));
         } catch (RuntimeException e) {
-            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return ResponseEntity.badRequest().build();
         }
         
     }

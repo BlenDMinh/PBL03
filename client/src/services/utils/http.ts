@@ -5,8 +5,8 @@ export class http {
     body = ""
   ): Promise<T> {
     return new Promise<T>(async (onResolve, onError) => {
-      headers.append("Accept", "application/json");
-      headers.append("Content-Type", "application/json");
+      headers.append("Accept", "application/json;charset=utf-8");
+      headers.append("Content-Type", "application/json;charset=utf-8");
       try {
         fetch(url, {
           method: "GET",
@@ -29,8 +29,8 @@ export class http {
     body = ""
   ): Promise<T> {
     return new Promise<T>(async (onResolve, onError) => {
-      headers.append("Accept", "application/json");
-      headers.append("Content-Type", "application/json");
+      headers.append("Accept", "application/json;charset=utf-8");
+      headers.append("Content-Type", "application/json;charset=utf-8");
       console.log(url);
       try {
         fetch(url, {
@@ -53,8 +53,8 @@ export class http {
     headers: Headers = new Headers(),
     body = "") {
       return new Promise<T>(async (onResolve, onError) => {
-        headers.append("Accept", "application/json");
-        headers.append("Content-Type", "application/json");
+        headers.append("Accept", "application/json;charset=utf-8");
+        headers.append("Content-Type", "application/json;charset=utf-8");
         try {
           fetch(url, {
             method: "PUT",

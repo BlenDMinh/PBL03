@@ -1,6 +1,6 @@
+import { Facebook, Instagram, Youtube } from "lucide-react";
 import GovConfirm from "../assets/Company/GovConfirm.png";
 import WinmartLogoWhite from "../assets/Company/WinmartLogoWhite.png";
-import { Facebook, Instagram, Youtube } from "lucide-react";
 
 interface LinkTitle {
   title: string;

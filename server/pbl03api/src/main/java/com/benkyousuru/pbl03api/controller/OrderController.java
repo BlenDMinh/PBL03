@@ -42,26 +42,22 @@ public class OrderController {
     }
 
     @PostMapping(basePath)
-    public ResponseEntity<String> insert(@RequestBody OrderModel model) {
+    public ResponseEntity<OrderModel> insert(@RequestBody OrderModel model) {
         try {
-            orderService.insert(model);
-            return ResponseEntity.ok("Saved");
+            return ResponseEntity.ok(orderService.insert(model));
         } catch (RuntimeException e) {
-            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return ResponseEntity.badRequest().build();
         }
-        
     }
 
     @PutMapping(basePath)
     @Transactional
-    public ResponseEntity<String> update(@RequestBody OrderModel model){
+    public ResponseEntity<OrderModel> update(@RequestBody OrderModel model){
         try {
-            orderService.update(model);
-            return ResponseEntity.ok("Saved");
+            return ResponseEntity.ok(orderService.update(model));
         } catch (RuntimeException e) {
-            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return ResponseEntity.badRequest().build();
         }
-        
     }
 
     @DeleteMapping(basePath)

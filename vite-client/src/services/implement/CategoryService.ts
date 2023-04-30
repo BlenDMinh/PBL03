@@ -1,17 +1,20 @@
-import { http } from "../utils/http";
+import "reflect-metadata";
+import { z } from "zod";
 import { CategoriesSchema, CategorySchema } from "../../models/Category";
 import { ICategoryService } from "../ICategoryService";
-import "reflect-metadata";
-import dotenv from 'dotenv'
-import { z } from "zod";
+import { http } from "../utils/http";
 
-dotenv.config();
 export class CategoryService implements ICategoryService {
-  readonly baseUrl = import.meta.env.VITE_API_URL + "/api/category";
-  getAll(): Promise<z.infer<typeof CategoriesSchema>> {
-    return http.get(this.baseUrl).then((data) => CategoriesSchema.parse(data));
+  // readonly baseUrl = import.meta.env.VITE_API_URL + "/api/category";
+  readonly baseUrl = "http://localhost:8080/api/category";
+
+  async getAll(): Promise<z.infer<typeof CategoriesSchema>> {
+    const data = await http.get(this.baseUrl);
+    return CategoriesSchema.parse(data);
   }
-  getById(id: Number): Promise<z.infer<typeof CategorySchema>> {
-    return http.get(this.baseUrl + `/${id}`).then((data) => CategorySchema.parse(data));
+
+  async getById(id: number): Promise<z.infer<typeof CategorySchema>> {
+    const data = await http.get(this.baseUrl + `/${id}`);
+    return CategorySchema.parse(data);
   }
 }

@@ -35,16 +35,18 @@ public class CategoryService implements ICategoryService {
     }
 
     @Override
-    public void insert(CategoryModel model) {
+    public CategoryModel insert(CategoryModel model) {
         System.out.println(model.getCategoryId() + " " + model.getCategoryName());
         Optional<Category> category = categoryRepository.findById(model.getCategoryId());
         if (category.isPresent())
             throw new RuntimeException("Category with id = " + model.getCategoryId().toString() + " is already presented");
-        categoryRepository.save(new Category(model));    
+        
+        Category retCategory = categoryRepository.save(new Category(model));   
+        return new CategoryModel(retCategory); 
     }
 
     @Override
-    public void update(CategoryModel model) {
+    public CategoryModel update(CategoryModel model) {
         Optional<Category> category = categoryRepository.findById(model.getCategoryId());
         if (category.isEmpty())
             throw new RuntimeException("Category with id = " + model.getCategoryId().toString() + " does not exist!");
@@ -58,7 +60,8 @@ public class CategoryService implements ICategoryService {
             n_Category.setProducts(o_Category.getProducts());
         if (n_Category.getSubcategories() == null)
             n_Category.setSubcategories(o_Category.getSubcategories());
-        categoryRepository.save(n_Category);
+        Category retCategory = categoryRepository.save(n_Category);
+        return new CategoryModel(retCategory); 
     }
 
     @Override
