@@ -13,10 +13,8 @@ function ProductBox(props: ProductBoxProps) {
   const [imgURL, setImgURL] = useState<string>("");
   useEffect(() => {
     const url = productService.getProductImagePath(props.product.sku);
-    console.log(url);
     setImgURL(url);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [props.product.sku]);
 
   return (
     <div

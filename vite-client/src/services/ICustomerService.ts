@@ -1,7 +1,7 @@
-import { Product } from "../models/Product";
 import { Customer } from "../models/Customer";
 import { LoginRequest } from "../models/LoginRequest";
 import { LoginResponse } from "../models/LoginResponse";
+import { Product } from "../models/Product";
 
 export interface ICustomerService {
   register(customer: Customer, password: string): void;
@@ -10,6 +10,6 @@ export interface ICustomerService {
   update(): void;
 
   getCartProducts(): Promise<Product[]>;
-  addProductToCart(sku: Number): void;
-  removeProductFromCart(sku: Number): void;
+  addProductToCart(sku: number): void;
+  removeProductFromCart(sku: number): void;
 }
