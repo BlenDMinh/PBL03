@@ -1,8 +1,8 @@
-import "../index.css";
+import { Key, User } from "lucide-react";
 import React from "react";
 import ReactDOM from "react-dom";
-import { User, Key } from "lucide-react";
 import WinmartLogoRed from "../assets/Company/WinmartLogoRed.png";
+import "../index.css";
 
 ReactDOM.render(
   <React.StrictMode>

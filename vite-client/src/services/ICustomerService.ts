@@ -1,15 +1,13 @@
-import { Product } from "../models/Product";
 import { Customer } from "../models/Customer";
 import { LoginRequest } from "../models/LoginRequest";
 import { LoginResponse } from "../models/LoginResponse";
 
 export interface ICustomerService {
-  register(customer: Customer, password: string): void;
+  register(customer: Customer, password: string): Promise<void>;
   login(request: LoginRequest): Promise<LoginResponse>;
-  logout(): void;
-  update(): void;
+  logout(): Promise<void>;
+  update(): Promise<void>;
+  changePassword(password: string): Promise<void>;
 
-  getCartProducts(): Promise<Product[]>;
-  addProductToCart(sku: Number): void;
-  removeProductFromCart(sku: Number): void;
+  loggedInCustomer: Customer | undefined;
 }
