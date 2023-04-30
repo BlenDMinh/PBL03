@@ -1,15 +1,11 @@
-import dotenv from "dotenv";
-import "reflect-metadata";
 import { Customer } from "../../models/Customer";
 import { LoginRequest } from "../../models/LoginRequest";
 import { LoginResponse } from "../../models/LoginResponse";
-import { Product } from "../../models/Product";
 import { ICustomerService } from "../ICustomerService";
 import { http } from "../utils/http";
 
-dotenv.config();
 export class CustomerService implements ICustomerService {
-  readonly baseUrl = "http://localhost:8080/api/customer";
+  readonly baseUrl = import.meta.env.VITE_API_URL + "/api/customer";
 
   update(): void {
     throw new Error("Method not implemented.");
@@ -17,23 +13,30 @@ export class CustomerService implements ICustomerService {
   register(customer: Customer, password: string): void {
     throw new Error("Method not implemented.");
   }
-  login(request: LoginRequest): Promise<LoginResponse> {
+  login(request: LoginRequest | undefined = undefined): Promise<LoginResponse> {
+    if(request == undefined) {
+      if(!localStorage.token)
+        return Promise.reject();
+      request = {
+        token: localStorage.token
+      };
+    }
     return http.post<LoginResponse>(
       this.baseUrl + "/login",
       new Headers(),
       JSON.stringify(request)
-    );
+    ).then((response) => {
+      this.loggedInCustomer = response.customer;
+      localStorage.token = response.token;
+      return response;
+    });
   }
   logout(): void {
     throw new Error("Method not implemented.");
   }
-  getCartProducts(): Promise<Product[]> {
+  changePassword(password: string): void {
     throw new Error("Method not implemented.");
   }
-  addProductToCart(sku: number): void {
-    throw new Error("Method not implemented.");
-  }
-  removeProductFromCart(sku: number): void {
-    throw new Error("Method not implemented.");
-  }
+
+  loggedInCustomer: Customer | undefined;
 }
