@@ -116,7 +116,7 @@ public class ProductService implements IProductService {
 
     @Override
     public byte[] getImageById(int productId) throws IOException  {
-        try(InputStream imageStream = new FileInputStream(PRODUCT_RESOURCE_PATH + "\\" + productId + ".jpg")) {
+        try(InputStream imageStream = new FileInputStream(PRODUCT_RESOURCE_PATH + "/" + productId + ".jpg")) {
             byte[] image = IOUtils.toByteArray(imageStream);
             imageStream.close();
             return image;
