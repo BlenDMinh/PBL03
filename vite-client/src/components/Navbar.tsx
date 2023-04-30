@@ -27,7 +27,7 @@ function Navbar(props: NavbarProps) {
   }, []);
 
   return (
-    <header className="sticky top-0 w-[calc(100vw - 12px)] bg-winmart mb-6 text-sm text-gray-900 z-50">
+    <header className="sticky top-0 w-[calc(100vw - 12px)] bg-winmart mb-6 text-sm text-gray-900 z-10">
       <div className="max-w-6xl mx-auto py-2">
         <div className="flex items-center justify-between">
           <a href="/">
@@ -39,7 +39,7 @@ function Navbar(props: NavbarProps) {
             />
           </a>
 
-          <div className="flex items-center bg-gray-50 rounded-md shadow-md overflow-hidden border border-gray-400">
+          <div className="flex items-center bg-gray-50 rounded-md shadow-md overflow-hidden">
             <div className="cursor-pointer group">
               <div className="relative flex items-center gap-x-1 px-3 py-2 h-full">
                 <span>Danh mục</span>
@@ -50,7 +50,7 @@ function Navbar(props: NavbarProps) {
 
               <div className="absolute">
                 <div className="h-1"></div>
-                <div className="p-1 bg-gray-50 border border-gray-400 rounded-md shadow-md z-50 hidden group-hover:flex flex-col">
+                <div className="p-1 bg-gray-50 rounded-md shadow-md z-50 hidden group-hover:flex flex-col">
                   {categories?.map((val, id) => {
                     return (
                       <a
@@ -69,7 +69,7 @@ function Navbar(props: NavbarProps) {
             <form
               action=""
               method=""
-              className="flex items-center border-l border-gray-400"
+              className="flex items-center border-l border-gray-300"
             >
               <input
                 type="text"
