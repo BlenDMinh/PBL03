@@ -63,15 +63,16 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public void insert(ProductModel model) {
+    public ProductModel insert(ProductModel model) {
         Optional<Product> product = productRepository.findById(model.getSku());
         if (product.isPresent())
             throw new RuntimeException("Product with id = " + model.getSku().toString() + " is already presented");
-        productRepository.save(new Product(model));
+        Product retProduct = productRepository.save(new Product(model));
+        return new ProductModel(retProduct);
     }
 
     @Override
-    public void update(ProductModel model) {
+    public ProductModel update(ProductModel model) {
         Optional<Product> product = productRepository.findById(model.getSku());
         if (product.isEmpty())
             throw new RuntimeException("Product with id = " + model.getSku().toString() + " does not exist!");
@@ -95,7 +96,8 @@ public class ProductService implements IProductService {
             n_Product.setSku(o_Product.getSku());
         if (n_Product.getUserManual() == null)
             n_Product.setUserManual(o_Product.getUserManual());
-        productRepository.save(n_Product);
+        Product retProduct = productRepository.save(n_Product);
+        return new ProductModel(retProduct);
     }
 
     @Override

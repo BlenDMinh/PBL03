@@ -36,15 +36,16 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public void insert(OrderModel model) {
+    public OrderModel insert(OrderModel model) {
         Optional<Order> order = orderRepository.findById(model.getOrderId());
         if (order.isPresent())
             throw new RuntimeException("Order with id = " + model.getOrderId().toString() + " is already presented");
-        orderRepository.save(new Order(model));   
+        Order retOrder = orderRepository.save(new Order(model));   
+        return new OrderModel(retOrder);
     }
 
     @Override
-    public void update(OrderModel model) {
+    public OrderModel update(OrderModel model) {
         Optional<Order> order = orderRepository.findById(model.getOrderId());
         if (order.isEmpty())
             throw new RuntimeException("Order with id = " + model.getOrderId().toString() + " does not exist!");
@@ -62,6 +63,8 @@ public class OrderService implements IOrderService {
             n_Order.setProducts(o_Order.getProducts());
         if (n_Order.getStatus() == null)
             n_Order.setStatus(o_Order.getStatus());
+        Order retOrder = orderRepository.save(n_Order);
+        return new OrderModel(retOrder);
     }
 
     @Override

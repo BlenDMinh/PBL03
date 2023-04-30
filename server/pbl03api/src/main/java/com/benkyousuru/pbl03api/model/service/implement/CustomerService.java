@@ -55,7 +55,7 @@ public class CustomerService implements ICustomerService {
     }
 
     @Override
-    public void insert(CustomerModel model) throws RuntimeException {
+    public CustomerModel insert(CustomerModel model) throws RuntimeException {
         Optional<Customer> customer = customerRepository.findById(model.getCustomerId());
         if(customer.isPresent())
             throw new RuntimeException("Customer with id = " + model.getCustomerId().toString() + " is already presented!");
@@ -63,11 +63,12 @@ public class CustomerService implements ICustomerService {
         LoginDetail detail = new LoginDetail();
         detail.setCustomer(sCustomer);
         sCustomer.setLoginDetail(detail);
-        customerRepository.save(sCustomer);
+        Customer retCustomer = customerRepository.save(sCustomer);
+        return new CustomerModel(retCustomer);
     }
 
     @Override
-    public void update(CustomerModel model) {
+    public CustomerModel update(CustomerModel model) {
         Optional<Customer> customer = customerRepository.findById(model.getCustomerId());
         if(customer.isEmpty())
             throw new RuntimeException("Customer with id = " + model.getCustomerId().toString() + " does not exist!");
@@ -87,7 +88,8 @@ public class CustomerService implements ICustomerService {
             n_Customer.setCartProducts(o_Customer.getCartProducts());
         if(n_Customer.getAddresses() == null)
             n_Customer.setAddresses(o_Customer.getAddresses());
-        customerRepository.save(n_Customer);
+        Customer retCustomer = customerRepository.save(n_Customer);
+        return new CustomerModel(retCustomer);
     }
 
     @Override

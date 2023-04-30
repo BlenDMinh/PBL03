@@ -57,26 +57,23 @@ public class CustomerController {
     }
 
     @PostMapping(basePath)
-    public ResponseEntity<String> insert(@RequestBody CustomerModel model) {
+    public ResponseEntity<CustomerModel> insert(@RequestBody CustomerModel model) {
         try {
-            customerService.insert(model);
-            return ResponseEntity.ok("Saved");
+            return ResponseEntity.ok(customerService.insert(model));
         } catch (RuntimeException e) {
-            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return ResponseEntity.badRequest().build();
         }
         
     }
 
     @PutMapping(basePath)
     @Transactional
-    public ResponseEntity<String> update(@RequestBody CustomerModel model) {
+    public ResponseEntity<CustomerModel> update(@RequestBody CustomerModel model) {
         try {
-            customerService.update(model);
-            return ResponseEntity.ok("Saved");
+            return ResponseEntity.ok(customerService.update(model));
         } catch (RuntimeException e) {
-            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return ResponseEntity.badRequest().build();
         }
-        
     }
 
     @DeleteMapping(basePath)
@@ -103,7 +100,7 @@ public class CustomerController {
         
     }
 
-    @PostMapping(basePath + "/{id}/change_password")
+    @PostMapping(basePath + "/{id}/change-password")
     @Transactional
     public String changePassword(@PathVariable Integer id, @RequestBody String password) {
         customerService.setPassword(id, password);

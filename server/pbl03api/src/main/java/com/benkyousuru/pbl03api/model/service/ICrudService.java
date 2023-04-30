@@ -6,8 +6,8 @@ import java.util.Optional;
 public interface ICrudService<TModel, TPrimary> {
     List<TModel> getAll();
     Optional<TModel> getById(TPrimary id);
-    void insert(TModel model);
-    void update(TModel model);
+    TModel insert(TModel model);
+    TModel update(TModel model);
     void delete(TModel model);
     void deleteById(TPrimary id);
 }

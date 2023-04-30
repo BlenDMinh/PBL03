@@ -42,23 +42,21 @@ public class CategoryController {
     }
 
     @PostMapping(basePath)
-    public ResponseEntity<String> insert(@RequestBody CategoryModel model) {
+    public ResponseEntity<CategoryModel> insert(@RequestBody CategoryModel model) {
         try {
-            categoryService.insert(model);
-            return ResponseEntity.ok("Saved");
+            return ResponseEntity.ok(categoryService.insert(model));
         } catch (RuntimeException e) {
-            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return ResponseEntity.badRequest().build();
         }
     }
 
     @PutMapping(basePath)
     @Transactional
-    public ResponseEntity<String> update(@RequestBody CategoryModel model){
+    public ResponseEntity<CategoryModel> update(@RequestBody CategoryModel model){
         try {
-           categoryService.update(model);
-            return ResponseEntity.ok("Saved"); 
+            return ResponseEntity.ok(categoryService.update(model)); 
         } catch (RuntimeException e) {
-            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return ResponseEntity.badRequest().build();
         }
         
     }
