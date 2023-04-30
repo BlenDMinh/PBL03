@@ -1,17 +1,28 @@
-import { Product } from "../../models/Product";
 import { PackagePlus } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Product } from "../../models/Product";
+import { ProductService } from "../../services/implement/ProductService";
 
 interface ProductBoxProps {
   product: Product;
-  imgURL: string;
 }
 
+const productService = new ProductService();
+
 function ProductBox(props: ProductBoxProps) {
+  const [imgURL, setImgURL] = useState<string>("");
+  useEffect(() => {
+    const url = productService.getProductImagePath(props.product.sku);
+    console.log(url);
+    setImgURL(url);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div className="flex flex-col gap-y-2 items-center justify-center w-52 p-4 border border-gray-400 rounded-lg hover:shadow-xl">
       <a href="/" className="flex flex-col items-center">
         <img
-          src={props.imgURL}
+          src={imgURL}
           alt={`Ảnh sản phẩm ${props.product.productName}`}
           title={`Ảnh sản phẩm ${props.product.productName}`}
           className="rounded-lg w-auto h-auto"

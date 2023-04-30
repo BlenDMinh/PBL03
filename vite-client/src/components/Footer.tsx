@@ -1,6 +1,6 @@
+import { Facebook, Instagram, Youtube } from "lucide-react";
 import GovConfirm from "../assets/Company/GovConfirm.png";
 import WinmartLogoWhite from "../assets/Company/WinmartLogoWhite.png";
-import { Facebook, Instagram, Youtube } from "lucide-react";
 
 interface LinkTitle {
   title: string;
@@ -62,7 +62,7 @@ function Footer() {
   ];
 
   return (
-    <footer className="bg-[#2c2c2c] text-xs text-white mt-6">
+    <footer className="bg-[#2c2c2c] text-xs text-white mt-8">
       <div className="flex gap-x-8 max-w-6xl mx-auto py-4">
         <div className="flex flex-col gap-y-2 w-1/4">
           <img

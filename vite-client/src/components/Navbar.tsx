@@ -1,36 +1,33 @@
-import { Customer } from "../models/Customer";
+import { ChevronDown, Search, ShoppingCart, User } from "lucide-react";
+import { useEffect, useState } from "react";
 import WinmartLogoWhite from "../assets/Company/WinmartLogoWhite.png";
-import { ShoppingCart, User, ChevronDown, Search } from "lucide-react";
+import { Category } from "../models/Category";
+import { Customer } from "../models/Customer";
+import { CategoryService } from "../services/implement/CategoryService";
+
+const service = new CategoryService();
 
 interface NavbarProps {
   user: Customer | null | undefined;
 }
 
 function Navbar(props: NavbarProps) {
-  const categories = [
-    "Bánh kẹo",
-    "Chăm sóc bé",
-    "Chăm sóc cá nhân",
-    "Điện gia dụng",
-    "Đồ gia dụng",
-    "Đồ uống giải khát",
-    "Gia vị",
-    "Hoá phẩm tẩy rửa",
-    "Mì - Thực phẩm ăn liền",
-    "Nước uống có cồn",
-    "Rau củ",
-    "Sữa - sản phẩm từ sữa",
-    "Thịt - hải sản tươi",
-    "Thực phẩm chế biến",
-    "Thực phẩm đông lạnh",
-    "Thực phẩm khô",
-    "Trái cây tươi",
-    "Trứng - đậu hũ",
-    "Văn phòng phẩm - đồ chơi",
-  ];
+  const [categories, setCategories] = useState<string[]>([]);
+
+  useEffect(() => {
+    const arr: string[] = [];
+
+    service.getAll().then((data: Category[]) => {
+      for (let i = 0; i < data.length; i++) {
+        const categoryName = data[i].categoryName;
+        arr.push(categoryName);
+      }
+      setCategories(arr);
+    });
+  }, []);
 
   return (
-    <header className="sticky top-0 w-screen bg-winmart mb-6 text-sm text-gray-900 z-50">
+    <header className="sticky top-0 w-screen bg-winmart mb-8 text-sm text-gray-900 z-50">
       <div className="max-w-6xl mx-auto py-2">
         <div className="flex items-center justify-between">
           <a href="/">
@@ -54,7 +51,7 @@ function Navbar(props: NavbarProps) {
               <div className="absolute">
                 <div className="h-1"></div>
                 <div className="p-1 bg-gray-50 border border-gray-400 rounded-md shadow-md z-50 hidden group-hover:flex flex-col">
-                  {categories.map((val, id) => {
+                  {categories?.map((val, id) => {
                     return (
                       <a
                         href="/"
