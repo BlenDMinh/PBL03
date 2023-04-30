@@ -10,26 +10,31 @@ const categoryService = new CategoryService();
 
 function App() {
   const [categories, setCategories] = useState<number[]>([]);
+  const [categoryName, setCategoryName] = useState<string[]>([]);
 
   useEffect(() => {
-    const arr: number[] = [];
+    const id: number[] = [];
+    const name: string[] = [];
     categoryService.getAll().then((data: Category[]) => {
       for (let i = 0; i < data.length; i++) {
         const categoryId = data[i].categoryId;
-        arr.push(categoryId);
+        const categoryName = data[i].categoryName;
+        id.push(categoryId);
+        name.push(categoryName);
       }
-      setCategories(arr);
+      setCategories(id);
+      setCategoryName(name);
     });
   }, []);
 
   return (
-    <main className="bg-gray-200 w-screen">
+    <main className="bg-gray-100 w-[calc(100vw - 12px)]">
       <Navbar user={undefined} />
       <div className="max-w-6xl mx-auto">
         {categories.map((val, id) => {
           return (
             <div key={id}>
-              <ShowCategory id={val} />
+              <ShowCategory id={val} name={categoryName[id]} />
             </div>
           );
         })}

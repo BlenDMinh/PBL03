@@ -27,7 +27,7 @@ function Navbar(props: NavbarProps) {
   }, []);
 
   return (
-    <header className="sticky top-0 w-screen bg-winmart mb-8 text-sm text-gray-900 z-50">
+    <header className="sticky top-0 w-[calc(100vw - 12px)] bg-winmart mb-6 text-sm text-gray-900 z-50">
       <div className="max-w-6xl mx-auto py-2">
         <div className="flex items-center justify-between">
           <a href="/">
