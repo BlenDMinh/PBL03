@@ -5,13 +5,19 @@ import { ICustomerService } from "../ICustomerService";
 import { http } from "../utils/http";
 
 export class CustomerService implements ICustomerService {
-  readonly baseUrl = import.meta.env.VITE_API_URL + "/api/customer";
+  readonly baseUrl = "http://localhost:8080/api/customer";
 
-  update(): void {
-    throw new Error("Method not implemented.");
+  update(): Promise<void> {
+    if(this.loggedInCustomer == undefined)
+      return Promise.reject();
+    return http.put(this.baseUrl, new Headers(), JSON.stringify(this.loggedInCustomer));
   }
-  register(customer: Customer, password: string): void {
-    throw new Error("Method not implemented.");
+  register(customer: Customer, password: string): Promise<void> {
+    return http.post<Customer>(this.baseUrl, new Headers(), JSON.stringify(customer))
+    .then((nCustomer) => {
+      this.loggedInCustomer = nCustomer;
+      this.changePassword(password);
+    });
   }
   login(request: LoginRequest | undefined = undefined): Promise<LoginResponse> {
     if(request == undefined) {
@@ -31,11 +37,13 @@ export class CustomerService implements ICustomerService {
       return response;
     });
   }
-  logout(): void {
+  logout(): Promise<void> {
     throw new Error("Method not implemented.");
   }
-  changePassword(password: string): void {
-    throw new Error("Method not implemented.");
+  changePassword(password: string): Promise<void> {
+    if(this.loggedInCustomer == undefined)
+      return Promise.reject();
+    return http.post(this.baseUrl + "/" + this.loggedInCustomer.customerId + "/change-password", new Headers(), password);
   }
 
   loggedInCustomer: Customer | undefined;

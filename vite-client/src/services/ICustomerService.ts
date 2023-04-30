@@ -3,11 +3,11 @@ import { LoginRequest } from "../models/LoginRequest";
 import { LoginResponse } from "../models/LoginResponse";
 
 export interface ICustomerService {
-  register(customer: Customer, password: string): void;
+  register(customer: Customer, password: string): Promise<void>;
   login(request: LoginRequest): Promise<LoginResponse>;
-  logout(): void;
-  update(): void;
-  changePassword(password: string): void;
+  logout(): Promise<void>;
+  update(): Promise<void>;
+  changePassword(password: string): Promise<void>;
 
   loggedInCustomer: Customer | undefined;
 }
