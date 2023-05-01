@@ -7,7 +7,7 @@ import { CustomerService } from "../services/implement/CustomerService";
 
 function Login() {
   const navigate = useNavigate();
-  const service = new CustomerService();
+  const service = CustomerService.getInstance();
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");

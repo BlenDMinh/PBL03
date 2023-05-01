@@ -1,21 +1,37 @@
 import { Minus, PackagePlus, Plus } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Product } from "../../models/Product";
+import { CustomerService } from "../../services/implement/CustomerService";
 import { ProductService } from "../../services/implement/ProductService";
 
 interface ProductInfoProps {
   product: Product;
 }
 
+const customerService = CustomerService.getInstance();
+
 function ProductInfo(props: ProductInfoProps) {
-  const [productCount, setProductCount] = useState<number>(1);
   const [imgURL, setImgURL] = useState<string>("");
+  const [productCount, setProductCount] = useState<number>(1);
 
   useEffect(() => {
-    const service = new ProductService();
+    const service = ProductService.getInstance();
     const url = service.getProductImagePath(props.product.sku);
     setImgURL(url);
+
+    customerService.login();
   }, [props.product.sku]);
+
+  const HandleAddToCart = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+
+    for (let i = 0; i < productCount; i++)
+      customerService.loggedInCustomer?.cartProducts.push(props.product);
+
+    setProductCount(1);
+    customerService.update();
+    console.log(customerService.loggedInCustomer?.cartProducts);
+  };
 
   return (
     <div className="w-full h-screen fixed flex items-center justify-center top-0 left-0 z-50 mx-auto bg-gray-500 bg-opacity-50">
@@ -79,7 +95,10 @@ function ProductInfo(props: ProductInfoProps) {
               </div>
             </div>
 
-            <button className="flex items-center justify-center text-sm px-4 py-1.5 border border-winmart rounded-lg hover:bg-winmart hover:text-white font-light text-gray-900 bg-white w-52 mt-12">
+            <button
+              onClick={HandleAddToCart}
+              className="flex items-center justify-center text-sm px-4 py-1.5 border border-winmart rounded-lg hover:bg-winmart hover:text-white font-light text-gray-900 bg-white w-52 mt-12"
+            >
               <span className="mr-1">
                 <PackagePlus size={15} />
               </span>

@@ -7,11 +7,14 @@ import { CategoryService } from "../services/implement/CategoryService";
 import { CustomerService } from "../services/implement/CustomerService";
 
 function Navbar() {
+  const [cart, setCart] = useState<number | undefined>(0);
   const [categories, setCategories] = useState<string[]>([]);
   const [customer, setCustomer] = useState<Customer | undefined>(undefined);
 
+  const customerService = CustomerService.getInstance();
+
   useEffect(() => {
-    const categoryService = new CategoryService();
+    const categoryService = CategoryService.getInstance();
     const arr: string[] = [];
     categoryService.getAll().then((data: Category[]) => {
       for (let i = 0; i < data.length; i++) {
@@ -21,15 +24,18 @@ function Navbar() {
       setCategories(arr);
     });
 
-    const customerService = new CustomerService();
     customerService.login().then(() => {
       setCustomer(customerService.loggedInCustomer);
     });
-  }, []);
+  }, [customerService]);
+
+  useEffect(() => {
+    setCart(customerService.loggedInCustomer?.cartProducts.length);
+  }, [customerService.loggedInCustomer?.cartProducts.length]);
 
   const handleLogOut = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    const customerService = new CustomerService();
+    const customerService = CustomerService.getInstance();
     customerService.logout();
     setCustomer(customerService.loggedInCustomer);
   };
@@ -106,7 +112,7 @@ function Navbar() {
               <span>
                 <ShoppingCart />
               </span>
-              <span>Giỏ hàng</span>
+              <span>Giỏ hàng ({cart ? cart : 0})</span>
             </button>
 
             {customer ? (
