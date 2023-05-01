@@ -88,6 +88,8 @@ public class CustomerService implements ICustomerService {
             n_Customer.setCartProducts(o_Customer.getCartProducts());
         if(n_Customer.getAddresses() == null)
             n_Customer.setAddresses(o_Customer.getAddresses());
+        if(n_Customer.getLoginDetail() == null)
+            n_Customer.setLoginDetail(o_Customer.getLoginDetail());
         Customer retCustomer = customerRepository.save(n_Customer);
         return new CustomerModel(retCustomer);
     }
