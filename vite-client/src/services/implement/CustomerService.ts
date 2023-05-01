@@ -7,12 +7,15 @@ import { http } from "../utils/http";
 export class CustomerService implements ICustomerService {
   private static instance: CustomerService;
   public static getInstance(): CustomerService {
-    if(!CustomerService.instance)
+    if (!CustomerService.instance)
       CustomerService.instance = new CustomerService();
     return CustomerService.instance;
   }
-  private constructor() {}
-  
+
+  private constructor() {
+    return;
+  }
+
   readonly baseUrl = "http://localhost:8080/api/customer";
 
   update(): Promise<void> {
