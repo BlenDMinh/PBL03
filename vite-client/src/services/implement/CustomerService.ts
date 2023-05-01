@@ -5,6 +5,14 @@ import { ICustomerService } from "../ICustomerService";
 import { http } from "../utils/http";
 
 export class CustomerService implements ICustomerService {
+  private static instance: CustomerService;
+  public static getInstance(): CustomerService {
+    if(!CustomerService.instance)
+      CustomerService.instance = new CustomerService();
+    return CustomerService.instance;
+  }
+  private constructor() {}
+  
   readonly baseUrl = "http://localhost:8080/api/customer";
 
   update(): Promise<void> {
