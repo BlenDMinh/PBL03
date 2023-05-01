@@ -1,27 +1,20 @@
-"use client";
+import WinmartLogoRed from "../assets/Company/WinmartLogoRed.png";
 
-import Link from "next/link";
-import Image from "next/image";
-import { FC, useState } from "react";
-import WinmartLogoRed from "/public/WinmartLogoRed.png";
-
-const Page: FC = ({}) => {
-  const [birthday, setBirthday] = useState(new Date());
-
+function Register() {
   return (
     <main className="w-screen h-screen bg-[#f0f8ff] text-gray-900 text-sm">
       <div className="max-w-xl mx-auto h-full flex flex-col justify-center items-center bg-white gap-y-6">
-        <Image
-          src={WinmartLogoRed}
-          alt={"Winmart Logo"}
-          title="Winmart Logo"
-          priority={true}
-          width={225}
-          height={225}
-        />
+        <a href="/">
+          <img
+            src={WinmartLogoRed}
+            alt={"Winmart Logo"}
+            title="Winmart Logo"
+            className="w-80 h-auto"
+          />
+        </a>
 
         <div className="flex flex-col text-sm gap-y-6">
-          <h5 className="text-base">Đăng ký hội viên</h5>
+          <h5 className="text-base my-2">Đăng ký hội viên</h5>
           <form action="" method="POST" className="flex flex-col gap-y-4">
             <input
               type="email"
@@ -96,17 +89,17 @@ const Page: FC = ({}) => {
           </span>
         </div>
 
-        <Link href="/login">
+        <a href="/login">
           <button
             title="Đăng nhập"
             className="hover:bg-gray-200 w-60 border border-winmart p-2 rounded-lg shadow-md text-winmart bg-zinc-50 mx-auto"
           >
             Đăng nhập
           </button>
-        </Link>
+        </a>
       </div>
     </main>
   );
-};
+}
 
-export default Page;
+export default Register;

@@ -8,11 +8,11 @@ interface ProductBoxProps {
   product: Product;
 }
 
-const productService = new ProductService();
-
 function ProductBox(props: ProductBoxProps) {
   const [imgURL, setImgURL] = useState<string>("");
+
   useEffect(() => {
+    const productService = new ProductService();
     const url = productService.getProductImagePath(props.product.sku);
     setImgURL(url);
   }, [props.product.sku]);
@@ -61,12 +61,12 @@ function ProductBox(props: ProductBoxProps) {
           </span>
         </a>
 
-        <button className="flex items-center justify-center text-sm px-4 py-1.5 border border-winmart rounded-lg hover:bg-winmart hover:text-white font-light text-gray-900 bg-white">
+        <div className="flex items-center justify-center text-sm px-4 py-1.5 border border-winmart rounded-lg hover:bg-winmart hover:text-white font-light text-gray-900 bg-white cursor-pointer">
           <span className="mr-1">
             <PackagePlus size={15} />
           </span>
           <span>Thêm vào giỏ</span>
-        </button>
+        </div>
       </button>
     </div>
   );

@@ -1,7 +1,7 @@
-import { Status, StatusEnum } from "./Status";
+import { z } from "zod";
 import { Address, AddressSchema } from "./Address";
 import { Product, ProductsSchema } from "./Product";
-import { z } from "zod";
+import { Status, StatusEnum } from "./Status";
 
 export interface Order {
   status: Status;

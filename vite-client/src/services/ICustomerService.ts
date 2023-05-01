@@ -5,7 +5,7 @@ import { LoginResponse } from "../models/LoginResponse";
 export interface ICustomerService {
   register(customer: Customer, password: string): Promise<void>;
   login(request: LoginRequest): Promise<LoginResponse>;
-  logout(): Promise<void>;
+  logout(): void;
   update(): Promise<void>;
   changePassword(password: string): Promise<void>;
 

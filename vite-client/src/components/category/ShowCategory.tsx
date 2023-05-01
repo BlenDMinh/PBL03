@@ -9,19 +9,20 @@ interface ShowCategoryProps {
   name: string;
 }
 
-const service = new ProductService();
-
 function ShowCategory(props: ShowCategoryProps) {
   const [productList, setProductList] = useState<Product[]>([]);
+
   useEffect(() => {
     const arr: Product[] = [];
-    service.getByCategory(props.id, 1, 10).then((data) => {
+    const service = new ProductService();
+    service.getByCategory(props.id, 1, 20).then((data) => {
       for (let i = 0; i < data.length; i++) arr.push(data[i]);
+      arr.sort((a, b) => a.listedPrice - b.listedPrice);
       setProductList(arr);
     });
   }, [props.id]);
 
-  if (productList.length == 0) return;
+  if (productList.length == 0) return <div></div>;
 
   return (
     <div className="p-6 bg-white shadow-md rounded-lg mb-6">

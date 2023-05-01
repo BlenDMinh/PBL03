@@ -7,13 +7,12 @@ interface ProductInfoProps {
   product: Product;
 }
 
-const service = new ProductService();
-
 function ProductInfo(props: ProductInfoProps) {
   const [productCount, setProductCount] = useState<number>(1);
   const [imgURL, setImgURL] = useState<string>("");
 
   useEffect(() => {
+    const service = new ProductService();
     const url = service.getProductImagePath(props.product.sku);
     setImgURL(url);
   }, [props.product.sku]);
@@ -21,7 +20,7 @@ function ProductInfo(props: ProductInfoProps) {
   return (
     <div className="w-full h-screen fixed flex items-center justify-center top-0 left-0 z-50 mx-auto bg-gray-500 bg-opacity-50">
       <div className="w-full p-28">
-        <div className="flex p-8 bg-gray-50 rounded-lg shadow-md items-center justify-between my-4 text-gray-900">
+        <div className="flex p-8 bg-white rounded-lg shadow-md items-center justify-between my-4 text-gray-900">
           <div className="w-1/2">
             <img
               src={imgURL}
@@ -90,7 +89,7 @@ function ProductInfo(props: ProductInfoProps) {
         </div>
 
         <div className="flex gap-x-8 mt-4">
-          <div className="flex flex-col rounded-lg shadow-md bg-gray-100 p-6 w-2/3 text-sm gap-y-4 overflow-auto">
+          <div className="flex flex-col rounded-lg shadow-md bg-white p-6 w-2/3 text-sm gap-y-4 overflow-auto">
             <h5 className="text-xl font-semibold">Mô tả</h5>
 
             {props.product.description ? (
@@ -115,7 +114,7 @@ function ProductInfo(props: ProductInfoProps) {
             )}
           </div>
 
-          <div className="flex flex-col rounded-lg shadow-md bg-gray-100 p-6 w-1/3 text-sm text-gray-900">
+          <div className="flex flex-col rounded-lg shadow-md bg-white p-6 w-1/3 text-sm text-gray-900">
             <h5 className="text-xl font-semibold">Thông tin</h5>
 
             <div className="flex my-4 items-center">

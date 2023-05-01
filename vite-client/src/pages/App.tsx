@@ -1,12 +1,9 @@
 import { useEffect, useState } from "react";
-import "./App.css";
-import Footer from "./components/Footer";
-import Navbar from "./components/Navbar";
-import ShowCategory from "./components/category/ShowCategory";
-import { Category } from "./models/Category";
-import { CategoryService } from "./services/implement/CategoryService";
-
-const categoryService = new CategoryService();
+import Footer from "../components/Footer";
+import Navbar from "../components/Navbar";
+import ShowCategory from "../components/category/ShowCategory";
+import { Category } from "../models/Category";
+import { CategoryService } from "../services/implement/CategoryService";
 
 function App() {
   const [categories, setCategories] = useState<number[]>([]);
@@ -15,6 +12,8 @@ function App() {
   useEffect(() => {
     const id: number[] = [];
     const name: string[] = [];
+    const categoryService = new CategoryService();
+
     categoryService.getAll().then((data: Category[]) => {
       for (let i = 0; i < data.length; i++) {
         const categoryId = data[i].categoryId;
@@ -29,7 +28,7 @@ function App() {
 
   return (
     <main className="bg-gray-100 w-[calc(100vw - 12px)] relative">
-      <Navbar user={undefined} />
+      <Navbar />
       <div className="max-w-6xl mx-auto">
         {categories.map((val, id) => {
           return (
