@@ -29,7 +29,7 @@ export class CustomerService implements ICustomerService {
   async login(
     request: LoginRequest | undefined = undefined
   ): Promise<LoginResponse> {
-    if (request == undefined) {
+    if (request === undefined) {
       if (!localStorage.token) return Promise.reject();
       request = {
         token: localStorage.token,
@@ -45,9 +45,11 @@ export class CustomerService implements ICustomerService {
     return response;
   }
 
-  logout(): Promise<void> {
-    throw new Error("Method not implemented.");
-  }
+  logout = () => {
+    // throw new Error("Method not implemented.");
+    this.loggedInCustomer = undefined;
+    localStorage.token = undefined;
+  };
 
   changePassword(password: string): Promise<void> {
     if (this.loggedInCustomer == undefined) return Promise.reject();

@@ -4,27 +4,35 @@ import WinmartLogoWhite from "../assets/Company/WinmartLogoWhite.png";
 import { Category } from "../models/Category";
 import { Customer } from "../models/Customer";
 import { CategoryService } from "../services/implement/CategoryService";
+import { CustomerService } from "../services/implement/CustomerService";
 
-const service = new CategoryService();
-
-interface NavbarProps {
-  user: Customer | null | undefined;
-}
-
-function Navbar(props: NavbarProps) {
+function Navbar() {
   const [categories, setCategories] = useState<string[]>([]);
+  const [customer, setCustomer] = useState<Customer | undefined>(undefined);
 
   useEffect(() => {
+    const categoryService = new CategoryService();
     const arr: string[] = [];
-
-    service.getAll().then((data: Category[]) => {
+    categoryService.getAll().then((data: Category[]) => {
       for (let i = 0; i < data.length; i++) {
         const categoryName = data[i].categoryName;
         arr.push(categoryName);
       }
       setCategories(arr);
     });
+
+    const customerService = new CustomerService();
+    customerService.login().then(() => {
+      setCustomer(customerService.loggedInCustomer);
+    });
   }, []);
+
+  const handleLogOut = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    const customerService = new CustomerService();
+    customerService.logout();
+    setCustomer(customerService.loggedInCustomer);
+  };
 
   return (
     <header className="sticky top-0 w-[calc(100vw - 12px)] bg-winmart mb-6 text-sm text-gray-900 z-10">
@@ -101,19 +109,20 @@ function Navbar(props: NavbarProps) {
               <span>Giỏ hàng</span>
             </button>
 
-            {props.user ? (
+            {customer ? (
               <button
-                title="Hội viên"
+                onClick={handleLogOut}
+                title="Đăng xuất"
                 className="text-white flex items-center gap-x-2 p-2"
               >
                 <span>
                   <User />
                 </span>
-                <span>{props.user.customerName}</span>
+                <span>{customer.customerName}</span>
               </button>
             ) : (
               <a
-                href="/login/"
+                href="/login"
                 className="text-white flex items-center gap-x-2 p-2"
               >
                 <span>

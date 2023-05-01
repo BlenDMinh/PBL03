@@ -1,10 +1,7 @@
-import "../index.css";
-import React from "react";
-import ReactDOM from "react-dom";
 import WinmartLogoRed from "../assets/Company/WinmartLogoRed.png";
 
-ReactDOM.render(
-  <React.StrictMode>
+function Register() {
+  return (
     <main className="w-screen h-screen bg-[#f0f8ff] text-gray-900 text-sm">
       <div className="max-w-xl mx-auto h-full flex flex-col justify-center items-center bg-white gap-y-6">
         <a href="/">
@@ -92,7 +89,7 @@ ReactDOM.render(
           </span>
         </div>
 
-        <a href="/login/">
+        <a href="/login">
           <button
             title="Đăng nhập"
             className="hover:bg-gray-200 w-60 border border-winmart p-2 rounded-lg shadow-md text-winmart bg-zinc-50 mx-auto"
@@ -102,6 +99,7 @@ ReactDOM.render(
         </a>
       </div>
     </main>
-  </React.StrictMode>,
-  document.getElementById("root")
-);
+  );
+}
+
+export default Register;
