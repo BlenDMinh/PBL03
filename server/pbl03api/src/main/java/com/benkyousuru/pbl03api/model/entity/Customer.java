@@ -79,14 +79,14 @@ public class Customer {
             this.orders = new ArrayList<>();
         if(this.cartProducts == null)
             this.cartProducts = new ArrayList<>();
-        // if(model.getCartProducts() != null) {
-        //     this.cartProducts.clear();
-        //     this.cartProducts.addAll(model.getCartProducts().stream().map(e -> new Product(e)).collect(Collectors.toList()));
-        // }
-        // if(model.getOrders() != null) {
-        //     this.orders.clear();
-        //     this.orders.addAll(model.getOrders().stream().map(e -> new Order(e)).collect(Collectors.toList()));
-        // }
+        if(model.getCartProducts() != null) {
+            this.cartProducts.clear();
+            this.cartProducts.addAll(model.getCartProducts().stream().map(e -> new Product(e)).toList());
+        }
+        if(model.getOrders() != null) {
+            this.orders.clear();
+            this.orders.addAll(model.getOrders().stream().map(e -> new Order(e)).toList());
+        }
         if(model.getAddresses() != null) {
             this.addresses.clear();
             model.getAddresses().forEach(e -> addAddress(new Address(e)));
