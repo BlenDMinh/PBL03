@@ -57,7 +57,6 @@ export class CustomerService implements ICustomerService {
   }
 
   logout = () => {
-    // throw new Error("Method not implemented.");
     this.loggedInCustomer = undefined;
     localStorage.token = undefined;
   };

@@ -22,8 +22,9 @@ function Login() {
       email: (e.currentTarget.elements[0] as HTMLInputElement).value,
       password: (e.currentTarget.elements[1] as HTMLInputElement).value,
     };
-    service.login(request);
-    if (service.loggedInCustomer !== undefined) navigate("/");
+    service.login(request).then(() => {
+      if (service.loggedInCustomer !== undefined) navigate("/");
+    });
   };
 
   return (

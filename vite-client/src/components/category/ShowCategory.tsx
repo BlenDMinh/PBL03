@@ -15,14 +15,14 @@ function ShowCategory(props: ShowCategoryProps) {
   useEffect(() => {
     const arr: Product[] = [];
     const service = ProductService.getInstance();
-    service.getByCategory(props.id, 1, 20).then((data) => {
+    service.getByCategory(props.id, 1, 15).then((data) => {
       for (let i = 0; i < data.length; i++) arr.push(data[i]);
       arr.sort((a, b) => a.listedPrice - b.listedPrice);
       setProductList(arr);
     });
   }, [props.id]);
 
-  if (productList.length == 0) return <div></div>;
+  if (productList.length == 0) return <></>;
 
   return (
     <div className="p-6 bg-white shadow-md rounded-lg mb-6">

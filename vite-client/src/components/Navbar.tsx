@@ -1,37 +1,27 @@
-import { ChevronDown, Search, ShoppingCart, User } from "lucide-react";
+import { ChevronDown, Search, User } from "lucide-react";
 import { useEffect, useState } from "react";
 import WinmartLogoWhite from "../assets/Company/WinmartLogoWhite.png";
 import { Category } from "../models/Category";
 import { Customer } from "../models/Customer";
 import { CategoryService } from "../services/implement/CategoryService";
 import { CustomerService } from "../services/implement/CustomerService";
+import Cartbar from "./cart/Cartbar";
 
 function Navbar() {
-  const [cart, setCart] = useState<number | undefined>(0);
-  const [categories, setCategories] = useState<string[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [customer, setCustomer] = useState<Customer | undefined>(undefined);
-
-  const customerService = CustomerService.getInstance();
 
   useEffect(() => {
     const categoryService = CategoryService.getInstance();
-    const arr: string[] = [];
     categoryService.getAll().then((data: Category[]) => {
-      for (let i = 0; i < data.length; i++) {
-        const categoryName = data[i].categoryName;
-        arr.push(categoryName);
-      }
-      setCategories(arr);
+      setCategories(data);
     });
 
+    const customerService = CustomerService.getInstance();
     customerService.login().then(() => {
       setCustomer(customerService.loggedInCustomer);
     });
-  }, [customerService]);
-
-  useEffect(() => {
-    setCart(customerService.loggedInCustomer?.cartProducts.length);
-  }, [customerService.loggedInCustomer?.cartProducts.length]);
+  }, []);
 
   const handleLogOut = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -72,7 +62,7 @@ function Navbar() {
                         key={id}
                         className="hover:bg-winmart hover:text-white rounded-md hover:shadow-md px-3 py-1 font-light"
                       >
-                        <span>{val}</span>
+                        <span>{val.categoryName}</span>
                       </a>
                     );
                   })}
@@ -105,15 +95,7 @@ function Navbar() {
           </div>
 
           <div className="flex items-center gap-x-4">
-            <button
-              title="Giỏ hàng"
-              className="text-white flex items-center gap-x-2 p-2"
-            >
-              <span>
-                <ShoppingCart />
-              </span>
-              <span>Giỏ hàng ({cart ? cart : 0})</span>
-            </button>
+            <Cartbar />
 
             {customer ? (
               <button

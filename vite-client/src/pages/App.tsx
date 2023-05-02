@@ -27,7 +27,7 @@ function App() {
   }, []);
 
   return (
-    <main className="bg-gray-100 w-[calc(100vw - 12px)] relative select-none">
+    <main className="bg-gray-100 w-[calc(100vw - 12px)] relative select-none font-sans">
       <Navbar />
       <div className="max-w-6xl mx-auto">
         {categories.map((val, id) => {

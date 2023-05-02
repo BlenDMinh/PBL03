@@ -4,6 +4,7 @@ import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./index.css";
 import App from "./pages/App.tsx";
+import Cart from "./pages/Cart.tsx";
 import Login from "./pages/Login.tsx";
 import Register from "./pages/Register.tsx";
 
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <Register />,
+  },
+  {
+    path: "/cart",
+    element: <Cart />,
   },
 ]);
 

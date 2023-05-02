@@ -8,9 +8,9 @@ interface ProductInfoProps {
   product: Product;
 }
 
-const customerService = CustomerService.getInstance();
-
 function ProductInfo(props: ProductInfoProps) {
+  const customerService = CustomerService.getInstance();
+
   const [imgURL, setImgURL] = useState<string>("");
   const [productCount, setProductCount] = useState<number>(1);
 
@@ -20,7 +20,7 @@ function ProductInfo(props: ProductInfoProps) {
     setImgURL(url);
 
     customerService.login();
-  }, [props.product.sku]);
+  }, [customerService, props.product.sku]);
 
   const HandleAddToCart = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -30,11 +30,10 @@ function ProductInfo(props: ProductInfoProps) {
 
     setProductCount(1);
     customerService.update();
-    console.log(customerService.loggedInCustomer?.cartProducts);
   };
 
   return (
-    <div className="w-full h-screen fixed flex items-center justify-center top-0 left-0 z-50 mx-auto bg-gray-500 bg-opacity-50">
+    <div className="w-full h-screen fixed flex items-center justify-center top-0 left-0 z-50 mx-auto bg-black bg-opacity-75">
       <div className="w-full p-28">
         <div className="flex p-8 bg-white rounded-lg shadow-md items-center justify-between my-4 text-gray-900">
           <div className="w-1/2">
@@ -61,7 +60,7 @@ function ProductInfo(props: ProductInfoProps) {
             <div className="h-px w-full bg-gray-400 my-6"></div>
 
             <div className="flex gap-x-16 items-center">
-              <span className="text-gray-500">Vận chuyển</span>
+              <span className="font-semibold">Vận chuyển</span>
               <div className="flex flex-col gap-y-1">
                 <span>Miễn phí giao hàng cho đơn từ 300.000đ.</span>
                 <span>Giao hàng trong 2 giờ.</span>
@@ -71,7 +70,7 @@ function ProductInfo(props: ProductInfoProps) {
             <div className="h-px w-full bg-gray-400 my-6"></div>
 
             <div className="flex gap-x-20 items-center">
-              <span>Số lượng</span>
+              <span className="font-semibold">Số lượng</span>
               <div className="flex items-center border border-gray-400 rounded-lg overflow-hidden">
                 <button
                   onClick={() =>
