@@ -14,7 +14,7 @@ function ShowCategory(props: ShowCategoryProps) {
 
   useEffect(() => {
     const arr: Product[] = [];
-    const service = new ProductService();
+    const service = ProductService.getInstance();
     service.getByCategory(props.id, 1, 20).then((data) => {
       for (let i = 0; i < data.length; i++) arr.push(data[i]);
       arr.sort((a, b) => a.listedPrice - b.listedPrice);

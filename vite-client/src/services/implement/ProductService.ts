@@ -6,11 +6,15 @@ import { http } from "../utils/http";
 export class ProductService implements IProductService {
   private static instance: ProductService;
   public static getInstance(): ProductService {
-    if(!ProductService.instance)
+    if (!ProductService.instance)
       ProductService.instance = new ProductService();
     return ProductService.instance;
   }
-  private constructor() {}
+
+  private constructor() {
+    return;
+  }
+
   readonly baseUrl = "http://localhost:8080/api/product";
   getProductImagePath(id: number): string {
     return this.baseUrl + `/image/${id}`;

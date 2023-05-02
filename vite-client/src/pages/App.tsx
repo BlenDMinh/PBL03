@@ -12,7 +12,7 @@ function App() {
   useEffect(() => {
     const id: number[] = [];
     const name: string[] = [];
-    const categoryService = new CategoryService();
+    const categoryService = CategoryService.getInstance();
 
     categoryService.getAll().then((data: Category[]) => {
       for (let i = 0; i < data.length; i++) {
@@ -27,7 +27,7 @@ function App() {
   }, []);
 
   return (
-    <main className="bg-gray-100 w-[calc(100vw - 12px)] relative">
+    <main className="bg-gray-100 w-[calc(100vw - 12px)] relative select-none">
       <Navbar />
       <div className="max-w-6xl mx-auto">
         {categories.map((val, id) => {

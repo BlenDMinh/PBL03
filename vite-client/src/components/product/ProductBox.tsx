@@ -12,7 +12,7 @@ function ProductBox(props: ProductBoxProps) {
   const [imgURL, setImgURL] = useState<string>("");
 
   useEffect(() => {
-    const productService = new ProductService();
+    const productService = ProductService.getInstance();
     const url = productService.getProductImagePath(props.product.sku);
     setImgURL(url);
   }, [props.product.sku]);

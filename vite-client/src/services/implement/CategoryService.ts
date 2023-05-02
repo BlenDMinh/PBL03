@@ -7,11 +7,15 @@ import { http } from "../utils/http";
 export class CategoryService implements ICategoryService {
   private static instance: CategoryService;
   public static getInstance(): CategoryService {
-    if(!CategoryService.instance)
+    if (!CategoryService.instance)
       CategoryService.instance = new CategoryService();
     return CategoryService.instance;
   }
-  private constructor() {}
+
+  private constructor() {
+    return;
+  }
+
   // readonly baseUrl = import.meta.env.VITE_API_URL + "/api/category";
   readonly baseUrl = "http://localhost:8080/api/category";
 

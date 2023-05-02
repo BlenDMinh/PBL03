@@ -1,5 +1,5 @@
 import { Key, User } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import WinmartLogoRed from "../assets/Company/WinmartLogoRed.png";
 import { LoginRequest } from "../models/LoginRequest";
@@ -12,18 +12,22 @@ function Login() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
+  useEffect(() => {
+    document.title = "Đăng nhập | Winmart";
+  }, []);
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const request: LoginRequest = {
-      email: e.currentTarget.elements[0].value,
-      password: e.currentTarget.elements[1].value,
+      email: (e.currentTarget.elements[0] as HTMLInputElement).value,
+      password: (e.currentTarget.elements[1] as HTMLInputElement).value,
     };
     service.login(request);
     if (service.loggedInCustomer !== undefined) navigate("/");
   };
 
   return (
-    <main className="w-screen h-screen bg-[#f0f8ff]">
+    <main className="w-screen h-screen bg-[#f0f8ff] select-none">
       <div className="max-w-xl mx-auto h-full flex flex-col justify-center items-center bg-white">
         <a href="/">
           <img

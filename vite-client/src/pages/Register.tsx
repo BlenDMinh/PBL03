@@ -1,8 +1,13 @@
+import { useEffect } from "react";
 import WinmartLogoRed from "../assets/Company/WinmartLogoRed.png";
 
 function Register() {
+  useEffect(() => {
+    document.title = "Đăng ký | Winmart";
+  }, []);
+
   return (
-    <main className="w-screen h-screen bg-[#f0f8ff] text-gray-900 text-sm">
+    <main className="w-screen h-screen bg-[#f0f8ff] text-gray-900 text-sm select-none">
       <div className="max-w-xl mx-auto h-full flex flex-col justify-center items-center bg-white gap-y-6">
         <a href="/">
           <img
