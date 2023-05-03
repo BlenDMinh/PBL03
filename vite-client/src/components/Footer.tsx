@@ -62,8 +62,8 @@ function Footer() {
   ];
 
   return (
-    <footer className="bg-[#2c2c2c] text-xs text-white mt-6">
-      <div className="flex gap-x-8 max-w-6xl mx-auto py-4">
+    <footer className="bg-[#2c2c2c] text-xs text-white mt-6 bottom-0">
+      <div className="flex gap-x-8 w-[80vw] mx-auto py-4">
         <div className="flex flex-col gap-y-2 w-1/4">
           <img
             src={WinmartLogoWhite}
@@ -151,7 +151,7 @@ function Footer() {
 
       <div className="h-px w-full bg-gray-400"></div>
 
-      <div className="bg-[#2c2c2c] text-xs text-white flex items-center gap-x-10 max-w-6xl mx-auto py-4">
+      <div className="bg-[#2c2c2c] text-xs text-white flex items-center gap-x-10 w-[80vw] mx-auto py-4">
         <div className="p-4 flex flex-col w-1/3 bg-[#8c8c8c1a] rounded-md ">
           <h5 className="text-gray-400 text-base font-semibold mb-4">
             Địa chỉ giao dịch Hà Nội:

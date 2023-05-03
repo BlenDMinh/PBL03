@@ -1,5 +1,6 @@
 import { Minus, PackagePlus, Plus } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Product } from "../../models/Product";
 import { CustomerService } from "../../services/implement/CustomerService";
 import { ProductService } from "../../services/implement/ProductService";
@@ -9,7 +10,7 @@ interface ProductInfoProps {
 }
 
 function ProductInfo(props: ProductInfoProps) {
-  const customerService = CustomerService.getInstance();
+  const navigate = useNavigate();
 
   const [imgURL, setImgURL] = useState<string>("");
   const [productCount, setProductCount] = useState<number>(1);
@@ -19,17 +20,22 @@ function ProductInfo(props: ProductInfoProps) {
     const url = service.getProductImagePath(props.product.sku);
     setImgURL(url);
 
+    const customerService = CustomerService.getInstance();
     customerService.login();
-  }, [customerService, props.product.sku]);
+  }, [props.product.sku]);
 
   const HandleAddToCart = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
-    for (let i = 0; i < productCount; i++)
-      customerService.loggedInCustomer?.cartProducts.push(props.product);
+    const customerService = CustomerService.getInstance();
+    customerService.login().then(() => {
+      for (let i = 0; i < productCount; i++)
+        customerService.loggedInCustomer?.cartProducts.push(props.product);
 
-    setProductCount(1);
-    customerService.update();
+      customerService.update();
+
+      navigate(0);
+    });
   };
 
   return (
