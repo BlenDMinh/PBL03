@@ -20,6 +20,7 @@ function Cart() {
   const [sumPrice, setSumPrice] = useState<number>(0);
 
   useEffect(() => {
+    document.title = "Giỏ hàng | Winmart";
     try {
       const customerService = CustomerService.getInstance();
       customerService.login().then(() => {
@@ -28,9 +29,11 @@ function Cart() {
 
         const hadChecked = new Array(cartProducts?.length).fill(false);
         const arr: optimizedCart[] = [];
+        let sum = 0;
 
         for (let i = 0; cartProducts && i < cartProducts.length; i++) {
           let cnt = 1;
+          sum += cartProducts[i].listedPrice;
 
           for (let j = i + 1; j < cartProducts.length; j++)
             if (!hadChecked[j] && cartProducts[i].sku === cartProducts[j].sku) {
@@ -47,6 +50,7 @@ function Cart() {
         }
 
         setCustomerProduct(arr);
+        setSumPrice(sum);
       });
     } catch (error) {
       console.error(error);
@@ -84,9 +88,17 @@ function Cart() {
   return (
     <main className="bg-gray-100 w-[calc(100vw - 12px)] relative select-none font-sans">
       <Navbar />
-      <div className="w-[80vw] mx-auto min-h-[45vh] flex items-center">
+      <div className="w-[80vw] mx-auto min-h-[45vh] flex items-center justify-center">
         <div className="bg-white rounded-md shadow-md w-full flex flex-col gap-y-4 text-gray-900 text-sm p-4">
-          <span className="m-2 text-lg font-semibold">Giỏ hàng hiện tại</span>
+          <div className="flex justify-between items-center m-4 text-lg">
+            <span className="font-semibold">Giỏ hàng hiện tại</span>
+            <span className="text-sm">
+              Tổng đơn hàng:
+              <span className="text-winmart ml-2 text-lg">
+                {sumPrice.toLocaleString()} ₫
+              </span>
+            </span>
+          </div>
           {customerProduct.map((val, id) => {
             return (
               <div
@@ -112,6 +124,7 @@ function Cart() {
                 </span>
 
                 <button
+                  title="Xoá sản phẩm này"
                   onClick={(event) => {
                     event.preventDefault;
 
@@ -147,7 +160,8 @@ function Cart() {
           })}
           <button
             onClick={handleDeleteCart}
-            className="text-base hover:underline"
+            title="Xoá toàn bộ giỏ hàng"
+            className="text-base hover:underline hover:text-winmart w-fit mx-1 p-1"
           >
             Xoá toàn bộ giỏ hàng
           </button>

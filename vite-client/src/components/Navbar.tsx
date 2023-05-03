@@ -34,7 +34,7 @@ function Navbar() {
     <header className="sticky top-0 w-[calc(100vw - 12px)] bg-winmart mb-6 text-sm text-gray-900 z-10">
       <div className="w-[80vw] mx-auto py-2">
         <div className="flex items-center justify-between">
-          <a href="/">
+          <a href="/" title="Trang chủ">
             <img
               src={WinmartLogoWhite}
               alt={"Winmart Logo"}
@@ -60,6 +60,7 @@ function Navbar() {
                       <a
                         href="/"
                         key={id}
+                        title={`Danh mục ${val.categoryName}`}
                         className="hover:bg-winmart hover:text-white rounded-md hover:shadow-md px-3 py-1 font-light"
                       >
                         <span>{val.categoryName}</span>
@@ -111,6 +112,7 @@ function Navbar() {
             ) : (
               <a
                 href="/login"
+                title="Đăng nhập"
                 className="text-white flex items-center gap-x-2 p-2"
               >
                 <span>
