@@ -112,28 +112,24 @@ function Cart() {
                 </span>
 
                 <button
-                  onClick={(event) => {
+                  onClick={async (event) => {
                     event.preventDefault;
 
                     const customerService = CustomerService.getInstance();
                     if (customerService.loggedInCustomer) {
                       let position =
-                        customerService.loggedInCustomer.cartProducts.indexOf(
-                          val.product
-                        );
-
+                        customerService.loggedInCustomer.cartProducts.findIndex(e => e.sku = val.product.sku);
                       while (position != -1) {
+                        console.log(position);
                         customerService.loggedInCustomer.cartProducts.splice(
                           position,
                           1
                         );
                         position =
-                          customerService.loggedInCustomer.cartProducts.indexOf(
-                            val.product
-                          );
+                        customerService.loggedInCustomer.cartProducts.findIndex(e => e.sku = val.product.sku);
                       }
 
-                      customerService.update();
+                      await customerService.update();
                     }
 
                     navigate(0);
