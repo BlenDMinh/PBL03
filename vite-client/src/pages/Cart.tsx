@@ -120,7 +120,7 @@ function Cart() {
                 </div>
 
                 <span className="text-base text-winmart">
-                  {val.product.listedPrice.toLocaleString()} ₫
+                  {(val.product.listedPrice * val.quantity).toLocaleString()} ₫
                 </span>
 
                 <button
@@ -129,18 +129,10 @@ function Cart() {
                     event.preventDefault;
 
                     const customerService = CustomerService.getInstance();
+                    
                     if (customerService.loggedInCustomer) {
-                      let position =
-                        customerService.loggedInCustomer.cartProducts.findIndex(e => e.sku = val.product.sku);
-                      while (position != -1) {
-                        console.log(position);
-                        customerService.loggedInCustomer.cartProducts.splice(
-                          position,
-                          1
-                        );
-                        position =
-                        customerService.loggedInCustomer.cartProducts.findIndex(e => e.sku = val.product.sku);
-                      }
+                      let delSku = val.product.sku;
+                      customerService.loggedInCustomer.cartProducts = customerService.loggedInCustomer.cartProducts.filter(e => e.sku != delSku);
 
                       await customerService.update();
                     }

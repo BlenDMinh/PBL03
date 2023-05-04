@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import { z } from "zod";
-import { CategoriesSchema, CategorySchema } from "../../models/Category";
+import { CategoriesSchema, Category, CategorySchema } from "../../models/Category";
 import { ICategoryService } from "../ICategoryService";
 import { http } from "../utils/http";
 
@@ -20,12 +20,10 @@ export class CategoryService implements ICategoryService {
   readonly baseUrl = "http://localhost:8080/api/category";
 
   async getAll(): Promise<z.infer<typeof CategoriesSchema>> {
-    const data = await http.get(this.baseUrl);
-    return CategoriesSchema.parse(data);
+    return http.get(this.baseUrl).then((e) => CategoriesSchema.parse(e) as z.infer<typeof CategoriesSchema>);
   }
 
   async getById(id: number): Promise<z.infer<typeof CategorySchema>> {
-    const data = await http.get(this.baseUrl + `/${id}`);
-    return CategorySchema.parse(data);
+    return http.get(this.baseUrl + `/${id}`).then((e) => CategorySchema.parse(e) as z.infer<typeof CategorySchema>);
   }
 }

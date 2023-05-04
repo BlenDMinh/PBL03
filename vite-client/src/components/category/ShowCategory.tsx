@@ -29,7 +29,7 @@ function ShowCategory(props: ShowCategoryProps) {
       <div className="flex items-center justify-between mb-4">
         <h3 className="font-semibold text-lg text-gray-900">{props.name}</h3>
         <a
-          href=""
+          href={"/category/" + props.id}
           className="text-base text-winmart flex items-center hover:underline"
         >
           Xem thêm

@@ -58,7 +58,7 @@ function Navbar() {
                   {categories?.map((val, id) => {
                     return (
                       <a
-                        href="/"
+                        href={"/category/" + val.categoryId}
                         key={id}
                         title={`Danh mục ${val.categoryName}`}
                         className="hover:bg-winmart hover:text-white rounded-md hover:shadow-md px-3 py-1 font-light"

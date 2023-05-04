@@ -7,6 +7,7 @@ import App from "./pages/App.tsx";
 import Cart from "./pages/Cart.tsx";
 import Login from "./pages/Login.tsx";
 import Register from "./pages/Register.tsx";
+import CategoryProduct from "./pages/CategoryProduct.tsx";
 
 // Create a client
 const queryClient = new QueryClient();
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
     path: "/cart",
     element: <Cart />,
   },
+  {
+    path: "/category/:id",
+    element: <CategoryProduct />
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
