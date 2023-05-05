@@ -1,16 +1,12 @@
-import { ChevronDown, User } from "lucide-react";
-import { lazy, useEffect, useState } from "react";
+import { ChevronDown, Search, User } from "lucide-react";
+import { useEffect, useState } from "react";
 import WinmartLogoWhite from "../assets/Company/WinmartLogoWhite.png";
 import { Category } from "../models/Category";
 import { Customer } from "../models/Customer";
 import { CategoryService } from "../services/implement/CategoryService";
 import { CustomerService } from "../services/implement/CustomerService";
+import Cartbar from "./cart/Cartbar";
 
-// Components
-const Cartbar = lazy(() => import("./cart/Cartbar"));
-const Searchbar = lazy(() => import("./Searchbar"));
-
-// Main function
 function Navbar() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [customer, setCustomer] = useState<Customer | undefined>(undefined);
@@ -75,7 +71,28 @@ function Navbar() {
               </div>
             </div>
 
-            <Searchbar />
+            <form
+              action=""
+              method=""
+              className="flex items-center border-l border-gray-300"
+            >
+              <input
+                type="text"
+                name="search"
+                id="search"
+                title="Tìm kiếm"
+                placeholder="Tìm sản phẩm, thương hiệu, ..."
+                className="bg-gray-50 outline-none px-3 py-2 w-72"
+              />
+
+              <button
+                type="submit"
+                title="Xác nhận tìm kiếm"
+                className="p-2 bg-gray-100 hover:bg-gray-200"
+              >
+                <Search />
+              </button>
+            </form>
           </div>
 
           <div className="flex items-center gap-x-4">
