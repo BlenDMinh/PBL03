@@ -40,6 +40,7 @@ public class OrderService implements IOrderService {
         Optional<Order> order = orderRepository.findById(model.getOrderId());
         if (order.isPresent())
             throw new RuntimeException("Order with id = " + model.getOrderId().toString() + " is already presented");
+        
         Order retOrder = orderRepository.save(new Order(model));   
         return new OrderModel(retOrder);
     }

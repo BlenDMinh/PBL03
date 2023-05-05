@@ -15,6 +15,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Temporal;
@@ -34,7 +35,6 @@ import lombok.Setter;
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "order_id")
     private Integer orderId;
 
     @OneToOne(targetEntity = Address.class)
@@ -49,13 +49,13 @@ public class Order {
     @Enumerated(EnumType.ORDINAL)
     private Status status;
 
-    @OneToMany(targetEntity = Product.class, fetch = FetchType.LAZY)
-    @JoinColumn(name = "productId")
+    @ManyToMany(targetEntity = Product.class, fetch = FetchType.LAZY)
     private List<Product> products;
 
     public Order(OrderModel order) {
         this.orderId = order.getOrderId();
-        this.address = new Address(order.getAddress());
+        if(order.getAddress() != null)
+            this.address = new Address(order.getAddress());
         this.dateCreated = order.getDateCreated();
         this.dateCompleted = order.getDateCompleted();
         this.status = order.getStatus();

@@ -58,7 +58,6 @@ public class Customer {
     @Builder.Default
     private List<Product> cartProducts = new ArrayList<>();
 
-    @JoinColumn(name = "order_id")
     @Builder.Default
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Order> orders = new ArrayList<>();
