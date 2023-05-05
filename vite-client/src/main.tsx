@@ -8,7 +8,7 @@ import Cart from "./pages/Cart.tsx";
 import CategoryProduct from "./pages/CategoryProduct.tsx";
 import Login from "./pages/Login.tsx";
 import Register from "./pages/Register.tsx";
-import OrderPage from "./pages/OrderPage.tsx";
+import OrderListPage from "./pages/OrderListPage.tsx";
 
 // Create a client
 const queryClient = new QueryClient();
@@ -37,7 +37,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/order",
-    element: <OrderPage />
+    element: <OrderListPage />
   }
 ]);
 
