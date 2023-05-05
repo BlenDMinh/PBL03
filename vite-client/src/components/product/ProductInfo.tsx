@@ -39,15 +39,15 @@ function ProductInfo(props: ProductInfoProps) {
   };
 
   return (
-    <div className="w-screen h-full fixed flex items-center justify-center top-0 left-0 z-50 bg-black bg-opacity-75">
-      <div className="w-full h-full max-w-[80vw]">
-        <div className="flex p-8 bg-white rounded-lg shadow-md items-center justify-between text-gray-900 mt-12">
+    <div className="w-full h-screen fixed flex items-center justify-center top-0 left-0 z-50 mx-auto bg-black bg-opacity-75">
+      <div className="w-full p-28">
+        <div className="flex p-8 bg-white rounded-lg shadow-md items-center justify-between my-4 text-gray-900">
           <div className="w-1/2">
             <img
               src={imgURL}
               alt={`Hình ảnh sản phẩm ${props.product.productName}`}
               title={`Hình ảnh sản phẩm ${props.product.productName}`}
-              className="rounded-lg w-auto h-auto max-h-[60vh] mx-auto"
+              className="rounded-lg w-2/3 h-auto mx-auto"
             />
           </div>
 
