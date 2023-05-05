@@ -88,71 +88,82 @@ function Cart() {
   return (
     <main className="bg-gray-100 w-[calc(100vw - 12px)] relative select-none font-sans">
       <Navbar />
-      <div className="w-[80vw] mx-auto min-h-[45vh] flex items-center justify-center">
-        <div className="bg-white rounded-md shadow-md w-full flex flex-col gap-y-4 text-gray-900 text-sm p-4">
-          <div className="flex justify-between items-center m-4 text-lg">
-            <span className="font-semibold">Giỏ hàng hiện tại</span>
-            <span className="text-sm">
-              Tổng đơn hàng:
-              <span className="text-winmart ml-2 text-lg">
-                {sumPrice.toLocaleString()} ₫
-              </span>
-            </span>
+      <div className="w-[80vw] mx-auto min-h-[41vh] flex items-center justify-center">
+        <div className="w-full flex gap-x-6">
+          <div className="bg-white w-1/6 rounded-md shadow-md flex flex-col py-4 gap-y-2 h-fit">
+            <button className="p-4 hover:bg-gray-50">Giỏ hàng</button>
+            <button className="p-4 hover:bg-gray-50">Đơn hàng</button>
           </div>
-          {customerProduct.map((val, id) => {
-            return (
-              <div
-                key={id}
-                className="flex items-center justify-between px-4 py-2 border-b border-gray-100 rounded-md last:border-none hover:shadow-md"
-              >
-                <img
-                  src={val.imgUrl}
-                  alt={`Ảnh sản phẩm ${val.product.sku}`}
-                  title={`Ảnh sản phẩm ${val.product.sku}`}
-                  className="w-auto h-24 rounded-md mx-2"
-                />
 
-                <div className="flex flex-col gap-y-2 w-1/2">
-                  <span>{val.product.productName}</span>
-                  <span className="text-gray-500">
-                    Số lượng: {val.quantity}
-                  </span>
-                </div>
-
-                <span className="text-base text-winmart">
-                  {(val.product.listedPrice * val.quantity).toLocaleString()} ₫
+          <div className="bg-white w-full rounded-md shadow-md flex flex-col gap-y-4 text-gray-900 text-sm p-4">
+            <div className="flex justify-between items-center m-4 text-lg">
+              <span className="font-semibold">Giỏ hàng hiện tại</span>
+              <span className="text-sm">
+                Tổng đơn hàng:
+                <span className="text-winmart ml-2 text-lg">
+                  {sumPrice.toLocaleString()} ₫
                 </span>
-
-                <button
-                  title="Xoá sản phẩm này"
-                  onClick={async (event) => {
-                    event.preventDefault;
-
-                    const customerService = CustomerService.getInstance();
-                    
-                    if (customerService.loggedInCustomer) {
-                      let delSku = val.product.sku;
-                      customerService.loggedInCustomer.cartProducts = customerService.loggedInCustomer.cartProducts.filter(e => e.sku != delSku);
-
-                      await customerService.update();
-                    }
-
-                    navigate(0);
-                  }}
-                  className="p-2 hover:bg-gray-100 rounded-full"
+              </span>
+            </div>
+            {customerProduct.map((val, id) => {
+              return (
+                <div
+                  key={id}
+                  className="flex items-center justify-between px-4 py-2 border-b border-gray-100 rounded-md last:border-none hover:shadow-md"
                 >
-                  <X />
-                </button>
-              </div>
-            );
-          })}
-          <button
-            onClick={handleDeleteCart}
-            title="Xoá toàn bộ giỏ hàng"
-            className="text-base hover:underline hover:text-winmart w-fit mx-1 p-1"
-          >
-            Xoá toàn bộ giỏ hàng
-          </button>
+                  <img
+                    src={val.imgUrl}
+                    alt={`Ảnh sản phẩm ${val.product.sku}`}
+                    title={`Ảnh sản phẩm ${val.product.sku}`}
+                    className="w-auto h-24 rounded-md mx-2"
+                  />
+
+                  <div className="flex flex-col gap-y-2 w-1/2">
+                    <span>{val.product.productName}</span>
+                    <span className="text-gray-500">
+                      Số lượng: {val.quantity}
+                    </span>
+                  </div>
+
+                  <span className="text-base text-winmart">
+                    {(val.product.listedPrice * val.quantity).toLocaleString()}{" "}
+                    ₫
+                  </span>
+
+                  <button
+                    title="Xoá sản phẩm này"
+                    onClick={async (event) => {
+                      event.preventDefault;
+
+                      const customerService = CustomerService.getInstance();
+
+                      if (customerService.loggedInCustomer) {
+                        const delSku = val.product.sku;
+                        customerService.loggedInCustomer.cartProducts =
+                          customerService.loggedInCustomer.cartProducts.filter(
+                            (e) => e.sku != delSku
+                          );
+
+                        await customerService.update();
+                      }
+
+                      navigate(0);
+                    }}
+                    className="p-2 hover:bg-gray-100 rounded-full"
+                  >
+                    <X />
+                  </button>
+                </div>
+              );
+            })}
+            <button
+              onClick={handleDeleteCart}
+              title="Xoá toàn bộ giỏ hàng"
+              className="text-sm underline hover:text-winmart w-fit mx-1 p-1"
+            >
+              Xoá toàn bộ giỏ hàng
+            </button>
+          </div>
         </div>
       </div>
       <Footer />
