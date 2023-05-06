@@ -80,11 +80,28 @@ function Cart() {
     return (
       <main className="bg-gray-100 w-[calc(100vw - 12px)] relative select-none font-sans">
         <Navbar />
-        <div className="w-[80vw] mx-auto bg-white rounded-md shadow-md flex items-center justify-center h-[50vh]">
-          <span className="text-lg font-semibold tracking-wider">
-            Không có sản phẩm trong giỏ hàng của bạn
-          </span>
+
+        <div className="w-[80vw] mx-auto flex items-center gap-x-8">
+          <div className="bg-white w-1/6 rounded-md shadow-md flex flex-col py-4 gap-y-2 h-fit">
+            <button
+              className="p-4 hover:bg-gray-50"
+              onClick={() => navigate("/cart")}
+            >
+              Giỏ hàng
+            </button>
+            <button
+              className="p-4 hover:bg-gray-50"
+              onClick={() => navigate("/order")}
+            >
+              Đơn hàng
+            </button>
+          </div>
+
+          <div className="text-lg font-semibold tracking-wider w-full flex items-center justify-center rounded-md shadow-md bg-white h-[50vh]">
+            <span>Không có sản phẩm trong giỏ hàng của bạn</span>
+          </div>
         </div>
+
         <Footer />
       </main>
     );

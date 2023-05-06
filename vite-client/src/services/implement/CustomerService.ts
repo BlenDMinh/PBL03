@@ -28,16 +28,14 @@ export class CustomerService implements ICustomerService {
   }
 
   register(customer: Customer, password: string): Promise<void> {
-    return http.post<Customer>(
-      this.baseUrl,
-      new Headers(),
-      JSON.stringify(customer)
-    ).then((e) => {
-      console.log(JSON.stringify(customer));
-      console.log(e);
-      this.loggedInCustomer = e;
-      this.changePassword(password);
-    })
+    return http
+      .post<Customer>(this.baseUrl, new Headers(), JSON.stringify(customer))
+      .then((e) => {
+        console.log(JSON.stringify(customer));
+        console.log(e);
+        this.loggedInCustomer = e;
+        this.changePassword(password);
+      });
   }
 
   async login(

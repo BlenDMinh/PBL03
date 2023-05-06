@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import WinmartLogoRed from "../assets/Company/WinmartLogoRed.png";
-import { Gender } from "../models/Gender";
 import { Address } from "../models/Address";
 import { AddressType } from "../models/AddressType";
 import { Customer } from "../models/Customer";
+import { Gender } from "../models/Gender";
 import { CustomerService } from "../services/implement/CustomerService";
-import { useNavigate } from "react-router-dom";
 interface RegCustomer {
   email?: string;
   customerName?: string;
   gender?: number;
   dateOfBirth?: Date;
   password?: string;
-  repassword?: string
+  repassword?: string;
 }
 
 interface RegAddress {
@@ -27,14 +27,17 @@ function Register() {
   const navigator = useNavigate();
   const [customer, setCustomer] = useState<RegCustomer>({});
   const [address, setAddress] = useState<RegAddress>({});
-  
+
   useEffect(() => {
     document.title = "Đăng ký | Winmart";
   }, []);
 
   return (
     <main className="w-screen h-screen bg-[#f0f8ff] text-gray-900 text-sm select-none">
-      <form action="/" className="max-w-fit px-10 mx-auto h-full flex flex-col justify-center items-center bg-white gap-y-6">
+      <form
+        action="/"
+        className="max-w-fit px-10 mx-auto h-full flex flex-col justify-center items-center bg-white gap-y-6"
+      >
         <a href="/">
           <img
             src={WinmartLogoRed}
@@ -44,7 +47,7 @@ function Register() {
           />
         </a>
         <div className="flex flex-row gap-x-20">
-          <div className="flex flex-col text-sm gap-y-6 flex flex-col">
+          <div className="flex flex-col text-sm gap-y-6">
             <h5 className="text-base my-2">Thông tin cá nhân</h5>
             <div className="flex flex-col gap-y-4">
               <input
@@ -112,14 +115,14 @@ function Register() {
                 </div>
               </div>
 
-              <input 
-                type="date" 
+              <input
+                type="date"
                 name="birthday"
                 id="birthday"
                 value={customer.dateOfBirth?.toDateString()}
                 onChange={(event) => {
                   customer.dateOfBirth = new Date(event.target.value);
-                  setCustomer(customer)
+                  setCustomer(customer);
                 }}
                 placeholder="Birthday"
                 className="w-80 px-3 py-2 outline-none border border-gray-400 rounded-md shadow-md"
@@ -154,7 +157,7 @@ function Register() {
               />
             </div>
           </div>
-          <div className="flex flex-col text-sm gap-y-6 flex flex-col">
+          <div className="flex flex-col text-sm gap-y-6">
             <h5 className="text-base my-2">Thông tin địa chỉ</h5>
             <div className="flex flex-col gap-y-4">
               <input
@@ -236,38 +239,34 @@ function Register() {
           className="w-60 mx-auto p-2 bg-winmart rounded-lg shadow-md text-zinc-100"
           onClick={() => {
             // CHECK CONSTRAINT HERE
-            if(customer.password !== customer.repassword) {
+            if (customer.password !== customer.repassword) {
               console.log("THEY ARE NOT THE SAME");
               return;
             }
-            var _address: Address = {
+            const _address: Address = {
               addressId: -1,
               country: address.country!,
               city: address.city!,
               district: address.district!,
               ward: address.ward!,
               apartmentNumber: address.apartmentNumber!,
-              addressType: AddressType.DEFAULT
-            }
-            var _customer: Customer = {
+              addressType: AddressType.DEFAULT,
+            };
+            const _customer: Customer = {
               customerId: -1,
               email: customer.email!,
               customerName: customer.customerName!,
               gender: customer.gender!,
               dateOfBirth: customer.dateOfBirth!,
               orders: [],
-              addresses: [
-                _address
-              ],
-              cartProducts: []
-            }
+              addresses: [_address],
+              cartProducts: [],
+            };
             console.log(_customer);
             const service = CustomerService.getInstance();
-            service.register(_customer, customer.password!).then(
-              () => {
-                navigator("/");
-              }
-            );
+            service.register(_customer, customer.password!).then(() => {
+              navigator("/");
+            });
           }}
         >
           Đăng ký

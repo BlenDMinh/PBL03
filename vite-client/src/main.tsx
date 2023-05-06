@@ -9,7 +9,6 @@ import Login from "./pages/Login.tsx";
 import OrderListPage from "./pages/OrderListPage.tsx";
 import Register from "./pages/Register.tsx";
 
-// Create a router
 const router = createBrowserRouter([
   {
     path: "/",

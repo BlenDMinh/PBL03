@@ -4,7 +4,6 @@ import { Product } from "../models/Product";
 import { ProductService } from "../services/implement/ProductService";
 import ProductInfo from "./product/ProductInfo";
 
-// Main function
 function Searchbar() {
   const [inputValue, setInputValue] = useState<string>("");
   const [allProduct, setAllProduct] = useState<Product[]>([]);
@@ -15,7 +14,9 @@ function Searchbar() {
     const productService = ProductService.getInstance();
     productService
       .getAll(0, 1000)
-      .then((data) => setAllProduct(data.sort((a, b) => b.sku - a.sku)));
+      .then((data) =>
+        setAllProduct((data as Product[]).sort((a, b) => b.sku - a.sku))
+      );
   }, []);
 
   const inputOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
