@@ -91,8 +91,18 @@ function Cart() {
       <div className="w-[80vw] mx-auto min-h-[41vh] flex items-center justify-center">
         <div className="w-full flex gap-x-6">
           <div className="bg-white w-1/6 rounded-md shadow-md flex flex-col py-4 gap-y-2 h-fit">
-            <button className="p-4 hover:bg-gray-50" onClick={() => navigate("/cart")}>Giỏ hàng</button>
-            <button className="p-4 hover:bg-gray-50" onClick={() => navigate("/order")}>Đơn hàng</button>
+            <button
+              className="p-4 hover:bg-gray-50"
+              onClick={() => navigate("/cart")}
+            >
+              Giỏ hàng
+            </button>
+            <button
+              className="p-4 hover:bg-gray-50"
+              onClick={() => navigate("/order")}
+            >
+              Đơn hàng
+            </button>
           </div>
 
           <div className="bg-white w-full rounded-md shadow-md flex flex-col gap-y-4 text-gray-900 text-sm p-4">
@@ -110,9 +120,6 @@ function Cart() {
                 <div
                   key={id}
                   className="flex items-center justify-between px-4 py-2 border-b border-gray-100 rounded-md last:border-none hover:shadow-md"
-                  onClick={() => {
-                    navigate("/product/" + val.product.sku);
-                  }}
                 >
                   <img
                     src={val.imgUrl}

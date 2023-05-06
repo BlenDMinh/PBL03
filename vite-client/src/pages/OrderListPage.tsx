@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
-import { CustomerService } from "../services/implement/CustomerService";
 import { Order } from "../models/Order";
 import { Product } from "../models/Product";
-import { ProductService } from "../services/implement/ProductService";
 import { Status } from "../models/Status";
+import { CustomerService } from "../services/implement/CustomerService";
+import { ProductService } from "../services/implement/ProductService";
 
 interface OptimizeProduct {
   product: Product;
@@ -32,21 +32,6 @@ function OrderListPage() {
     }
   }, []);
 
-  const handleDeleteCart = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault;
-
-    const customerService = CustomerService.getInstance();
-    while (
-      customerService.loggedInCustomer &&
-      customerService.loggedInCustomer.cartProducts.length
-    ) {
-      customerService.loggedInCustomer.cartProducts.pop();
-    }
-    if (customerService.loggedInCustomer) customerService.update();
-
-    navigate(0);
-  };
-
   if (!customerOrders || customerOrders.length === 0)
     return (
       <main className="bg-gray-100 w-[calc(100vw - 12px)] relative select-none font-sans">
@@ -66,8 +51,18 @@ function OrderListPage() {
       <div className="w-[80vw] mx-auto min-h-[41vh] flex items-center justify-center">
         <div className="w-full flex gap-x-6">
           <div className="bg-white w-1/6 rounded-md shadow-md flex flex-col py-4 gap-y-2 h-fit">
-            <button className="p-4 hover:bg-gray-50" onClick={() => navigate("/cart")}>Giỏ hàng</button>
-            <button className="p-4 hover:bg-gray-50" onClick={() => navigate("/order")}>Đơn hàng</button>
+            <button
+              className="p-4 hover:bg-gray-50"
+              onClick={() => navigate("/cart")}
+            >
+              Giỏ hàng
+            </button>
+            <button
+              className="p-4 hover:bg-gray-50"
+              onClick={() => navigate("/order")}
+            >
+              Đơn hàng
+            </button>
           </div>
 
           <div className="bg-white w-full rounded-md shadow-md flex flex-col gap-y-4 text-gray-900 text-sm p-4">
@@ -78,16 +73,17 @@ function OrderListPage() {
               const productService = ProductService.getInstance();
               const hadChecked = new Array(val.products?.length).fill(false);
               const arr: OptimizeProduct[] = [];
-              let sum = 0;
               let sumPrice = 0;
 
               for (let i = 0; val.products && i < val.products.length; i++) {
                 let cnt = 1;
-                sum += val.products[i].listedPrice;
                 sumPrice += val.products[i].listedPrice;
 
                 for (let j = i + 1; j < val.products.length; j++)
-                  if (!hadChecked[j] && val.products[i].sku === val.products[j].sku) {
+                  if (
+                    !hadChecked[j] &&
+                    val.products[i].sku === val.products[j].sku
+                  ) {
                     hadChecked[j] = true;
                     cnt++;
                   }
@@ -95,23 +91,31 @@ function OrderListPage() {
                 if (!hadChecked[i])
                   arr.push({
                     product: val.products[i],
-                    imgUrl: productService.getProductImagePath(val.products[i].sku),
+                    imgUrl: productService.getProductImagePath(
+                      val.products[i].sku
+                    ),
                     quantity: cnt,
                   });
               }
+
               return (
                 <div
                   key={id}
-                  className="flex items-center justify-between px-4 py-2 border-b border-gray-100 rounded-md last:border-none hover:shadow-md flex flex-col"
+                  className="items-center justify-between px-4 py-2 border-b border-gray-100 rounded-md last:border-none hover:shadow-md flex flex-col"
                 >
-                  <div className="flex gap-x-10 w-full">
-                    <span>Mã đơn hàng: {val.orderId}</span>
-                    <span className="text-gray-500">
-                      Tình trạng: {val.status == Status.INCOMPLETE ? "Đang giao hàng" : "Hoàn thành"}
-                    </span>
+                  <div className="flex w-full items-center justify-between">
+                    <div className="gap-x-10 flex items-center">
+                      <span>Mã đơn hàng: {val.orderId}</span>
+                      <span className="text-gray-500">
+                        Tình trạng:{" "}
+                        {val.status == Status.INCOMPLETE
+                          ? "Đang giao hàng"
+                          : "Hoàn thành"}
+                      </span>
+                    </div>
                     <span className="text-sm">
-                    Tổng đơn hàng:
-                    <span className="text-winmart ml-2 text-lg">
+                      Tổng đơn hàng:
+                      <span className="text-winmart ml-2 text-lg">
                         {sumPrice.toLocaleString()} ₫
                       </span>
                     </span>
@@ -122,9 +126,6 @@ function OrderListPage() {
                         <div
                           key={id}
                           className="flex items-center justify-between px-4 py-2 border-b border-gray-100 rounded-md last:border-none hover:shadow-md"
-                          onClick={() => {
-                            navigate("/product/" + val.product.sku);
-                          }}
                         >
                           <img
                             src={val.imgUrl}
@@ -141,52 +142,18 @@ function OrderListPage() {
                           </div>
 
                           <span className="text-base text-winmart">
-                            {(val.product.listedPrice * val.quantity).toLocaleString()}{" "}
+                            {(
+                              val.product.listedPrice * val.quantity
+                            ).toLocaleString()}{" "}
                             ₫
                           </span>
                         </div>
-                      )
+                      );
                     })}
                   </div>
-
-                  {/* <span className="text-base text-winmart">
-                    {(val.product.listedPrice * val.quantity).toLocaleString()}{" "}
-                    ₫
-                  </span> */}
-
-                  {/* <button
-                    title="Xoá sản phẩm này"
-                    onClick={async (event) => {
-                      event.preventDefault;
-
-                      const customerService = CustomerService.getInstance();
-
-                      if (customerService.loggedInCustomer) {
-                        const delSku = val.product.sku;
-                        customerService.loggedInCustomer.cartProducts =
-                          customerService.loggedInCustomer.cartProducts.filter(
-                            (e) => e.sku != delSku
-                          );
-
-                        await customerService.update();
-                      }
-
-                      navigate(0);
-                    }}
-                    className="p-2 hover:bg-gray-100 rounded-full"
-                  >
-                    <X />
-                  </button> */}
                 </div>
               );
             })}
-            {/* <button
-              onClick={handleDeleteCart}
-              title="Xoá toàn bộ giỏ hàng"
-              className="text-sm underline hover:text-winmart w-fit mx-1 p-1"
-            >
-              Xoá toàn bộ giỏ hàng
-            </button> */}
           </div>
         </div>
       </div>
