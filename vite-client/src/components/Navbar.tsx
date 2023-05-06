@@ -65,7 +65,7 @@ function Navbar() {
                         href={"/category/" + val.categoryId}
                         key={id}
                         title={`Danh mục ${val.categoryName}`}
-                        className="hover:bg-winmart hover:text-white rounded-md hover:shadow-md px-3 py-1 font-light"
+                        className="hover:bg-winmart hover:text-white rounded-md hover:shadow-md px-3 py-1"
                       >
                         <span>{val.categoryName}</span>
                       </a>

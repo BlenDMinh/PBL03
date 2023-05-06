@@ -68,7 +68,7 @@ function Searchbar() {
         </button>
       ) : null}
 
-      {suggestProduct && suggestProduct.length !== 0 ? (
+      {suggestProduct && suggestProduct.length > 0 ? (
         <div className="absolute bg-white flex flex-col justify-center rounded-md shadow-md gap-y-2 py-2 top-[4.4rem] w-80 text-sm text-gray-900">
           {suggestProduct.map((val, id) => {
             return (

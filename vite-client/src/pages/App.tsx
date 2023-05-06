@@ -27,8 +27,9 @@ function App() {
   }, []);
 
   return (
-    <main className="bg-gray-100 w-[calc(100vw - 18px)] relative select-none font-sans">
+    <main className="bg-gray-200 w-[calc(100vw - 18px)] select-none font-sans text-gray-900 text-sm">
       <Navbar />
+
       <div className="w-[80vw] mx-auto">
         {categories.map((val, id) => {
           return (
@@ -38,6 +39,7 @@ function App() {
           );
         })}
       </div>
+
       <Footer />
     </main>
   );
