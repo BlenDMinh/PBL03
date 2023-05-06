@@ -4,7 +4,6 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { Order } from "../models/Order";
 import { Product } from "../models/Product";
-import { Status } from "../models/Status";
 import { CustomerService } from "../services/implement/CustomerService";
 import { ProductService } from "../services/implement/ProductService";
 
@@ -25,7 +24,7 @@ function OrderListPage() {
       const customerService = CustomerService.getInstance();
       customerService.login().then(() => {
         const orders = customerService.loggedInCustomer?.orders;
-        console.log(orders)
+        console.log(orders);
         setCustomerOrders(orders ? orders : []);
       });
     } catch (error) {
