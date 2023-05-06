@@ -6,10 +6,10 @@ import { Status, StatusEnum } from "./Status";
 export interface Order {
   status: Status;
   orderId: number;
-  address: Address;
+  address: Address | undefined;
   dateCreated: Date;
-  dateCompleted: Date;
-  products: Product[];
+  dateCompleted: Date | undefined;
+  products: Product[] | undefined;
 }
 
 export const OrderSchema = z.object({

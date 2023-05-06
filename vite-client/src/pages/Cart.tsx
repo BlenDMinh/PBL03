@@ -6,6 +6,10 @@ import Navbar from "../components/Navbar";
 import { Product } from "../models/Product";
 import { CustomerService } from "../services/implement/CustomerService";
 import { ProductService } from "../services/implement/ProductService";
+import { OrderService } from "../services/implement/OrderService";
+import { Order } from "../models/Order";
+import { Status } from "../models/Status";
+import { AddressType } from "../models/AddressType";
 
 interface optimizedCart {
   product: Product;
@@ -166,13 +170,42 @@ function Cart() {
                 </div>
               );
             })}
-            <button
-              onClick={handleDeleteCart}
-              title="Xoá toàn bộ giỏ hàng"
-              className="text-sm underline hover:text-winmart w-fit mx-1 p-1"
-            >
-              Xoá toàn bộ giỏ hàng
-            </button>
+            <div className="flex justify-between">
+              <button
+                onClick={handleDeleteCart}
+                title="Xoá toàn bộ giỏ hàng"
+                className="text-sm underline hover:text-winmart w-fit mx-1 p-1"
+              >
+                Xoá toàn bộ giỏ hàng
+              </button>
+              <button
+                title="Đặt hàng"
+                className="w-60 p-2 bg-winmart border border-winmart rounded-lg shadow-md text-white hover:text-winmart hover:bg-white"
+                onClick={() => {
+                  const orderService = OrderService.getInstance();
+                  const customerService = CustomerService.getInstance();
+                  var order: Order = {
+                    orderId: -1,
+                    status: Status.INCOMPLETE,
+                    address: customerService.loggedInCustomer?.addresses.find((e) => e.addressType == AddressType.DEFAULT),
+                    dateCreated: new Date(Date.now()),
+                    dateCompleted: undefined,
+                    products: customerService.loggedInCustomer?.cartProducts
+                  }
+                  orderService.insert(order).then((e) => {
+                    if(customerService.loggedInCustomer?.orders == undefined)
+                      customerService.loggedInCustomer!.orders = []
+                    customerService.loggedInCustomer!.orders.push(e);
+                    customerService.loggedInCustomer!.cartProducts = []
+                    customerService.update().then(() => {
+                      navigate("/order");
+                    })
+                  });
+                }}
+              >
+                Đặt hàng
+              </button>
+            </div>
           </div>
         </div>
       </div>

@@ -30,8 +30,9 @@ function Navbar() {
   const handleLogOut = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     const customerService = CustomerService.getInstance();
-    customerService.logout();
-    setCustomer(customerService.loggedInCustomer);
+    customerService.logout().then(() => {
+      setCustomer(customerService.loggedInCustomer);
+    });
   };
 
   return (

@@ -72,7 +72,7 @@ public class ProductController {
     public ResponseEntity<String> delete(@RequestBody ProductModel model) {
         try {
             productService.delete(model);
-            return ResponseEntity.ok("Deleted");
+            return ResponseEntity.ok("{\"message\": \"Deleted\"}");
         } catch (RuntimeException e) {
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
@@ -83,7 +83,7 @@ public class ProductController {
     public ResponseEntity<String> deleteById(@PathVariable Integer id) {
         try {
             productService.deleteById(id);
-            return ResponseEntity.ok("Deleted");
+            return ResponseEntity.ok("{\"message\": \"Deleted\"}");
         } catch (RuntimeException e) {
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }        

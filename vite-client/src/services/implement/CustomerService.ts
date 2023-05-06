@@ -60,8 +60,10 @@ export class CustomerService implements ICustomerService {
   }
 
   logout = () => {
-    this.loggedInCustomer = undefined;
-    localStorage.token = undefined;
+    return http.post(this.baseUrl + "/logout", new Headers(), localStorage.token).then(() => {
+      this.loggedInCustomer = undefined;
+      localStorage.token = undefined;
+    });
   };
 
   changePassword(password: string): Promise<void> {

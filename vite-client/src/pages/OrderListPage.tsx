@@ -25,6 +25,7 @@ function OrderListPage() {
       const customerService = CustomerService.getInstance();
       customerService.login().then(() => {
         const orders = customerService.loggedInCustomer?.orders;
+        console.log(orders)
         setCustomerOrders(orders ? orders : []);
       });
     } catch (error) {
@@ -108,7 +109,7 @@ function OrderListPage() {
                       <span>Mã đơn hàng: {val.orderId}</span>
                       <span className="text-gray-500">
                         Tình trạng:{" "}
-                        {val.status == Status.INCOMPLETE
+                        {val.status == "INCOMPLETE"
                           ? "Đang giao hàng"
                           : "Hoàn thành"}
                       </span>

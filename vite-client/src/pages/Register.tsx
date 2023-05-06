@@ -34,7 +34,7 @@ function Register() {
 
   return (
     <main className="w-screen h-screen bg-[#f0f8ff] text-gray-900 text-sm select-none">
-      <form className="max-w-fit px-10 mx-auto h-full flex flex-col justify-center items-center bg-white gap-y-6">
+      <form action="/" className="max-w-fit px-10 mx-auto h-full flex flex-col justify-center items-center bg-white gap-y-6">
         <a href="/">
           <img
             src={WinmartLogoRed}
@@ -83,7 +83,7 @@ function Register() {
                     type="radio"
                     value="1"
                     name="gender"
-                    onSelect={() => {
+                    onClick={() => {
                       customer.gender = Gender.MALE;
                       setCustomer(customer);
                     }}
@@ -100,7 +100,7 @@ function Register() {
                     type="radio"
                     value="2"
                     name="gender"
-                    onSelect={() => {
+                    onClick={() => {
                       customer.gender = Gender.FEMALE;
                       setCustomer(customer);
                     }}
@@ -261,6 +261,7 @@ function Register() {
               ],
               cartProducts: []
             }
+            console.log(_customer);
             const service = CustomerService.getInstance();
             service.register(_customer, customer.password!).then(
               () => {

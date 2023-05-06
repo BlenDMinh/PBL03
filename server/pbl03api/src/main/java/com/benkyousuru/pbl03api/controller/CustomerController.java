@@ -81,7 +81,7 @@ public class CustomerController {
     public ResponseEntity<String> delete(@RequestBody CustomerModel model) {
         try {
             customerService.delete(model);
-            return ResponseEntity.ok("Deleted");
+            return ResponseEntity.ok("{\"message\": \"Deleted\"}");
         } catch (RuntimeException e) {
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
@@ -93,7 +93,7 @@ public class CustomerController {
     public ResponseEntity<String> deleteById(@PathVariable Integer id) {
         try {
             customerService.deleteById(id);
-            return ResponseEntity.ok("Deleted");
+            return ResponseEntity.ok("{\"message\": \"Deleted\"}");
         } catch (RuntimeException e) {
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
@@ -104,6 +104,13 @@ public class CustomerController {
     @Transactional
     public String changePassword(@PathVariable Integer id, @RequestBody String password) {
         customerService.setPassword(id, password);
-        return "Changed";
+        return "{\"message\": \"Changed\"}";
+    }
+
+    @PostMapping(basePath + "/logout")
+    @Transactional
+    public String logout(@RequestBody String token) {
+        customerService.logout(token);
+        return "{\"message\": \"Logged out\"}";
     }
 }
