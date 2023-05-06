@@ -1,4 +1,4 @@
-import { PackagePlus, X } from "lucide-react";
+import { X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Product } from "../../models/Product";
 import { ProductService } from "../../services/implement/ProductService";
@@ -10,64 +10,62 @@ interface ProductBoxProps {
 
 function ProductBox(props: ProductBoxProps) {
   const [imgURL, setImgURL] = useState<string>("");
+  const [productInfo, setProductInfo] = useState<Product | null>(null);
 
   useEffect(() => {
-    const productService = ProductService.getInstance();
-    const url = productService.getProductImagePath(props.product.sku);
-    setImgURL(url);
+    try {
+      const productService = ProductService.getInstance();
+      const url = productService.getProductImagePath(props.product.sku);
+      setImgURL(url);
+    } catch (error) {
+      console.error(error);
+    }
   }, [props.product.sku]);
 
-  const [_product, set_Product] = useState<Product | null>(null);
-
-  const buttonHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const showProductInfo = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    set_Product(props.product);
+    setProductInfo(props.product);
   };
 
   return (
     <div>
-      {_product ? <ProductInfo product={_product} /> : null}
-
-      {_product ? (
-        <button
-          onClick={() => set_Product(null)}
-          className="fixed top-0 right-0 z-50 p-4 hover:bg-winmart"
-        >
-          <span className="text-white">
+      {productInfo ? (
+        <div>
+          <button
+            onClick={() => setProductInfo(null)}
+            className="fixed top-0 z-50 right-0 p-4 bg-white text-black hover:text-white hover:bg-winmart"
+          >
             <X />
-          </span>
-        </button>
+          </button>
+
+          <ProductInfo product={productInfo} />
+        </div>
       ) : null}
 
       <button
-        onClick={buttonHandler}
-        className="flex flex-col items-center gap-y-2 justify-center p-3 border border-gray-300 rounded-lg hover:shadow-md bg-white text-gray-900 w-full text-sm hover:bg-gray-50 shadow-sm"
+        onClick={showProductInfo}
+        className="flex flex-col p-4 items-center justify-center bg-white text-gray-900 w-full shadow-md rounded-md hover:shadow-lg"
         title={
-          props.product.productName ? props.product.productName : "Thêm vào giỏ"
+          props.product.productName
+            ? props.product.productName
+            : "Chi tiết sản phẩm"
         }
       >
-        <a href="/" className="flex flex-col items-center w-full">
+        <div className="flex flex-col items-center w-full">
           <img
             src={imgURL}
             alt={`Ảnh ${props.product.productName}`}
             title={`Ảnh ${props.product.productName}`}
-            className="rounded-md h-40 mb-2"
+            className="rounded-md w-auto h-32 mb-2"
           />
 
-          <span className="w-full text-left break-words font-light h-5 overflow-hidden">
+          <span className="w-full text-left tracking-tight h-5 overflow-hidden">
             {props.product.productName}
           </span>
 
           <span className="w-full h-4 text-left text-winmart">
             {props.product.listedPrice.toLocaleString()} ₫
           </span>
-        </a>
-
-        <div className="flex items-center justify-center text-sm px-4 py-1.5 border border-winmart rounded-lg hover:bg-winmart hover:text-white font-light text-gray-900 bg-white cursor-pointer">
-          <span className="mr-1">
-            <PackagePlus size={15} />
-          </span>
-          <span>Thêm vào giỏ</span>
         </div>
       </button>
     </div>

@@ -30,8 +30,9 @@ function Navbar() {
   const handleLogOut = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     const customerService = CustomerService.getInstance();
-    customerService.logout();
-    setCustomer(customerService.loggedInCustomer);
+    customerService.logout().then(() => {
+      setCustomer(customerService.loggedInCustomer);
+    });
   };
 
   return (
@@ -65,7 +66,7 @@ function Navbar() {
                         href={"/category/" + val.categoryId}
                         key={id}
                         title={`Danh mục ${val.categoryName}`}
-                        className="hover:bg-winmart hover:text-white rounded-md hover:shadow-md px-3 py-1 font-light"
+                        className="hover:bg-winmart hover:text-white rounded-md hover:shadow-md px-3 py-1"
                       >
                         <span>{val.categoryName}</span>
                       </a>

@@ -66,7 +66,7 @@ public class CategoryController {
     public ResponseEntity<String> delete(@RequestBody CategoryModel model) {
         try {
             categoryService.delete(model);
-            return ResponseEntity.ok("Deleted");
+            return ResponseEntity.ok("{\"message\": \"Deleted\"}");
         } catch (RuntimeException e) {
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
@@ -78,7 +78,7 @@ public class CategoryController {
     public ResponseEntity<String> deleteById(@PathVariable Integer id) {
         try {
             categoryService.deleteById(id);
-            return ResponseEntity.ok("Deleted");
+            return ResponseEntity.ok("{\"message\": \"Deleted\"}");
         } catch (RuntimeException e) {
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }

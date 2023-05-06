@@ -6,6 +6,10 @@ import Navbar from "../components/Navbar";
 import { Product } from "../models/Product";
 import { CustomerService } from "../services/implement/CustomerService";
 import { ProductService } from "../services/implement/ProductService";
+import { OrderService } from "../services/implement/OrderService";
+import { Order } from "../models/Order";
+import { Status } from "../models/Status";
+import { AddressType } from "../models/AddressType";
 
 interface optimizedCart {
   product: Product;
@@ -76,11 +80,28 @@ function Cart() {
     return (
       <main className="bg-gray-100 w-[calc(100vw - 12px)] relative select-none font-sans">
         <Navbar />
-        <div className="w-[80vw] mx-auto bg-white rounded-md shadow-md flex items-center justify-center h-[50vh]">
-          <span className="text-lg font-semibold tracking-wider">
-            Không có sản phẩm trong giỏ hàng của bạn
-          </span>
+
+        <div className="w-[80vw] mx-auto flex items-center gap-x-8">
+          <div className="bg-white w-1/6 rounded-md shadow-md flex flex-col py-4 gap-y-2 h-fit">
+            <button
+              className="p-4 hover:bg-gray-50"
+              onClick={() => navigate("/cart")}
+            >
+              Giỏ hàng
+            </button>
+            <button
+              className="p-4 hover:bg-gray-50"
+              onClick={() => navigate("/order")}
+            >
+              Đơn hàng
+            </button>
+          </div>
+
+          <div className="text-lg font-semibold tracking-wider w-full flex items-center justify-center rounded-md shadow-md bg-white h-[50vh]">
+            <span>Không có sản phẩm trong giỏ hàng của bạn</span>
+          </div>
         </div>
+
         <Footer />
       </main>
     );
@@ -166,13 +187,42 @@ function Cart() {
                 </div>
               );
             })}
-            <button
-              onClick={handleDeleteCart}
-              title="Xoá toàn bộ giỏ hàng"
-              className="text-sm underline hover:text-winmart w-fit mx-1 p-1"
-            >
-              Xoá toàn bộ giỏ hàng
-            </button>
+            <div className="flex justify-between">
+              <button
+                onClick={handleDeleteCart}
+                title="Xoá toàn bộ giỏ hàng"
+                className="text-sm underline hover:text-winmart w-fit mx-1 p-1"
+              >
+                Xoá toàn bộ giỏ hàng
+              </button>
+              <button
+                title="Đặt hàng"
+                className="w-60 p-2 bg-winmart border border-winmart rounded-lg shadow-md text-white hover:text-winmart hover:bg-white"
+                onClick={() => {
+                  const orderService = OrderService.getInstance();
+                  const customerService = CustomerService.getInstance();
+                  var order: Order = {
+                    orderId: -1,
+                    status: Status.INCOMPLETE,
+                    address: customerService.loggedInCustomer?.addresses.find((e) => e.addressType == AddressType.DEFAULT),
+                    dateCreated: new Date(Date.now()),
+                    dateCompleted: undefined,
+                    products: customerService.loggedInCustomer?.cartProducts
+                  }
+                  orderService.insert(order).then((e) => {
+                    if(customerService.loggedInCustomer?.orders == undefined)
+                      customerService.loggedInCustomer!.orders = []
+                    customerService.loggedInCustomer!.orders.push(e);
+                    customerService.loggedInCustomer!.cartProducts = []
+                    customerService.update().then(() => {
+                      navigate("/order");
+                    })
+                  });
+                }}
+              >
+                Đặt hàng
+              </button>
+            </div>
           </div>
         </div>
       </div>

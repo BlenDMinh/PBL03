@@ -68,7 +68,7 @@ public class OrderController {
     public ResponseEntity<String> delete(@RequestBody OrderModel model) {
         try {
             orderService.delete(model);
-            return ResponseEntity.ok("Deleted");
+            return ResponseEntity.ok("{\"message\": \"Deleted\"}");
         } catch (RuntimeException e) {
             e.printStackTrace();
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -81,7 +81,7 @@ public class OrderController {
     public ResponseEntity<String> deleteById(@PathVariable Integer id) {
         try {
             orderService.deleteById(id);
-            return ResponseEntity.ok("Deleted");
+            return ResponseEntity.ok("{\"message\": \"Deleted\"}");
         } catch (RuntimeException e) {
             e.printStackTrace();
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);

@@ -147,4 +147,9 @@ public class CustomerService implements ICustomerService {
         }
         return null;
     }
+
+    @Override
+    public void logout(String token) {
+        loginSessionRepository.deleteById(token);
+    }
 }

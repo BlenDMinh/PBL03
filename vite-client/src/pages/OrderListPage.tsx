@@ -4,7 +4,6 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { Order } from "../models/Order";
 import { Product } from "../models/Product";
-import { Status } from "../models/Status";
 import { CustomerService } from "../services/implement/CustomerService";
 import { ProductService } from "../services/implement/ProductService";
 
@@ -25,6 +24,7 @@ function OrderListPage() {
       const customerService = CustomerService.getInstance();
       customerService.login().then(() => {
         const orders = customerService.loggedInCustomer?.orders;
+        console.log(orders);
         setCustomerOrders(orders ? orders : []);
       });
     } catch (error) {
@@ -36,10 +36,25 @@ function OrderListPage() {
     return (
       <main className="bg-gray-100 w-[calc(100vw - 12px)] relative select-none font-sans">
         <Navbar />
-        <div className="w-[80vw] mx-auto bg-white rounded-md shadow-md flex items-center justify-center h-[50vh]">
-          <span className="text-lg font-semibold tracking-wider">
-            Bạn chưa có đơn hàng nào
-          </span>
+        <div className="w-[80vw] mx-auto flex items-center gap-x-8">
+          <div className="bg-white w-1/6 rounded-md shadow-md flex flex-col py-4 gap-y-2 h-fit">
+            <button
+              className="p-4 hover:bg-gray-50"
+              onClick={() => navigate("/cart")}
+            >
+              Giỏ hàng
+            </button>
+            <button
+              className="p-4 hover:bg-gray-50"
+              onClick={() => navigate("/order")}
+            >
+              Đơn hàng
+            </button>
+          </div>
+
+          <div className="text-lg font-semibold tracking-wider w-full flex items-center justify-center rounded-md shadow-md bg-white h-[50vh]">
+            <span>Không có đơn hàng nào</span>
+          </div>
         </div>
         <Footer />
       </main>
@@ -108,7 +123,7 @@ function OrderListPage() {
                       <span>Mã đơn hàng: {val.orderId}</span>
                       <span className="text-gray-500">
                         Tình trạng:{" "}
-                        {val.status == Status.INCOMPLETE
+                        {val.status == "INCOMPLETE"
                           ? "Đang giao hàng"
                           : "Hoàn thành"}
                       </span>

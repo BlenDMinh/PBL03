@@ -7,4 +7,5 @@ import com.benkyousuru.pbl03api.model.model.LoginResponse;
 public interface ICustomerService extends ICrudService<CustomerModel, Integer> {
     void setPassword(Integer customerId, String password);
     LoginResponse login(LoginRequest request);
+    void logout(String token);
 }
