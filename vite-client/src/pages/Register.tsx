@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import WinmartLogoRed from "../assets/Company/WinmartLogoRed.png";
 import { Gender } from "../models/Gender";
+import { Address } from "../models/Address";
+import { AddressType } from "../models/AddressType";
+import { Customer } from "../models/Customer";
+import { CustomerService } from "../services/implement/CustomerService";
+import { useNavigate } from "react-router-dom";
 interface RegCustomer {
   email?: string;
   customerName?: string;
@@ -19,6 +24,7 @@ interface RegAddress {
 }
 
 function Register() {
+  const navigator = useNavigate();
   const [customer, setCustomer] = useState<RegCustomer>({});
   const [address, setAddress] = useState<RegAddress>({});
   
@@ -234,6 +240,33 @@ function Register() {
               console.log("THEY ARE NOT THE SAME");
               return;
             }
+            var _address: Address = {
+              addressId: -1,
+              country: address.country!,
+              city: address.city!,
+              district: address.district!,
+              ward: address.ward!,
+              apartmentNumber: address.apartmentNumber!,
+              addressType: AddressType.DEFAULT
+            }
+            var _customer: Customer = {
+              customerId: -1,
+              email: customer.email!,
+              customerName: customer.customerName!,
+              gender: customer.gender!,
+              dateOfBirth: customer.dateOfBirth!,
+              orders: [],
+              addresses: [
+                _address
+              ],
+              cartProducts: []
+            }
+            const service = CustomerService.getInstance();
+            service.register(_customer, customer.password!).then(
+              () => {
+                navigator("/");
+              }
+            );
           }}
         >
           Đăng ký

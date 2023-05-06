@@ -27,14 +27,17 @@ export class CustomerService implements ICustomerService {
     );
   }
 
-  async register(customer: Customer, password: string): Promise<void> {
-    const nCustomer = await http.post<Customer>(
+  register(customer: Customer, password: string): Promise<void> {
+    return http.post<Customer>(
       this.baseUrl,
       new Headers(),
       JSON.stringify(customer)
-    );
-    this.loggedInCustomer = nCustomer;
-    this.changePassword(password);
+    ).then((e) => {
+      console.log(JSON.stringify(customer));
+      console.log(e);
+      this.loggedInCustomer = e;
+      this.changePassword(password);
+    })
   }
 
   async login(
