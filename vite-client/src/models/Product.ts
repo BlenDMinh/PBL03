@@ -2,14 +2,14 @@ import { z } from "zod";
 
 export interface Product {
   sku: number;
-  productName: string;
+  productName: string | null | undefined;
   listedPrice: number;
-  origin: string;
-  brand: string;
-  ingridients: string;
-  userManual: string;
-  preservedManual: string;
-  description: string;
+  origin: string | null | undefined;
+  brand: string | null | undefined;
+  ingridients: string | null | undefined;
+  userManual: string | null | undefined;
+  preservedManual: string | null | undefined;
+  description: string | null | undefined;
 }
 
 export const ProductSchema = z.object({

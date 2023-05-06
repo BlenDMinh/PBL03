@@ -1,6 +1,8 @@
 import { Minus, PackagePlus, Plus } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Product } from "../../models/Product";
+import { CustomerService } from "../../services/implement/CustomerService";
 import { ProductService } from "../../services/implement/ProductService";
 
 interface ProductInfoProps {
@@ -8,25 +10,44 @@ interface ProductInfoProps {
 }
 
 function ProductInfo(props: ProductInfoProps) {
-  const [productCount, setProductCount] = useState<number>(1);
+  const navigate = useNavigate();
+
   const [imgURL, setImgURL] = useState<string>("");
+  const [productCount, setProductCount] = useState<number>(1);
 
   useEffect(() => {
-    const service = new ProductService();
+    const service = ProductService.getInstance();
     const url = service.getProductImagePath(props.product.sku);
     setImgURL(url);
+
+    const customerService = CustomerService.getInstance();
+    customerService.login();
   }, [props.product.sku]);
 
+  const HandleAddToCart = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+
+    const customerService = CustomerService.getInstance();
+    customerService.login().then(() => {
+      for (let i = 0; i < productCount; i++)
+        customerService.loggedInCustomer?.cartProducts.push(props.product);
+
+      customerService.update();
+
+      navigate(0);
+    });
+  };
+
   return (
-    <div className="w-full h-screen fixed flex items-center justify-center top-0 left-0 z-50 mx-auto bg-gray-500 bg-opacity-50">
-      <div className="w-full p-28">
-        <div className="flex p-8 bg-white rounded-lg shadow-md items-center justify-between my-4 text-gray-900">
+    <div className="w-screen h-full fixed flex items-center justify-center top-0 left-0 z-50 bg-black bg-opacity-75">
+      <div className="w-full h-full max-w-[80vw]">
+        <div className="flex p-8 bg-white rounded-lg shadow-md items-center justify-between text-gray-900 mt-12">
           <div className="w-1/2">
             <img
               src={imgURL}
               alt={`Hình ảnh sản phẩm ${props.product.productName}`}
               title={`Hình ảnh sản phẩm ${props.product.productName}`}
-              className="rounded-lg w-2/3 h-auto mx-auto"
+              className="rounded-lg w-auto h-auto max-h-[60vh] mx-auto"
             />
           </div>
 
@@ -45,7 +66,7 @@ function ProductInfo(props: ProductInfoProps) {
             <div className="h-px w-full bg-gray-400 my-6"></div>
 
             <div className="flex gap-x-16 items-center">
-              <span className="text-gray-500">Vận chuyển</span>
+              <span className="font-semibold">Vận chuyển</span>
               <div className="flex flex-col gap-y-1">
                 <span>Miễn phí giao hàng cho đơn từ 300.000đ.</span>
                 <span>Giao hàng trong 2 giờ.</span>
@@ -55,7 +76,7 @@ function ProductInfo(props: ProductInfoProps) {
             <div className="h-px w-full bg-gray-400 my-6"></div>
 
             <div className="flex gap-x-20 items-center">
-              <span>Số lượng</span>
+              <span className="font-semibold">Số lượng</span>
               <div className="flex items-center border border-gray-400 rounded-lg overflow-hidden">
                 <button
                   onClick={() =>
@@ -79,7 +100,10 @@ function ProductInfo(props: ProductInfoProps) {
               </div>
             </div>
 
-            <button className="flex items-center justify-center text-sm px-4 py-1.5 border border-winmart rounded-lg hover:bg-winmart hover:text-white font-light text-gray-900 bg-white w-52 mt-12">
+            <button
+              onClick={HandleAddToCart}
+              className="flex items-center justify-center text-sm px-4 py-1.5 border border-winmart rounded-lg hover:bg-winmart hover:text-white font-light text-gray-900 bg-white w-52 mt-12"
+            >
               <span className="mr-1">
                 <PackagePlus size={15} />
               </span>

@@ -14,22 +14,22 @@ function ShowCategory(props: ShowCategoryProps) {
 
   useEffect(() => {
     const arr: Product[] = [];
-    const service = new ProductService();
-    service.getByCategory(props.id, 1, 20).then((data) => {
+    const service = ProductService.getInstance();
+    service.getByCategory(props.id, 1, 15).then((data) => {
       for (let i = 0; i < data.length; i++) arr.push(data[i]);
       arr.sort((a, b) => a.listedPrice - b.listedPrice);
       setProductList(arr);
     });
   }, [props.id]);
 
-  if (productList.length == 0) return <div></div>;
+  if (productList.length == 0) return <></>;
 
   return (
     <div className="p-6 bg-white shadow-md rounded-lg mb-6">
       <div className="flex items-center justify-between mb-4">
         <h3 className="font-semibold text-lg text-gray-900">{props.name}</h3>
         <a
-          href=""
+          href={"/category/" + props.id}
           className="text-base text-winmart flex items-center hover:underline"
         >
           Xem thêm

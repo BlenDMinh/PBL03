@@ -1,27 +1,27 @@
-import { ChevronDown, Search, ShoppingCart, User } from "lucide-react";
-import { useEffect, useState } from "react";
+import { ChevronDown, User } from "lucide-react";
+import { lazy, useEffect, useState } from "react";
 import WinmartLogoWhite from "../assets/Company/WinmartLogoWhite.png";
 import { Category } from "../models/Category";
 import { Customer } from "../models/Customer";
 import { CategoryService } from "../services/implement/CategoryService";
 import { CustomerService } from "../services/implement/CustomerService";
 
+// Components
+const Cartbar = lazy(() => import("./cart/Cartbar"));
+const Searchbar = lazy(() => import("./Searchbar"));
+
+// Main function
 function Navbar() {
-  const [categories, setCategories] = useState<string[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [customer, setCustomer] = useState<Customer | undefined>(undefined);
 
   useEffect(() => {
-    const categoryService = new CategoryService();
-    const arr: string[] = [];
+    const categoryService = CategoryService.getInstance();
     categoryService.getAll().then((data: Category[]) => {
-      for (let i = 0; i < data.length; i++) {
-        const categoryName = data[i].categoryName;
-        arr.push(categoryName);
-      }
-      setCategories(arr);
+      setCategories(data);
     });
 
-    const customerService = new CustomerService();
+    const customerService = CustomerService.getInstance();
     customerService.login().then(() => {
       setCustomer(customerService.loggedInCustomer);
     });
@@ -29,16 +29,16 @@ function Navbar() {
 
   const handleLogOut = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    const customerService = new CustomerService();
+    const customerService = CustomerService.getInstance();
     customerService.logout();
     setCustomer(customerService.loggedInCustomer);
   };
 
   return (
     <header className="sticky top-0 w-[calc(100vw - 12px)] bg-winmart mb-6 text-sm text-gray-900 z-10">
-      <div className="max-w-6xl mx-auto py-2">
+      <div className="w-[80vw] mx-auto py-2">
         <div className="flex items-center justify-between">
-          <a href="/">
+          <a href="/" title="Trang chủ">
             <img
               src={WinmartLogoWhite}
               alt={"Winmart Logo"}
@@ -62,11 +62,12 @@ function Navbar() {
                   {categories?.map((val, id) => {
                     return (
                       <a
-                        href="/"
+                        href={"/category/" + val.categoryId}
                         key={id}
+                        title={`Danh mục ${val.categoryName}`}
                         className="hover:bg-winmart hover:text-white rounded-md hover:shadow-md px-3 py-1 font-light"
                       >
-                        <span>{val}</span>
+                        <span>{val.categoryName}</span>
                       </a>
                     );
                   })}
@@ -74,40 +75,11 @@ function Navbar() {
               </div>
             </div>
 
-            <form
-              action=""
-              method=""
-              className="flex items-center border-l border-gray-300"
-            >
-              <input
-                type="text"
-                name="search"
-                id="search"
-                title="Tìm kiếm"
-                placeholder="Tìm sản phẩm, thương hiệu, ..."
-                className="bg-gray-50 outline-none px-3 py-2 w-72"
-              />
-
-              <button
-                type="submit"
-                title="Xác nhận tìm kiếm"
-                className="p-2 bg-gray-100 hover:bg-gray-200"
-              >
-                <Search />
-              </button>
-            </form>
+            <Searchbar />
           </div>
 
           <div className="flex items-center gap-x-4">
-            <button
-              title="Giỏ hàng"
-              className="text-white flex items-center gap-x-2 p-2"
-            >
-              <span>
-                <ShoppingCart />
-              </span>
-              <span>Giỏ hàng</span>
-            </button>
+            <Cartbar />
 
             {customer ? (
               <button
@@ -123,6 +95,7 @@ function Navbar() {
             ) : (
               <a
                 href="/login"
+                title="Đăng nhập"
                 className="text-white flex items-center gap-x-2 p-2"
               >
                 <span>

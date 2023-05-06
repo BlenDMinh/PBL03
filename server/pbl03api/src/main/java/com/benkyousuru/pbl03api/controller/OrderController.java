@@ -46,6 +46,8 @@ public class OrderController {
         try {
             return ResponseEntity.ok(orderService.insert(model));
         } catch (RuntimeException e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().build();
         }
     }
@@ -56,6 +58,7 @@ public class OrderController {
         try {
             return ResponseEntity.ok(orderService.update(model));
         } catch (RuntimeException e) {
+            e.printStackTrace();
             return ResponseEntity.badRequest().build();
         }
     }
@@ -67,6 +70,7 @@ public class OrderController {
             orderService.delete(model);
             return ResponseEntity.ok("Deleted");
         } catch (RuntimeException e) {
+            e.printStackTrace();
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
         
@@ -79,6 +83,7 @@ public class OrderController {
             orderService.deleteById(id);
             return ResponseEntity.ok("Deleted");
         } catch (RuntimeException e) {
+            e.printStackTrace();
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
         

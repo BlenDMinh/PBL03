@@ -27,7 +27,8 @@ public class OrderModel {
     private List<ProductModel> products;
     public OrderModel(Order order) {
         this.orderId = order.getOrderId();
-        this.address = new AddressModel(order.getAddress());
+        if(order.getAddress() != null)
+            this.address = new AddressModel(order.getAddress());
         this.dateCreated = order.getDateCreated();
         this.dateCompleted = order.getDateCompleted();
         this.status = order.getStatus();

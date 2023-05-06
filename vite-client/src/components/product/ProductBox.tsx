@@ -12,7 +12,7 @@ function ProductBox(props: ProductBoxProps) {
   const [imgURL, setImgURL] = useState<string>("");
 
   useEffect(() => {
-    const productService = new ProductService();
+    const productService = ProductService.getInstance();
     const url = productService.getProductImagePath(props.product.sku);
     setImgURL(url);
   }, [props.product.sku]);
@@ -33,7 +33,7 @@ function ProductBox(props: ProductBoxProps) {
           onClick={() => set_Product(null)}
           className="fixed top-0 right-0 z-50 p-4 hover:bg-winmart"
         >
-          <span>
+          <span className="text-white">
             <X />
           </span>
         </button>
@@ -42,13 +42,15 @@ function ProductBox(props: ProductBoxProps) {
       <button
         onClick={buttonHandler}
         className="flex flex-col items-center gap-y-2 justify-center p-3 border border-gray-300 rounded-lg hover:shadow-md bg-white text-gray-900 w-full text-sm hover:bg-gray-50 shadow-sm"
-        title={props.product.productName}
+        title={
+          props.product.productName ? props.product.productName : "Thêm vào giỏ"
+        }
       >
         <a href="/" className="flex flex-col items-center w-full">
           <img
             src={imgURL}
-            alt={`Ảnh sản phẩm ${props.product.productName}`}
-            title={`Ảnh sản phẩm ${props.product.productName}`}
+            alt={`Ảnh ${props.product.productName}`}
+            title={`Ảnh ${props.product.productName}`}
             className="rounded-md h-40 mb-2"
           />
 
