@@ -34,7 +34,7 @@ function ProductInfo(props: ProductInfoProps) {
 
       customerService.update();
 
-      navigate(0);
+      navigate("/cart");
     });
   };
 
