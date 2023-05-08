@@ -24,6 +24,7 @@ public class ProductModel {
     private String userManual;
     private String preservedManual;
     private String description;
+    private Integer quantity;
     public ProductModel(Product product) {
         this.sku = product.getSku();
         this.productName = product.getProductName();
@@ -34,6 +35,7 @@ public class ProductModel {
         this.userManual = product.getUserManual();
         this.preservedManual = product.getPreservedManual();
         this.description = product.getDescription();
+        this.quantity = product.getQuantity();
     }
 
     public ProductModel(Product product, boolean chainFromCategory) {
@@ -46,5 +48,6 @@ public class ProductModel {
         this.userManual = product.getUserManual();
         this.preservedManual = product.getPreservedManual();
         this.description = product.getDescription();
+        this.quantity = product.getQuantity();
     }
 }
