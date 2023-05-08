@@ -16,12 +16,13 @@ export class CustomerService implements ICustomerService {
     return;
   }
 
-  readonly baseUrl = "http://localhost:8080/api/customer";
+  readonly cusUrl = "http://localhost:8080/api/customer";
+  readonly autUrl = "http://localhost:8080/api/authen"
 
   update(): Promise<void> {
     if (this.loggedInCustomer == undefined) return Promise.reject();
     return http.put(
-      this.baseUrl,
+      this.cusUrl,
       new Headers(),
       JSON.stringify(this.loggedInCustomer)
     );
@@ -29,12 +30,11 @@ export class CustomerService implements ICustomerService {
 
   register(customer: Customer, password: string): Promise<void> {
     return http
-      .post<Customer>(this.baseUrl, new Headers(), JSON.stringify(customer))
-      .then((e) => {
-        console.log(JSON.stringify(customer));
-        console.log(e);
-        this.loggedInCustomer = e;
-        this.changePassword(password);
+      .post<Customer>(this.autUrl + "/register", new Headers(), JSON.stringify({
+        "customer": customer,
+        "password": password
+      })).then((customer) => {
+        this.loggedInCustomer = customer;
       });
   }
 
@@ -48,7 +48,7 @@ export class CustomerService implements ICustomerService {
       };
     }
     const response = await http.post<LoginResponse>(
-      this.baseUrl + "/login",
+      this.autUrl + "/login",
       new Headers(),
       JSON.stringify(request)
     );
@@ -58,7 +58,7 @@ export class CustomerService implements ICustomerService {
   }
 
   logout = () => {
-    return http.post(this.baseUrl + "/logout", new Headers(), localStorage.token).then(() => {
+    return http.post(this.autUrl + "/logout", new Headers(), localStorage.token).then(() => {
       this.loggedInCustomer = undefined;
       localStorage.token = undefined;
     });
@@ -67,7 +67,7 @@ export class CustomerService implements ICustomerService {
   changePassword(password: string): Promise<void> {
     if (this.loggedInCustomer == undefined) return Promise.reject();
     return http.post(
-      this.baseUrl +
+      this.autUrl +
         "/" +
         this.loggedInCustomer.customerId +
         "/change-password",

@@ -107,49 +107,4 @@ public class CustomerService implements ICustomerService {
     public void deleteById(Integer id) {
         customerRepository.deleteById(id);
     }
-
-    @Override
-    public void setPassword(Integer customerId, String password) {
-        Optional<Customer> customer = customerRepository.findById(customerId);
-        if(customer.isEmpty())
-            return;
-        
-        LoginDetail detail = customer.get().getLoginDetail();
-        String hash = passwordEncoder.encrypt(password);
-        detail.setPassword(hash);
-        loginDetailRepository.save(detail);
-    }
-
-    @Override
-    public LoginResponse login(LoginRequest request) {
-        if(request.logginInByEmail()) {
-            List<Customer> customers = customerRepository.findByEmail(request.getEmail());
-            if(customers.size() < 1)
-                return null;
-            Customer customer = customers.get(0);
-            LoginDetail detail = customer.getLoginDetail();
-
-            System.out.println(request.getPassword() + " " + detail.getPassword());
-            boolean valuate = passwordEncoder.check(request.getPassword(), detail.getPassword());
-            System.out.println(valuate);
-            if(!valuate)
-                return null;
-            
-            String token = tokenGenerator.genToken(customer.getCustomerId().toString() + Date.from(Instant.now()));
-            LoginSession session = LoginSession.builder().customer(customer).token(token).dateCreated(Date.from(Instant.now())).build();
-            loginSessionRepository.save(session);
-            return new LoginResponse(new CustomerModel(customer), token);
-        } else if(request.logingInByToken()) {
-            Optional<LoginSession> session = loginSessionRepository.findById(request.getToken());
-            if(session.isEmpty())
-                return null;
-            return new LoginResponse(new CustomerModel(session.get().getCustomer()), request.getToken());
-        }
-        return null;
-    }
-
-    @Override
-    public void logout(String token) {
-        loginSessionRepository.deleteById(token);
-    }
 }

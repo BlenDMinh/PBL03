@@ -1,9 +1,6 @@
 package com.benkyousuru.pbl03api.model.model;
 
-import com.benkyousuru.pbl03api.model.entity.Permission;
-
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,9 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class LoginResponse {
+public class RegisterRequest {
     private CustomerModel customer;
-    private String token;
-    private Permission permission;
+    private String password;
 }
