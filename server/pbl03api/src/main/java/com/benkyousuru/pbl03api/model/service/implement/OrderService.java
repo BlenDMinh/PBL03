@@ -9,14 +9,19 @@ import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
 
 import com.benkyousuru.pbl03api.model.entity.Order;
+import com.benkyousuru.pbl03api.model.entity.Product;
 import com.benkyousuru.pbl03api.model.model.OrderModel;
 import com.benkyousuru.pbl03api.model.repository.OrderRepository;
+import com.benkyousuru.pbl03api.model.repository.ProductRepository;
 import com.benkyousuru.pbl03api.model.service.IOrderService;
 
 @Service
 public class OrderService implements IOrderService {
     @Autowired
     private OrderRepository orderRepository;
+
+    @Autowired
+    private ProductRepository productRepository;
 
     @Override
     public List<OrderModel> getAll() {
@@ -41,7 +46,15 @@ public class OrderService implements IOrderService {
         if (order.isPresent())
             throw new RuntimeException("Order with id = " + model.getOrderId().toString() + " is already presented");
         
-        Order retOrder = orderRepository.save(new Order(model));   
+        Order retOrder = orderRepository.save(new Order(model));
+        for (Product product : retOrder.getProducts()) {
+            Optional<Product> oEntityProduct = productRepository.findById(product.getSku());
+            if (oEntityProduct.isEmpty())
+                throw new RuntimeException("loi update");
+            Product eProduct = oEntityProduct.get();
+            eProduct.setQuantity(eProduct.getQuantity() - 1);
+            productRepository.save(eProduct);   
+        }
         return new OrderModel(retOrder);
     }
 
