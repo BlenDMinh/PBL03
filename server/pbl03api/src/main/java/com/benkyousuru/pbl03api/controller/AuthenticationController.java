@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.benkyousuru.pbl03api.model.entity.Permission;
 import com.benkyousuru.pbl03api.model.model.CustomerModel;
 import com.benkyousuru.pbl03api.model.model.LoginRequest;
 import com.benkyousuru.pbl03api.model.model.LoginResponse;
@@ -51,6 +52,13 @@ public class AuthenticationController {
     @Transactional
     public String changePassword(@PathVariable Integer id, @RequestBody String password) {
         authenticationService.setPassword(id, password);
+        return "{\"message\": \"Changed\"}";
+    }
+
+    @PostMapping("/{id}/change-permission")
+    @Transactional
+    public String changePermission(@PathVariable Integer id, @RequestBody Permission permission) {
+        authenticationService.setPermission(id, permission);
         return "{\"message\": \"Changed\"}";
     }
 }
