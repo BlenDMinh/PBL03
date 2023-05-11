@@ -1,6 +1,7 @@
 import { Product, ProductSchema, ProductsSchema } from "../../../models/Product";
 import { http } from "../../../services/utils/http";
 import { IProductService } from "../IProductService";
+import { z } from "zod";
 
 export class ProductService implements IProductService {
     private static instance: ProductService;
@@ -46,16 +47,16 @@ export class ProductService implements IProductService {
       return ProductsSchema.parse(data);
     }
 
-    insert(order: Product): Promise<z.infer<typeof ProductSchema>> {
-
+    insert(product: Product): Promise<z.infer<typeof ProductSchema>> {
+      return http.post(this.baseUrl, new Headers(), JSON.stringify(product));
     }
-    update(order: Product): Promise<z.infer<typeof ProductSchema>> {
-
+    update(product: Product): Promise<z.infer<typeof ProductSchema>> {
+      return http.put(this.baseUrl, new Headers(), JSON.stringify(product));
     }
-    delete(order: Product): Promise<void> {
-
+    delete(product: Product): Promise<void> {
+      return http.delete(this.baseUrl, new Headers(), JSON.stringify(product));
     }
     deleteById(id: number): Promise<void> {
-
+      return http.delete(this.baseUrl + "/" + id);
     }
 }

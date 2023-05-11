@@ -1,8 +1,10 @@
-import { Order, OrderSchema } from "../../../models/Order";
+import { Order, OrderSchema, OrdersSchema } from "../../../models/Order";
+import { Product } from "../../../models/Product";
 import { http } from "../../../services/utils/http";
 import { IOrderService } from "../IOrderService";
+import { z } from "zod";
 
-class OrderService implements IOrderService {
+export class OrderService implements IOrderService {
     readonly baseUrl = "http://localhost:8080/api/order";
     private static instance: OrderService;
   
@@ -12,11 +14,11 @@ class OrderService implements IOrderService {
     }
 
     getAll(): Promise<z.infer<typeof OrdersSchema>> {
-
+      return http.get<z.infer<typeof OrdersSchema>>(this.baseUrl);
     }
   
     getById(id: number): Promise<z.infer<typeof OrderSchema>> {
-      return http.get(this.baseUrl + "/" + id);
+      return http.get<z.infer<typeof OrderSchema>>(this.baseUrl + "/" + id);
     }
   
     insert(order: Order): Promise<z.infer<typeof OrderSchema>> {
@@ -27,10 +29,10 @@ class OrderService implements IOrderService {
       return http.put(this.baseUrl, new Headers(), JSON.stringify(order));
     }
 
-    delete(order: Product): Promise<void> {
-
+    delete(order: Order): Promise<void> {
+      return http.delete(this.baseUrl, new Headers(), JSON.stringify(order));
     }
     deleteById(id: number): Promise<void> {
-        
+      return http.delete(this.baseUrl + "/" + id);
     }
 }
