@@ -64,4 +64,25 @@ export class http {
       }
     });
   }
+
+  static delete<T>(url: string, headers: Headers = new Headers(), body = "") {
+    return new Promise<T>((onResolve, onError) => {
+      headers.append("Accept", "application/json");
+      headers.append("Content-Type", "application/json");
+      try {
+        fetch(url, {
+          method: "DELETE",
+          headers: headers,
+          body: body,
+        })
+          .then((r) => {
+            if (!r.ok) throw new Error(`Error! status: ${r.status}`);
+            return r.json();
+          })
+          .then((r) => onResolve(r));
+      } catch (e) {
+        onError(e);
+      }
+    });
+  }
 }
