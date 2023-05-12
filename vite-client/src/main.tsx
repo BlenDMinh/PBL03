@@ -8,6 +8,7 @@ import CategoryProduct from "./pages/CategoryProduct.tsx";
 import Login from "./pages/Login.tsx";
 import OrderListPage from "./pages/OrderListPage.tsx";
 import Register from "./pages/Register.tsx";
+import AdminMain from "./pages/admin/AdminMain.tsx";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
     path: "/order",
     element: <OrderListPage />,
   },
+  {
+    path: "/admin",
+    element: <AdminMain />
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(

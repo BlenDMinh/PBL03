@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import WinmartLogoRed from "../assets/Company/WinmartLogoRed.png";
 import { LoginRequest } from "../models/LoginRequest";
 import { CustomerService } from "../services/implement/CustomerService";
+import { Permission } from "../models/Permission";
 
 function Login() {
   const navigate = useNavigate();
@@ -22,8 +23,14 @@ function Login() {
       email: (e.currentTarget.elements[0] as HTMLInputElement).value,
       password: (e.currentTarget.elements[1] as HTMLInputElement).value,
     };
-    service.login(request).then(() => {
-      if (service.loggedInCustomer !== undefined) navigate("/");
+    service.login(request).then((res) => {
+      if (service.loggedInCustomer !== undefined) {
+        // console.log(Permission[res.permission] == Permission.ADMIN)
+        if(res.permission === Permission[Permission.ADMIN])
+          navigate("/admin")
+        else
+          navigate("/");
+      } 
     });
   };
 

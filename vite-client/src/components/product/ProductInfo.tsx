@@ -32,9 +32,9 @@ function ProductInfo(props: ProductInfoProps) {
       for (let i = 0; i < productCount; i++)
         customerService.loggedInCustomer?.cartProducts.push(props.product);
 
-      customerService.update();
-
-      navigate("/cart");
+      customerService.update().then(() => {
+        navigate("/cart");
+      });
     });
   };
 
