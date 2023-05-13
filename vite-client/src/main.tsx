@@ -37,8 +37,8 @@ const router = createBrowserRouter([
   },
   {
     path: "/admin",
-    element: <AdminMain />
-  }
+    element: <AdminMain />,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(

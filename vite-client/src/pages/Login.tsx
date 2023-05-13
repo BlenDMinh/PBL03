@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import WinmartLogoRed from "../assets/Company/WinmartLogoRed.png";
 import { LoginRequest } from "../models/LoginRequest";
-import { CustomerService } from "../services/implement/CustomerService";
 import { Permission } from "../models/Permission";
+import { CustomerService } from "../services/implement/CustomerService";
 
 function Login() {
   const navigate = useNavigate();
@@ -26,11 +26,9 @@ function Login() {
     service.login(request).then((res) => {
       if (service.loggedInCustomer !== undefined) {
         // console.log(Permission[res.permission] == Permission.ADMIN)
-        if(res.permission === Permission[Permission.ADMIN])
-          navigate("/admin")
-        else
-          navigate("/");
-      } 
+        if (res.permission === Permission[Permission.ADMIN]) navigate("/admin");
+        else navigate("/");
+      }
     });
   };
 

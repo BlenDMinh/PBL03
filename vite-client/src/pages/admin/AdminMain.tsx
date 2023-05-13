@@ -1,11 +1,9 @@
 function AdminMain() {
-    return (
-        <main>
-            <div className="flex flex-col">
-
-            </div>
-        </main>
-    )
+  return (
+    <main>
+      <div className="flex flex-col"></div>
+    </main>
+  );
 }
 
-export default AdminMain
+export default AdminMain;
