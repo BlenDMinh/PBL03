@@ -1,5 +1,18 @@
+import AdminNavbar from "../../components/admin/AdminNavbar";
+
 function AdminCategory() {
-  return <div className="w-screen flex items-center"></div>;
+  return (
+    <main>
+      <div className="flex flex-row">
+        <AdminNavbar/>
+        <div className="w-full flex flex-col">
+          <div className="h-32 bg-winmart">
+              
+          </div>
+        </div>
+      </div>
+    </main>
+  )
 }
 
 export default AdminCategory;
