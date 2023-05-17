@@ -9,7 +9,7 @@ function AdminCustomerRow(props: CustomerProp) {
   return (
     <div className="z-10 h-20 items-center justify-between flex">
       <div className="flex flex-row gap-5">
-        <span className="text-gray-400 text-sm">
+        <span className="text-gray-400 text-sm  w-36">
           {"ID: " + props.customer.customerId}
         </span>
         <User />
