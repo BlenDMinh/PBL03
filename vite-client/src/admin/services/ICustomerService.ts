@@ -1,5 +1,9 @@
 import { z } from "zod";
-import { Customer, CustomerSchema, CustomersSchema } from "../../models/Customer";
+import {
+  Customer,
+  CustomerSchema,
+  CustomersSchema,
+} from "../../models/Customer";
 
 export interface ICustomerService {
   getAll(): Promise<z.infer<typeof CustomersSchema>>;

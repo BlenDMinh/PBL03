@@ -15,4 +15,4 @@ function AdminMain() {
     )
 }
 
-export default AdminMain
+export default AdminMain;

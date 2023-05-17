@@ -14,7 +14,7 @@ export interface IProductService {
     pageNum: number,
     pageSize: number
   ): Promise<z.infer<typeof ProductsSchema>>;
-  
+
   insert(order: Product): Promise<z.infer<typeof ProductSchema>>;
   update(order: Product): Promise<z.infer<typeof ProductSchema>>;
   delete(order: Product): Promise<void>;
