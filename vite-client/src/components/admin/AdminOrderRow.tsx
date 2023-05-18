@@ -1,12 +1,20 @@
-import { Archive, Edit2 } from "lucide-react";
+import { Archive } from "lucide-react";
+import { useEffect, useState } from "react";
+import { OrderService } from "../../admin/services/implement/OrderService";
 import { Order } from "../../models/Order";
+import { Status } from "../../models/Status";
 import DeletePopup from "./DeletePopup";
 
 interface OrderProp {
   order: Order;
+  onDelete: () => void;
 }
 
 function AdminOrderRow(props: OrderProp) {
+  const [order, setOrder] = useState<Order>();
+  useEffect(() => {
+    setOrder(props.order);
+  }, [props.order]);
   return (
     <div className="z-10 h-20 items-center justify-between flex">
       <div className="flex flex-row gap-5">
@@ -15,12 +23,47 @@ function AdminOrderRow(props: OrderProp) {
         </span>
         <Archive />
         <span>{props.order.address?.apartmentNumber}</span>
+        <span>Status: </span>
+        <input
+          type="radio"
+          name={"status" + order?.orderId}
+          id="incomplete"
+          checked={order?.status === Status[Status.INCOMPLETE]}
+          value="incomplete"
+          onChange={(e) => {
+            const newOrder = { ...order };
+            newOrder.status = "INCOMPLETE";
+            setOrder(newOrder);
+            const service = OrderService.getInstance();
+            service.update(newOrder);
+            // console.log(e.target.value);
+          }}
+        />
+        <label htmlFor="incomplete">Đang giao hàng</label>
+        <input
+          type="radio"
+          name={"status" + order?.orderId}
+          id="complete"
+          value="complete"
+          checked={order?.status === Status[Status.COMPLETE]}
+          onChange={(e) => {
+            const newOrder = { ...order };
+            newOrder.status = "COMPLETE";
+            setOrder(newOrder);
+            const service = OrderService.getInstance();
+            service.update(newOrder);
+            // console.log(e.target.value);
+          }}
+        />
+        <label htmlFor="complete">Hoàn thành</label>
       </div>
       <div className="flex flex-row w-40 gap-5">
-        <button className="bg-white shadow rounded justify-center items-center flex w-12 h-12 hover:bg-green-500 hover:text-white">
-          <Edit2 />
-        </button>
-        <DeletePopup onYes={() => {}} onNo={() => {}} />
+        <DeletePopup
+          onYes={() => {
+            props.onDelete();
+          }}
+          onNo={() => {}}
+        />
       </div>
     </div>
   );
