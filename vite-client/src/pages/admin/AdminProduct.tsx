@@ -11,6 +11,8 @@ import { ProductService } from "../../admin/services/implement/ProductService";
 import AdminNavbar from "../../components/admin/AdminNavbar";
 import AdminProductRow from "../../components/admin/AdminProductRow";
 import { Product } from "../../models/Product";
+import AdminProductView from "../../components/admin/AdminProductView";
+import { Category } from "../../models/Category";
 
 interface NavProps {
   currentPage: number;
@@ -77,9 +79,10 @@ function AdminProduct() {
       setProducts(products as Product[]);
     });
   }, []);
-
+  const [product, setProduct] = useState<Product | undefined>();
   return (
     <main>
+      <AdminProductView product={product} onSubmit={(product) => {}}/>
       <AdminNavbar />
       <div className="flex flex-row">
         <div className="w-full flex flex-col">
@@ -133,7 +136,13 @@ function AdminProduct() {
             </div>
             <div className="ml-32 flex flex-col p-10 rounded-xl bg-white shadow-lg m-10 divide-y divide-gray-150">
               {products.map((p) => (
-                <AdminProductRow product={p} />
+                <AdminProductRow 
+                product={p}
+                onEdit={() => {
+                  setProduct(p);
+                }}
+                onDelete={() => {}}
+                />
               ))}
             </div>
           </div>

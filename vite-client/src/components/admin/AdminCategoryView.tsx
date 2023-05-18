@@ -29,17 +29,16 @@ function AdminCategoryView(props: AdminCategoryViewProp) {
       >
         <label htmlFor="name">Tên danh mục: </label>
         <input
-          type="text"
-          name="categoryName"
-          id="categoryName"
-          value={category.categoryName}
-          onChange={(event) => {
-            console.log(event.target.value);
-            category.categoryName = event.target.value;
-            console.log(category);
-            setCategory(category);
-          }}
-          required
+        type="text"
+        name="categoryName"
+        id="categoryName"
+        value={category.categoryName}
+        onChange={(event) => {
+          const updatedCategory = { ...category }; // Create a copy of the category object
+          updatedCategory.categoryName = event.target.value; // Update the copied object
+          setCategory(updatedCategory); // Set the updated object as the new state value
+        }}
+        required
         />
         <div className="flex gap-5">
           <label htmlFor="subCategory">Subcategories</label>
@@ -47,6 +46,7 @@ function AdminCategoryView(props: AdminCategoryViewProp) {
           <label htmlFor="products">Products</label>
           <input name="catChoice" id="products" value="pro" type="radio" />
         </div>
+        
       </form>
     </div>
   );

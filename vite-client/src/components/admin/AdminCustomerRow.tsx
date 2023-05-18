@@ -4,6 +4,8 @@ import DeletePopup from "./DeletePopup";
 
 interface CustomerProp {
   customer: Customer;
+  onEdit: () => void;
+  onDelete: () => void;
 }
 
 function AdminCustomerRow(props: CustomerProp) {
@@ -17,7 +19,8 @@ function AdminCustomerRow(props: CustomerProp) {
         <span>{props.customer.customerName}</span>
       </div>
       <div className="flex flex-row w-40 gap-5">
-        <button className="bg-white shadow rounded justify-center items-center flex w-12 h-12 hover:bg-green-500 hover:text-white">
+        <button className="bg-white shadow rounded justify-center items-center flex w-12 h-12 hover:bg-green-500 hover:text-white"
+        onClick={() => props.onEdit()}>
           <Edit2 />
         </button>
         <DeletePopup onYes={() => {}} onNo={() => {}} />
