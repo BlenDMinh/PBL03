@@ -1,8 +1,11 @@
-import { Edit2, LayoutList, X } from "lucide-react";
+import { Edit2, LayoutList } from "lucide-react";
 import { Category } from "../../models/Category";
+import DeletePopup from "./DeletePopup";
 
 interface CategoryProp {
   category: Category;
+  onEdit: () => void;
+  onDelete: () => void;
 }
 
 function AdminCategoryRow(props: CategoryProp) {
@@ -16,12 +19,18 @@ function AdminCategoryRow(props: CategoryProp) {
         <span>{props.category.categoryName}</span>
       </div>
       <div className="flex flex-row w-40 gap-5">
-        <button className="bg-white shadow rounded justify-center items-center flex w-12 h-12 hover:bg-green-500 hover:text-white">
+        <button
+          className="bg-white shadow rounded justify-center items-center flex w-12 h-12 hover:bg-green-500 hover:text-white"
+          onClick={() => props.onEdit()}
+        >
           <Edit2 />
         </button>
-        <button className="bg-white shadow rounded justify-center items-center flex w-12 h-12 hover:bg-red-500 hover:text-white">
-          <X />
-        </button>
+        <DeletePopup
+          onYes={() => props.onDelete()}
+          onNo={() => {
+            //
+          }}
+        />
       </div>
     </div>
   );

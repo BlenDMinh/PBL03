@@ -1,6 +1,6 @@
-import { Archive, Edit2, User, X } from "lucide-react";
-import { Customer } from "../../models/Customer";
+import { Archive, Edit2 } from "lucide-react";
 import { Order } from "../../models/Order";
+import DeletePopup from "./DeletePopup";
 
 interface OrderProp {
   order: Order;
@@ -20,9 +20,7 @@ function AdminOrderRow(props: OrderProp) {
         <button className="bg-white shadow rounded justify-center items-center flex w-12 h-12 hover:bg-green-500 hover:text-white">
           <Edit2 />
         </button>
-        <button className="bg-white shadow rounded justify-center items-center flex w-12 h-12 hover:bg-red-500 hover:text-white">
-          <X />
-        </button>
+        <DeletePopup onYes={() => {}} onNo={() => {}} />
       </div>
     </div>
   );
