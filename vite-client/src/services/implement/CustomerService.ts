@@ -17,7 +17,7 @@ export class CustomerService implements ICustomerService {
   }
 
   readonly cusUrl = "http://localhost:8080/api/customer";
-  readonly autUrl = "http://localhost:8080/api/authen"
+  readonly autUrl = "http://localhost:8080/api/authen";
 
   update(): Promise<void> {
     if (this.loggedInCustomer == undefined) return Promise.reject();
@@ -30,10 +30,15 @@ export class CustomerService implements ICustomerService {
 
   register(customer: Customer, password: string): Promise<void> {
     return http
-      .post<Customer>(this.autUrl + "/register", new Headers(), JSON.stringify({
-        "customer": customer,
-        "password": password
-      })).then((customer) => {
+      .post<Customer>(
+        this.autUrl + "/register",
+        new Headers(),
+        JSON.stringify({
+          customer: customer,
+          password: password,
+        })
+      )
+      .then((customer) => {
         this.loggedInCustomer = customer;
       });
   }
@@ -58,19 +63,18 @@ export class CustomerService implements ICustomerService {
   }
 
   logout = () => {
-    return http.post(this.autUrl + "/logout", new Headers(), localStorage.token).then(() => {
-      this.loggedInCustomer = undefined;
-      localStorage.token = undefined;
-    });
+    return http
+      .post(this.autUrl + "/logout", new Headers(), localStorage.token)
+      .then(() => {
+        this.loggedInCustomer = undefined;
+        localStorage.token = undefined;
+      });
   };
 
   changePassword(password: string): Promise<void> {
     if (this.loggedInCustomer == undefined) return Promise.reject();
     return http.post(
-      this.autUrl +
-        "/" +
-        this.loggedInCustomer.customerId +
-        "/change-password",
+      this.autUrl + "/" + this.loggedInCustomer.customerId + "/change-password",
       new Headers(),
       password
     );

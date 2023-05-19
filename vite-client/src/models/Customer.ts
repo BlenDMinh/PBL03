@@ -26,4 +26,4 @@ export const CustomerSchema = z.object({
   cartProducts: ProductsSchema,
 });
 
-export const CustomersSchema = z.array(CustomerSchema)
+export const CustomersSchema = z.array(CustomerSchema);
