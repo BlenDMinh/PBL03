@@ -84,8 +84,11 @@ function AdminProduct() {
       <AdminProductView
         product={product}
         onSubmit={(product) => {
+          if (product == undefined) return;
           const service = ProductService.getInstance();
-          service.update(product);
+          if (products.filter((p) => p.sku == product?.sku).length > 0)
+            service.update(product!);
+          else service.insert(product!);
           navigate(0);
         }}
       />
@@ -135,7 +138,23 @@ function AdminProduct() {
                 </button>
               </div>
               <div>
-                <button className="bg-white shadow-lg rounded justify-center items-center flex w-12 h-12 hover:bg-winmart hover:text-white">
+                <button
+                  className="bg-white shadow-lg rounded justify-center items-center flex w-12 h-12 hover:bg-winmart hover:text-white"
+                  onClick={() =>
+                    setProduct({
+                      sku: 0,
+                      productName: "",
+                      brand: "",
+                      description: "",
+                      ingridients: "",
+                      listedPrice: 0.0,
+                      origin: "",
+                      preservedManual: "",
+                      quantity: 0,
+                      userManual: "",
+                    })
+                  }
+                >
                   <Plus />
                 </button>
               </div>
@@ -159,25 +178,3 @@ function AdminProduct() {
 }
 
 export default AdminProduct;
-
-function AddProduct() {
-  const handleAddProduct = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-  };
-
-  return (
-    <div>
-      <form>
-        <button onClick={handleAddProduct} type="submit"></button>
-      </form>
-    </div>
-  );
-}
-
-function UpdateProduct() {
-  return <div></div>;
-}
-
-function DeleteProduct() {
-  return <div></div>;
-}

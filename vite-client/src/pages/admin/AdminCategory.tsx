@@ -4,8 +4,11 @@ import AdminCategoryRow from "../../components/admin/AdminCategoryRow";
 import AdminCategoryView from "../../components/admin/AdminCategoryView";
 import AdminNavbar from "../../components/admin/AdminNavbar";
 import { Category } from "../../models/Category";
+import { Plus } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 function AdminCategory() {
+  const navigate = useNavigate();
   const [categories, setCategories] = useState<Category[]>([]);
   const service = CategoryService.getInstance();
   useEffect(() => {
@@ -14,12 +17,28 @@ function AdminCategory() {
   const [category, setCategory] = useState<Category | undefined>();
   return (
     <main>
-      <AdminCategoryView category={category} onSubmit={(category) => {}} />
+      <AdminCategoryView
+        category={category}
+        onSubmit={(category) => {
+          const service = CategoryService.getInstance();
+          if (category?.categoryId == -1) service.insert(category);
+          else service.update(category);
+          navigate(0);
+        }}
+      />
       <div className="flex flex-row">
         <AdminNavbar />
         <div className="w-full flex flex-col">
           <div className="h-32 bg-winmart"></div>
           <div className="bg-gray-100">
+            <div className="ml-32 m-10 flex flex-row justify-between">
+              <div></div>
+              <div>
+                <button className="bg-white shadow-lg rounded justify-center items-center flex w-12 h-12 hover:bg-winmart hover:text-white">
+                  <Plus />
+                </button>
+              </div>
+            </div>
             <div className="ml-32 flex flex-col p-10 rounded-xl bg-white shadow-lg m-10 divide-y divide-gray-150">
               {categories.map((p) => (
                 <AdminCategoryRow

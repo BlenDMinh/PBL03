@@ -4,6 +4,7 @@ import AdminNavbar from "../../components/admin/AdminNavbar";
 import AdminOrderRow from "../../components/admin/AdminOrderRow";
 import AdminOrderView from "../../components/admin/AdminOrderView";
 import { Order } from "../../models/Order";
+import { Plus } from "lucide-react";
 
 function AdminOrder() {
   const [orders, setOrders] = useState<Order[]>([]);
@@ -25,6 +26,14 @@ function AdminOrder() {
         <div className="w-full flex flex-col">
           <div className="h-32 bg-winmart"></div>
           <div className="bg-gray-100">
+            <div className="ml-32 m-10 flex flex-row justify-between">
+              <div></div>
+              <div>
+                <button className="bg-white shadow-lg rounded justify-center items-center flex w-12 h-12 hover:bg-winmart hover:text-white">
+                  <Plus />
+                </button>
+              </div>
+            </div>
             <div className="ml-32 flex flex-col p-10 rounded-xl bg-white shadow-lg m-10 divide-y divide-gray-150">
               {orders.map((p) => (
                 <AdminOrderRow

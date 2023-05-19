@@ -34,7 +34,9 @@ export class CategoryService implements ICategoryService {
   async getById(id: number): Promise<z.infer<typeof CategorySchema>> {
     return http
       .get(this.baseUrl + `/${id}`)
-      .then((e) => CategorySchema.parse(e) as z.infer<typeof CategorySchema>);
+      .then<z.infer<typeof CategorySchema>>(
+        (e) => CategorySchema.parse(e) as z.infer<typeof CategorySchema>
+      );
   }
 
   insert(category: Category): Promise<z.infer<typeof CategorySchema>> {

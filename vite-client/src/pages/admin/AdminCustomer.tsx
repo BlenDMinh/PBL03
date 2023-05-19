@@ -5,6 +5,7 @@ import AdminCustomerRow from "../../components/admin/AdminCustomerRow";
 import AdminCustomerView from "../../components/admin/AdminCustomerView";
 import AdminNavbar from "../../components/admin/AdminNavbar";
 import { Customer } from "../../models/Customer";
+import { Plus } from "lucide-react";
 
 function AdminCustomer() {
   const navigate = useNavigate();
@@ -20,7 +21,8 @@ function AdminCustomer() {
         customer={customer}
         onSubmit={(customer) => {
           const service = CustomerService.getInstance();
-          service.update(customer);
+          if (customer?.customerId != -1) service.update(customer);
+          else service.insert(customer);
         }}
       />
       <div className="flex flex-row">
@@ -28,6 +30,28 @@ function AdminCustomer() {
         <div className="w-full flex flex-col">
           <div className="h-32 bg-winmart"></div>
           <div className="bg-gray-100">
+            <div className="ml-32 m-10 flex flex-row justify-between">
+              <div></div>
+              <div>
+                <button
+                  className="bg-white shadow-lg rounded justify-center items-center flex w-12 h-12 hover:bg-winmart hover:text-white"
+                  onClick={() =>
+                    setCustomer({
+                      customerId: -1,
+                      customerName: "",
+                      addresses: [],
+                      orders: [],
+                      cartProducts: [],
+                      dateOfBirth: undefined,
+                      email: "",
+                      gender: "MALE",
+                    })
+                  }
+                >
+                  <Plus />
+                </button>
+              </div>
+            </div>
             <div className="ml-32 flex flex-col p-10 rounded-xl bg-white shadow-lg m-10 divide-y divide-gray-150">
               {customers.map((p) => (
                 <AdminCustomerRow
