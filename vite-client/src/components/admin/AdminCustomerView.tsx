@@ -1,3 +1,4 @@
+import { X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Customer } from "../../models/Customer";
 import { Gender } from "../../models/Gender";
@@ -21,9 +22,23 @@ function AdminCustomerView(props: AdminCustomerViewProp) {
         onSubmit={() => {
           props.onSubmit(customer);
         }}
-        className="mx-16 my-16 ml-32 bg-white w-auto h-5/6 rounded-xl p-10"
+        className="mx-16 my-16 ml-96 bg-white w-2/3 h-5/6 rounded-xl p-10 flex flex-col justify-between"
       >
-        <label htmlFor="customerId">Mã Khách Hàng: </label>
+      <div className="flex flex-col gap-10 text-lg font-bold">
+      <div className="flex justify-between">
+            <div></div>
+            <button
+              type="submit"
+              className="hover:bg-white hover:text-slate-700 shadow rounded justify-center items-center flex w-12 h-12 bg-red-500 text-white"
+              onClick={() => setCustomer(undefined)}
+            >
+            <X />
+            </button>
+          </div>
+      <div className="flex items-center">
+        <span className="text-sm text-slate-500 font-normal w-44">
+        Mã Khách Hàng:
+        </span>
         <input
           type="text"
           name="customerId"
@@ -32,8 +47,9 @@ function AdminCustomerView(props: AdminCustomerViewProp) {
           onChange={(event) => {}}
           required
         />
-        <br />
-        <label htmlFor="customerName">Họ và Tên: </label>
+       </div>
+       <div className="flex items-center">
+        <span className="w-44">Họ và Tên:</span>
         <input
           type="text"
           name="customerName"
@@ -46,8 +62,24 @@ function AdminCustomerView(props: AdminCustomerViewProp) {
           }}
           required
         />
-        <br />
-        <label htmlFor="dateOfBirth">Ngày Sinh: </label>
+        </div>
+        <div className="flex items-center">
+        <span className="w-44">Email:</span>
+        <input
+          type="text"
+          name="email"
+          id="email"
+          value={customer?.email}
+          onChange={(event) => {
+            const updatedCustomer = { ...customer };
+            updatedCustomer.email = event.target.value;
+            setCustomer(updatedCustomer);
+          }}
+          required
+        />
+        </div>
+        <div className="flex items-center">
+        <span className="w-44">Ngày Sinh:</span>
         <input
           type="text"
           name="dateOfBirth"
@@ -60,9 +92,10 @@ function AdminCustomerView(props: AdminCustomerViewProp) {
           }}
           required
         />
-        <br />
+        </div>
+        <div className="flex items-center">
         <div className="flex gap-5">
-          <label htmlFor="gender">Giới tính: </label>
+          <span className="w-44">Giới tính:</span>
           <input
             type="radio"
             name="gender"
@@ -90,9 +123,10 @@ function AdminCustomerView(props: AdminCustomerViewProp) {
           />
           <label htmlFor="FEMALE">Nữ</label>
         </div>
-        <br />
+        </div>
+        </div>
         <button
-          className="z-50 border flex items-center gap-5 px-4 py-5 rounded-md text-xl text-slate-500 font-bold hover:bg-winmart hover:text-white w-25 mt-4 h-10 m-2"
+          className="mt-4 z-50 border flex self-center justify-center items-center gap-5 px-4 py-5 rounded-md text-xl hover:text-slate-500 hover:bg-inherit font-bold bg-winmart text-white w-40 h-16"
           onClick={() => {
             props.onSubmit(customer);
           }}
