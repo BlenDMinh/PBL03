@@ -1,7 +1,7 @@
 import { X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Product } from "../../models/Product";
-import { ProductService } from "../../services/implement/ProductService";
+import { ProductService } from "../../services/ProductService";
 import ProductInfo from "./ProductInfo";
 
 interface ProductBoxProps {

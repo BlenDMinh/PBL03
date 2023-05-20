@@ -3,6 +3,8 @@ package com.benkyousuru.pbl03api.model.entity;
 import java.util.Date;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Temporal;
@@ -28,4 +30,7 @@ public class LoginSession {
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateCreated;
+
+    @Enumerated(EnumType.ORDINAL)
+    private Permission permission;
 }

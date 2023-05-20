@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.benkyousuru.pbl03api.model.model.CustomerModel;
-import com.benkyousuru.pbl03api.model.model.LoginRequest;
-import com.benkyousuru.pbl03api.model.model.LoginResponse;
 import com.benkyousuru.pbl03api.model.service.ICustomerService;
 
 @RestController
@@ -45,15 +43,6 @@ public class CustomerController {
         if(customer.isEmpty())
             return ResponseEntity.notFound().build();
         return ResponseEntity.ok(customer.get());
-    }
-
-    @PostMapping(basePath + "/login")
-    @Transactional
-    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
-        LoginResponse response = customerService.login(request);
-        if(response == null)
-            return ResponseEntity.badRequest().build();
-        return ResponseEntity.ok(response);
     }
 
     @PostMapping(basePath)
@@ -98,19 +87,5 @@ public class CustomerController {
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
         
-    }
-
-    @PostMapping(basePath + "/{id}/change-password")
-    @Transactional
-    public String changePassword(@PathVariable Integer id, @RequestBody String password) {
-        customerService.setPassword(id, password);
-        return "{\"message\": \"Changed\"}";
-    }
-
-    @PostMapping(basePath + "/logout")
-    @Transactional
-    public String logout(@RequestBody String token) {
-        customerService.logout(token);
-        return "{\"message\": \"Logged out\"}";
     }
 }

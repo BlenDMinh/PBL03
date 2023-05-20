@@ -96,6 +96,8 @@ public class ProductService implements IProductService {
             n_Product.setSku(o_Product.getSku());
         if (n_Product.getUserManual() == null)
             n_Product.setUserManual(o_Product.getUserManual());
+        if (n_Product.getQuantity() == null)
+            n_Product.setQuantity(o_Product.getQuantity());
         Product retProduct = productRepository.save(n_Product);
         return new ProductModel(retProduct);
     }

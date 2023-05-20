@@ -2,8 +2,8 @@ import { Minus, PackagePlus, Plus } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Product } from "../../models/Product";
-import { CustomerService } from "../../services/implement/CustomerService";
-import { ProductService } from "../../services/implement/ProductService";
+import { CustomerService } from "../../services/CustomerService";
+import { ProductService } from "../../services/ProductService";
 
 interface ProductInfoProps {
   product: Product;
@@ -14,6 +14,8 @@ function ProductInfo(props: ProductInfoProps) {
 
   const [imgURL, setImgURL] = useState<string>("");
   const [productCount, setProductCount] = useState<number>(1);
+  const [cannotAdd, setCannotAdd] = useState<boolean>(false);
+  const [productQuantity, setProductQuantity] = useState<number>(0);
 
   useEffect(() => {
     const service = ProductService.getInstance();
@@ -22,6 +24,11 @@ function ProductInfo(props: ProductInfoProps) {
 
     const customerService = CustomerService.getInstance();
     customerService.login();
+
+    const productService = ProductService.getInstance();
+    productService.getById(props.product.sku).then((quantity) => {
+      setProductQuantity(quantity.quantity);
+    });
   }, [props.product.sku]);
 
   const HandleAddToCart = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -32,16 +39,16 @@ function ProductInfo(props: ProductInfoProps) {
       for (let i = 0; i < productCount; i++)
         customerService.loggedInCustomer?.cartProducts.push(props.product);
 
-      customerService.update();
-
-      navigate(0);
+      customerService.update().then(() => {
+        navigate("/cart");
+      });
     });
   };
 
   return (
     <div className="w-screen h-screen fixed flex items-center justify-center top-0 left-0 z-40 bg-black bg-opacity-75 text-gray-900">
       <div className="w-[85vw]">
-        <div className="flex bg-white rounded-md items-center justify-between min-h-[50vh]">
+        <div className="flex bg-white rounded-md items-center justify-between min-h-[60vh] max-h-[90vh]">
           <div className="w-1/2 p-4">
             <img
               src={imgURL}
@@ -60,13 +67,13 @@ function ProductInfo(props: ProductInfoProps) {
               SKU: {props.product.sku.toString()}
             </span>
 
-            <span className="text-4xl text-winmart my-8">
+            <span className="text-4xl text-winmart my-6">
               {props.product.listedPrice.toLocaleString()} ₫
             </span>
 
             <div className="h-px w-3/4 bg-gray-400"></div>
 
-            <div className="flex gap-x-16 items-center my-6">
+            <div className="flex gap-x-16 items-center my-4">
               <span className="font-semibold text-base">Vận chuyển</span>
               <div className="flex flex-col gap-y-1">
                 <span>Miễn phí giao hàng cho đơn từ 300.000đ.</span>
@@ -76,8 +83,8 @@ function ProductInfo(props: ProductInfoProps) {
 
             <div className="h-px w-3/4 bg-gray-400"></div>
 
-            <div className="flex gap-x-20 items-center my-6">
-              <span className="font-semibold text-base">Số lượng</span>
+            <div className="flex gap-x-20 items-center my-4">
+              <span className="font-semibold text-base mr-2">Số lượng</span>
 
               <div className="flex items-center border border-gray-400 rounded-md overflow-hidden">
                 <button
@@ -92,12 +99,15 @@ function ProductInfo(props: ProductInfoProps) {
                   <Minus size={25} />
                 </button>
 
-                <span className="w-12 text-base text-center h-full">
-                  {productCount}
+                <span className="w-20 text-base text-center h-full">
+                  {productCount} / {productQuantity}
                 </span>
 
                 <button
-                  onClick={() => setProductCount(productCount + 1)}
+                  onClick={() => {
+                    if (productCount + 1 <= productQuantity)
+                      setProductCount(productCount + 1);
+                  }}
                   title="Tăng số lượng mua"
                   className="p-1 border-l border-gray-400 hover:bg-gray-200"
                 >
@@ -108,7 +118,7 @@ function ProductInfo(props: ProductInfoProps) {
 
             <button
               onClick={HandleAddToCart}
-              className="flex items-center justify-center text-sm px-4 py-2 border border-winmart rounded-md hover:bg-winmart hover:text-white w-52 mt-6"
+              className="flex items-center justify-center text-sm px-4 py-2 border border-winmart rounded-md hover:bg-winmart hover:text-white w-52 mt-10"
             >
               <span className="mr-1">
                 <PackagePlus size={15} />

@@ -3,13 +3,13 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
-import { Product } from "../models/Product";
-import { CustomerService } from "../services/implement/CustomerService";
-import { ProductService } from "../services/implement/ProductService";
-import { OrderService } from "../services/implement/OrderService";
-import { Order } from "../models/Order";
-import { Status } from "../models/Status";
 import { AddressType } from "../models/AddressType";
+import { Order } from "../models/Order";
+import { Product } from "../models/Product";
+import { Status } from "../models/Status";
+import { CustomerService } from "../services/CustomerService";
+import { OrderService } from "../services/OrderService";
+import { ProductService } from "../services/ProductService";
 
 interface optimizedCart {
   product: Product;
@@ -204,19 +204,21 @@ function Cart() {
                   var order: Order = {
                     orderId: -1,
                     status: Status.INCOMPLETE,
-                    address: customerService.loggedInCustomer?.addresses.find((e) => e.addressType == AddressType.DEFAULT),
+                    address: customerService.loggedInCustomer?.addresses.find(
+                      (e) => e.addressType == AddressType.DEFAULT
+                    ),
                     dateCreated: new Date(Date.now()),
                     dateCompleted: undefined,
-                    products: customerService.loggedInCustomer?.cartProducts
-                  }
+                    products: customerService.loggedInCustomer?.cartProducts,
+                  };
                   orderService.insert(order).then((e) => {
-                    if(customerService.loggedInCustomer?.orders == undefined)
-                      customerService.loggedInCustomer!.orders = []
+                    if (customerService.loggedInCustomer?.orders == undefined)
+                      customerService.loggedInCustomer!.orders = [];
                     customerService.loggedInCustomer!.orders.push(e);
-                    customerService.loggedInCustomer!.cartProducts = []
+                    customerService.loggedInCustomer!.cartProducts = [];
                     customerService.update().then(() => {
                       navigate("/order");
-                    })
+                    });
                   });
                 }}
               >

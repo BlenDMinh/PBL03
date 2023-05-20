@@ -1,7 +1,7 @@
 import "reflect-metadata";
 import { z } from "zod";
-import { CategoriesSchema, CategorySchema } from "../../models/Category";
-import { ICategoryService } from "../ICategoryService";
+import { ICategoryService } from "../interface/ICategoryService";
+import { CategoriesSchema, CategorySchema } from "../models/Category";
 import { http } from "../utils/http";
 
 export class CategoryService implements ICategoryService {

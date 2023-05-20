@@ -4,8 +4,8 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { Order } from "../models/Order";
 import { Product } from "../models/Product";
-import { CustomerService } from "../services/implement/CustomerService";
-import { ProductService } from "../services/implement/ProductService";
+import { CustomerService } from "../services/CustomerService";
+import { ProductService } from "../services/ProductService";
 
 interface OptimizeProduct {
   product: Product;

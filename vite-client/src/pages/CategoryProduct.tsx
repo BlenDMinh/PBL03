@@ -7,8 +7,8 @@ import Navbar from "../components/Navbar";
 import ProductBox from "../components/product/ProductBox";
 import { Category } from "../models/Category";
 import { Product, ProductsSchema } from "../models/Product";
-import { CategoryService } from "../services/implement/CategoryService";
-import { ProductService } from "../services/implement/ProductService";
+import { CategoryService } from "../services/CategoryService";
+import { ProductService } from "../services/ProductService";
 
 function CategoryProduct() {
   const { id } = useParams();

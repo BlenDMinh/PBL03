@@ -1,9 +1,10 @@
 import { Key, User } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import WinmartLogoRed from "../assets/Company/WinmartLogoRed.png";
+import WinmartLogoRed from "../img/WinmartLogoRed.png";
 import { LoginRequest } from "../models/LoginRequest";
-import { CustomerService } from "../services/implement/CustomerService";
+import { Permission } from "../models/Permission";
+import { CustomerService } from "../services/CustomerService";
 
 function Login() {
   const navigate = useNavigate();
@@ -11,6 +12,7 @@ function Login() {
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [wrongLogin, setWrongLogin] = useState<boolean>(false);
 
   useEffect(() => {
     document.title = "Đăng nhập | Winmart";
@@ -22,9 +24,23 @@ function Login() {
       email: (e.currentTarget.elements[0] as HTMLInputElement).value,
       password: (e.currentTarget.elements[1] as HTMLInputElement).value,
     };
-    service.login(request).then(() => {
-      if (service.loggedInCustomer !== undefined) navigate("/");
-    });
+
+    // setTimeout(() => {
+    //   setWrongLogin(true);
+    // }, 1000);
+
+    service
+      .login(request)
+      .then((res) => {
+        if (service.loggedInCustomer !== undefined)
+          if (res.permission === Permission[Permission.ADMIN])
+            navigate("/admin");
+          else navigate("/");
+      })
+      .catch((e) => {
+        setWrongLogin(true);
+        return e;
+      });
   };
 
   return (
@@ -76,6 +92,12 @@ function Login() {
               onChange={(event) => setPassword(event.target.value)}
             />
           </div>
+
+          {wrongLogin ? (
+            <span className="text-winmart text-sm">
+              Tên đăng nhập hoặc mật khẩu không đúng
+            </span>
+          ) : null}
 
           <button
             type="submit"

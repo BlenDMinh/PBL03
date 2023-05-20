@@ -35,6 +35,7 @@ public class Product {
     private String userManual;
     private String preservedManual;
     private String description;
+    private Integer quantity;
 
     public Product(ProductModel product) {
         this.sku = product.getSku();
@@ -46,5 +47,6 @@ public class Product {
         this.userManual = product.getUserManual();
         this.preservedManual = product.getPreservedManual();
         this.description = product.getDescription();
+        this.quantity = product.getQuantity();
     }
 }

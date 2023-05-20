@@ -10,6 +10,7 @@ export interface Product {
   userManual: string | null | undefined;
   preservedManual: string | null | undefined;
   description: string | null | undefined;
+  quantity: number;
 }
 
 export const ProductSchema = z.object({
@@ -22,6 +23,7 @@ export const ProductSchema = z.object({
   userManual: z.string().nullish(),
   preservedManual: z.string().nullish(),
   description: z.string().nullish(),
+  quantity: z.number(),
 });
 
 export const ProductsSchema = z.array(ProductSchema);

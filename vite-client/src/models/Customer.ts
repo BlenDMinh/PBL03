@@ -15,7 +15,7 @@ export interface Customer {
   cartProducts: Product[];
 }
 
-export const CustoemrSchema = z.object({
+export const CustomerSchema = z.object({
   customerId: z.number(),
   customerName: z.string(),
   email: z.string(),
@@ -25,3 +25,5 @@ export const CustoemrSchema = z.object({
   addresses: AddressesSchema,
   cartProducts: ProductsSchema,
 });
+
+export const CustomersSchema = z.array(CustomerSchema);

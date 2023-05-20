@@ -1,13 +1,13 @@
 import { ChevronDown, User } from "lucide-react";
 import { lazy, useEffect, useState } from "react";
-import WinmartLogoWhite from "../assets/Company/WinmartLogoWhite.png";
+import WinmartLogoWhite from "../img/WinmartLogoWhite.png";
 import { Category } from "../models/Category";
 import { Customer } from "../models/Customer";
-import { CategoryService } from "../services/implement/CategoryService";
-import { CustomerService } from "../services/implement/CustomerService";
+import { CategoryService } from "../services/CategoryService";
+import { CustomerService } from "../services/CustomerService";
 
 // Components
-const Cartbar = lazy(() => import("./cart/Cartbar"));
+const Cartbar = lazy(() => import("./Cartbar"));
 const Searchbar = lazy(() => import("./Searchbar"));
 
 // Main function

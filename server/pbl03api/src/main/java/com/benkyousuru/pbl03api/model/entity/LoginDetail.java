@@ -2,6 +2,8 @@ package com.benkyousuru.pbl03api.model.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -23,4 +25,7 @@ public class LoginDetail {
 
     private String password;
     private Integer hash_round;
+
+    @Enumerated(EnumType.ORDINAL)
+    private Permission permission;
 }

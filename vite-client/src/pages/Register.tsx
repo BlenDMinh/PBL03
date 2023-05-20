@@ -1,11 +1,13 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import WinmartLogoRed from "../assets/Company/WinmartLogoRed.png";
+import WinmartLogoRed from "../img/WinmartLogoRed.png";
 import { Address } from "../models/Address";
 import { AddressType } from "../models/AddressType";
 import { Customer } from "../models/Customer";
 import { Gender } from "../models/Gender";
-import { CustomerService } from "../services/implement/CustomerService";
+import { CustomerService } from "../services/CustomerService";
+
 interface RegCustomer {
   email?: string;
   customerName?: string;

@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { ProductSchema, ProductsSchema } from "../../models/Product";
-import { IProductService } from "../IProductService";
+import { IProductService } from "../interface/IProductService";
+import { ProductSchema, ProductsSchema } from "../models/Product";
 import { http } from "../utils/http";
 
 export class ProductService implements IProductService {
