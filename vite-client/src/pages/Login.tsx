@@ -25,15 +25,22 @@ function Login() {
       password: (e.currentTarget.elements[1] as HTMLInputElement).value,
     };
 
-    setTimeout(() => {
-      setWrongLogin(true);
-    }, 1000);
+    // setTimeout(() => {
+    //   setWrongLogin(true);
+    // }, 1000);
 
-    service.login(request).then((res) => {
-      if (service.loggedInCustomer !== undefined)
-        if (res.permission === Permission[Permission.ADMIN]) navigate("/admin");
-        else navigate("/");
-    });
+    service
+      .login(request)
+      .then((res) => {
+        if (service.loggedInCustomer !== undefined)
+          if (res.permission === Permission[Permission.ADMIN])
+            navigate("/admin");
+          else navigate("/");
+      })
+      .catch((e) => {
+        setWrongLogin(true);
+        return e;
+      });
   };
 
   return (

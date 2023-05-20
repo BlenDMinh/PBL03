@@ -49,14 +49,22 @@ export class CustomerService implements ICustomerService {
         token: localStorage.token,
       };
     }
-    const response = await http.post<LoginResponse>(
-      this.autUrl + "/login",
-      new Headers(),
-      JSON.stringify(request)
-    );
-    this.loggedInCustomer = response.customer;
-    localStorage.token = response.token;
-    return response;
+    try {
+      return http
+        .post<LoginResponse>(
+          this.autUrl + "/login",
+          new Headers(),
+          JSON.stringify(request)
+        )
+        .then((response) => {
+          this.loggedInCustomer = response.customer;
+          localStorage.token = response.token;
+          return response;
+        });
+    } catch (e) {
+      console.log(e);
+      return Promise.reject();
+    }
   }
 
   logout = async () => {

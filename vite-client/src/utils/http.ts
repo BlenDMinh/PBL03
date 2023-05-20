@@ -8,11 +8,17 @@ export class http {
           method: "GET",
           headers: headers,
         })
-          .then((r) => {
-            if (!r.ok) throw new Error(`Error! status: ${r.status}`);
-            return r.json();
-          })
-          .then((e) => onResolve(e as T));
+          .then(
+            (r) => {
+              if (!r.ok) return Promise.reject(`Error! status: ${r.status}`);
+              return r.json();
+            },
+            (err) => onError(err)
+          )
+          .then(
+            (e) => onResolve(e as T),
+            (err) => onError(err)
+          );
       } catch (e) {
         onError(e);
       }
@@ -33,11 +39,17 @@ export class http {
           headers: headers,
           body: body,
         })
-          .then((r) => {
-            if (!r.ok) return Promise.reject(`Error! status: ${r.status}`);
-            return r.json();
-          })
-          .then((r) => onResolve(r));
+          .then(
+            (r) => {
+              if (!r.ok) return Promise.reject(`Error! status: ${r.status}`);
+              return r.json();
+            },
+            (err) => onError(err)
+          )
+          .then(
+            (r) => onResolve(r),
+            (err) => onError(err)
+          );
       } catch (e) {
         onError(e);
       }
@@ -54,11 +66,17 @@ export class http {
           headers: headers,
           body: body,
         })
-          .then((r) => {
-            if (!r.ok) throw new Error(`Error! status: ${r.status}`);
-            return r.json();
-          })
-          .then((r) => onResolve(r));
+          .then(
+            (r) => {
+              if (!r.ok) return Promise.reject(`Error! status: ${r.status}`);
+              return r.json();
+            },
+            (err) => onError(err)
+          )
+          .then(
+            (r) => onResolve(r),
+            (err) => onError(err)
+          );
       } catch (e) {
         onError(e);
       }
@@ -75,11 +93,17 @@ export class http {
           headers: headers,
           body: body,
         })
-          .then((r) => {
-            if (!r.ok) throw new Error(`Error! status: ${r.status}`);
-            return r.json();
-          })
-          .then((r) => onResolve(r));
+          .then(
+            (r) => {
+              if (!r.ok) return Promise.reject(`Error! status: ${r.status}`);
+              return r.json();
+            },
+            (err) => onError(err)
+          )
+          .then(
+            (r) => onResolve(r),
+            (err) => onError(err)
+          );
       } catch (e) {
         onError(e);
       }
