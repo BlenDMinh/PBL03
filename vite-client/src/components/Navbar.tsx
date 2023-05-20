@@ -1,6 +1,6 @@
 import { ChevronDown, User } from "lucide-react";
 import { lazy, useEffect, useState } from "react";
-import WinmartLogoWhite from "../assets/Company/WinmartLogoWhite.png";
+import WinmartLogoWhite from "../img/WinmartLogoWhite.png";
 import { Category } from "../models/Category";
 import { Customer } from "../models/Customer";
 import { CategoryService } from "../services/CategoryService";

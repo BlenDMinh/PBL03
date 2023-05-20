@@ -28,19 +28,16 @@ export class CustomerService implements ICustomerService {
     );
   }
 
-  register(customer: Customer, password: string): Promise<void> {
-    return http
-      .post<Customer>(
-        this.autUrl + "/register",
-        new Headers(),
-        JSON.stringify({
-          customer: customer,
-          password: password,
-        })
-      )
-      .then((customer) => {
-        this.loggedInCustomer = customer;
-      });
+  async register(customer: Customer, password: string): Promise<void> {
+    const customer_1 = await http.post<Customer>(
+      this.autUrl + "/register",
+      new Headers(),
+      JSON.stringify({
+        customer: customer,
+        password: password,
+      })
+    );
+    this.loggedInCustomer = customer_1;
   }
 
   async login(
@@ -62,13 +59,10 @@ export class CustomerService implements ICustomerService {
     return response;
   }
 
-  logout = () => {
-    return http
-      .post(this.autUrl + "/logout", new Headers(), localStorage.token)
-      .then(() => {
-        this.loggedInCustomer = undefined;
-        localStorage.token = undefined;
-      });
+  logout = async () => {
+    await http.post(this.autUrl + "/logout", new Headers(), localStorage.token);
+    this.loggedInCustomer = undefined;
+    localStorage.token = undefined;
   };
 
   changePassword(password: string): Promise<void> {
