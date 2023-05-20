@@ -7,11 +7,11 @@ import {
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { ProductService } from "../../admin/services/implement/ProductService";
 import AdminNavbar from "../../components/admin/AdminNavbar";
 import AdminProductRow from "../../components/admin/AdminProductRow";
 import AdminProductView from "../../components/admin/AdminProductView";
 import { Product } from "../../models/Product";
+import { ProductService } from "../../services/admin/ProductService";
 
 interface NavProps {
   currentPage: number;

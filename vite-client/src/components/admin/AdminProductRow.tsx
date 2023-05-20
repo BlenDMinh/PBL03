@@ -28,7 +28,14 @@ function AdminProductRow(props: ProductProp) {
         >
           <Edit2 />
         </button>
-        <DeletePopup onYes={() => {}} onNo={() => {}} />
+        <DeletePopup
+          onYes={() => {
+            return;
+          }}
+          onNo={() => {
+            return;
+          }}
+        />
       </div>
     </div>
   );

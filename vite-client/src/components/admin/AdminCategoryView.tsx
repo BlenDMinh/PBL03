@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import { CategoryService } from "../../admin/services/implement/CategoryService";
-import { Category } from "../../models/Category";
 import { X } from "lucide-react";
-import { ProductService } from "../../admin/services/implement/ProductService";
+import { useEffect, useState } from "react";
+import { Category } from "../../models/Category";
+import { CategoryService } from "../../services/admin/CategoryService";
+import { ProductService } from "../../services/admin/ProductService";
 import AdminCategoryRow from "./AdminCategoryRow";
 import AdminProductRow from "./AdminProductRow";
 

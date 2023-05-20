@@ -29,7 +29,9 @@ function AdminCustomerRow(props: CustomerProp) {
           onYes={() => {
             props.onDelete();
           }}
-          onNo={() => {}}
+          onNo={() => {
+            return;
+          }}
         />
       </div>
     </div>

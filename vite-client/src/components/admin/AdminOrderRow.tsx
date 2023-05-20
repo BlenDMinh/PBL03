@@ -1,8 +1,8 @@
 import { Archive } from "lucide-react";
 import { useEffect, useState } from "react";
-import { OrderService } from "../../admin/services/implement/OrderService";
 import { Order } from "../../models/Order";
 import { Status } from "../../models/Status";
+import { OrderService } from "../../services/admin/OrderService";
 import DeletePopup from "./DeletePopup";
 
 interface OrderProp {
@@ -62,7 +62,9 @@ function AdminOrderRow(props: OrderProp) {
           onYes={() => {
             props.onDelete();
           }}
-          onNo={() => {}}
+          onNo={() => {
+            return;
+          }}
         />
       </div>
     </div>

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
-import ShowCategory from "../components/category/ShowCategory";
+import ShowCategory from "../components/ShowCategory";
 import { Category } from "../models/Category";
-import { CategoryService } from "../services/implement/CategoryService";
+import { CategoryService } from "../services/CategoryService";
 
 function App() {
   const [categories, setCategories] = useState<number[]>([]);

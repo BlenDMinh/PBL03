@@ -1,4 +1,4 @@
 export enum Permission {
-    CUSTOMER,
-    ADMIN
+  CUSTOMER,
+  ADMIN,
 }

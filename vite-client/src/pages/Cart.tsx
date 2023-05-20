@@ -7,9 +7,9 @@ import { AddressType } from "../models/AddressType";
 import { Order } from "../models/Order";
 import { Product } from "../models/Product";
 import { Status } from "../models/Status";
-import { CustomerService } from "../services/implement/CustomerService";
-import { OrderService } from "../services/implement/OrderService";
-import { ProductService } from "../services/implement/ProductService";
+import { CustomerService } from "../services/CustomerService";
+import { OrderService } from "../services/OrderService";
+import { ProductService } from "../services/ProductService";
 
 interface optimizedCart {
   product: Product;

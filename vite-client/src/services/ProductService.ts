@@ -1,11 +1,7 @@
 import { z } from "zod";
-import {
-  Product,
-  ProductSchema,
-  ProductsSchema,
-} from "../../../models/Product";
-import { http } from "../../../services/utils/http";
-import { IProductService } from "../IProductService";
+import { IProductService } from "../interface/IProductService";
+import { ProductSchema, ProductsSchema } from "../models/Product";
+import { http } from "../utils/http";
 
 export class ProductService implements IProductService {
   private static instance: ProductService;
@@ -49,18 +45,5 @@ export class ProductService implements IProductService {
         `?category=${categoryId}&pageNum=${pageNum}&pageSize=${pageSize}`
     );
     return ProductsSchema.parse(data);
-  }
-
-  insert(product: Product): Promise<z.infer<typeof ProductSchema>> {
-    return http.post(this.baseUrl, new Headers(), JSON.stringify(product));
-  }
-  update(product: Product): Promise<z.infer<typeof ProductSchema>> {
-    return http.put(this.baseUrl, new Headers(), JSON.stringify(product));
-  }
-  delete(product: Product): Promise<void> {
-    return http.delete(this.baseUrl, new Headers(), JSON.stringify(product));
-  }
-  deleteById(id: number): Promise<void> {
-    return http.delete(this.baseUrl + "/" + id);
   }
 }

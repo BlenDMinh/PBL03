@@ -1,8 +1,8 @@
 import { ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
-import { Product } from "../../models/Product";
-import { ProductService } from "../../services/implement/ProductService";
-import ProductBox from "../product/ProductBox";
+import { Product } from "../models/Product";
+import { ProductService } from "../services/ProductService";
+import ProductBox from "./product/ProductBox";
 
 interface ShowCategoryProps {
   id: number;

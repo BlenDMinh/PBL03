@@ -1,8 +1,8 @@
 import { X } from "lucide-react";
 import { useEffect, useState } from "react";
+import { z } from "zod";
 import { Customer } from "../../models/Customer";
 import { Gender } from "../../models/Gender";
-import { z } from "zod";
 
 interface AdminCustomerViewProp {
   customer: Customer | undefined;

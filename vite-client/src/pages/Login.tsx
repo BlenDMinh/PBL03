@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import WinmartLogoRed from "../assets/Company/WinmartLogoRed.png";
 import { LoginRequest } from "../models/LoginRequest";
 import { Permission } from "../models/Permission";
-import { CustomerService } from "../services/implement/CustomerService";
+import { CustomerService } from "../services/CustomerService";
 
 function Login() {
   const navigate = useNavigate();

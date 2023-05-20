@@ -6,7 +6,7 @@ import { Address } from "../models/Address";
 import { AddressType } from "../models/AddressType";
 import { Customer } from "../models/Customer";
 import { Gender } from "../models/Gender";
-import { CustomerService } from "../services/implement/CustomerService";
+import { CustomerService } from "../services/CustomerService";
 
 interface RegCustomer {
   email?: string;

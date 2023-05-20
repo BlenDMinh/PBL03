@@ -1,11 +1,11 @@
+import { Plus } from "lucide-react";
 import { useEffect, useState } from "react";
-import { CategoryService } from "../../admin/services/implement/CategoryService";
+import { useNavigate } from "react-router-dom";
 import AdminCategoryRow from "../../components/admin/AdminCategoryRow";
 import AdminCategoryView from "../../components/admin/AdminCategoryView";
 import AdminNavbar from "../../components/admin/AdminNavbar";
 import { Category } from "../../models/Category";
-import { Plus } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { CategoryService } from "../../services/admin/CategoryService";
 
 function AdminCategory() {
   const navigate = useNavigate();
@@ -13,7 +13,7 @@ function AdminCategory() {
   const service = CategoryService.getInstance();
   useEffect(() => {
     service.getAll().then((categories) => setCategories(categories));
-  }, []);
+  }, [service]);
   const [category, setCategory] = useState<Category | undefined>();
   return (
     <main>
@@ -50,7 +50,9 @@ function AdminCategory() {
                   onEdit={() => {
                     setCategory(p);
                   }}
-                  onDelete={() => {}}
+                  onDelete={() => {
+                    return;
+                  }}
                 />
               ))}
             </div>

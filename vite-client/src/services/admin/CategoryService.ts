@@ -1,12 +1,12 @@
 import "reflect-metadata";
 import { z } from "zod";
+import { ICategoryService } from "../../interface/admin/ICategoryService";
 import {
   CategoriesSchema,
   Category,
   CategorySchema,
-} from "../../../models/Category";
-import { http } from "../../../services/utils/http";
-import { ICategoryService } from "../ICategoryService";
+} from "../../models/Category";
+import { http } from "../../utils/http";
 
 export class CategoryService implements ICategoryService {
   private static instance: CategoryService;

@@ -1,6 +1,6 @@
 import { X } from "lucide-react";
-import { Product } from "../../models/Product";
 import { useEffect, useState } from "react";
+import { Product } from "../../models/Product";
 
 interface AdminProductViewProp {
   product: Product | undefined;
@@ -45,7 +45,7 @@ function AdminProductView(props: AdminProductViewProp) {
               value={product?.sku}
               onChange={(event) => {
                 const updatedProduct = { ...product };
-                var sku: number = Number.parseInt(event.target.value);
+                let sku: number = Number.parseInt(event.target.value);
                 if (Number.isNaN(sku)) sku = 0;
                 console.log(sku);
                 updatedProduct.sku = sku;

@@ -2,8 +2,8 @@ import { Minus, PackagePlus, Plus } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Product } from "../../models/Product";
-import { CustomerService } from "../../services/implement/CustomerService";
-import { ProductService } from "../../services/implement/ProductService";
+import { CustomerService } from "../../services/CustomerService";
+import { ProductService } from "../../services/ProductService";
 
 interface ProductInfoProps {
   product: Product;

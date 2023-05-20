@@ -1,11 +1,11 @@
 import { z } from "zod";
+import { ICustomerService } from "../../interface/admin/ICustomerService";
 import {
   Customer,
   CustomerSchema,
   CustomersSchema,
-} from "../../../models/Customer";
-import { http } from "../../../services/utils/http";
-import { ICustomerService } from "../ICustomerService";
+} from "../../models/Customer";
+import { http } from "../../utils/http";
 
 export class CustomerService implements ICustomerService {
   private static instance: CustomerService = new CustomerService();

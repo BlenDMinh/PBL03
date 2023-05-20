@@ -1,11 +1,11 @@
+import { Plus } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { CustomerService } from "../../admin/services/implement/CustomerService";
 import AdminCustomerRow from "../../components/admin/AdminCustomerRow";
 import AdminCustomerView from "../../components/admin/AdminCustomerView";
 import AdminNavbar from "../../components/admin/AdminNavbar";
 import { Customer } from "../../models/Customer";
-import { Plus } from "lucide-react";
+import { CustomerService } from "../../services/admin/CustomerService";
 
 function AdminCustomer() {
   const navigate = useNavigate();

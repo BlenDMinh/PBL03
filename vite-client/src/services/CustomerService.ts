@@ -1,7 +1,7 @@
-import { Customer } from "../../models/Customer";
-import { LoginRequest } from "../../models/LoginRequest";
-import { LoginResponse } from "../../models/LoginResponse";
-import { ICustomerService } from "../ICustomerService";
+import { ICustomerService } from "../interface/ICustomerService";
+import { Customer } from "../models/Customer";
+import { LoginRequest } from "../models/LoginRequest";
+import { LoginResponse } from "../models/LoginResponse";
 import { http } from "../utils/http";
 
 export class CustomerService implements ICustomerService {
