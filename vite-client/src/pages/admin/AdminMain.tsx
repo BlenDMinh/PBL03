@@ -6,6 +6,7 @@ import { Customer } from "../../models/Customer";
 import { Order } from "../../models/Order";
 import { CustomerService } from "../../services/CustomerService";
 import { OrderService } from "../../services/admin/OrderService";
+import OrderChart from "../../components/admin/chart/OrderChart";
 
 function AdminMain() {
   const [orders, setOrders] = useState<Order[]>([]);
@@ -31,7 +32,7 @@ function AdminMain() {
               </span>
             </div>
           </div>
-          <div className="mt-12 h-full">
+          <div className="mt-12 h-full mb-12">
             <div className="w-full h-fit flex items-center justify-center">
               <div className="w-full h-full flex flex-col items-center gap-10">
                 <div className="flex flex-row items-center justify-between gap-10 w-10/12">
@@ -64,8 +65,13 @@ function AdminMain() {
                     </div>
                   </div>
                 </div>
-                <div className="bg-white rounded-xl w-10/12 p-10 h-200 shadow-2xl">
-                  <RevenueChart orders={orders} />
+                <div className="w-10/12 h-full flex gap-10">
+                  <div className="bg-white rounded-xl p-10 shadow-2xl w-1/2">
+                    <RevenueChart orders={orders} />
+                  </div>
+                  <div className="bg-white rounded-xl p-10 shadow-2xl w-1/2">
+                    <OrderChart orders={orders} />
+                  </div>
                 </div>
               </div>
             </div>
