@@ -1,4 +1,4 @@
-import { Minus, PackagePlus, Plus } from "lucide-react";
+import { Minus, PackagePlus, Plus, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Product } from "../../models/Product";
@@ -7,6 +7,7 @@ import { ProductService } from "../../services/ProductService";
 
 interface ProductInfoProps {
   product: Product;
+  onClose?: () => void;
 }
 
 function ProductInfo(props: ProductInfoProps) {
@@ -46,9 +47,9 @@ function ProductInfo(props: ProductInfoProps) {
   };
 
   return (
-    <div className="w-screen h-screen fixed flex items-center justify-center top-0 left-0 z-40 bg-black bg-opacity-75 text-gray-900">
+    <div className="w-screen h-screen fixed flex items-center justify-center top-0 left-0 z-40 bg-slate-700 bg-opacity-50 text-gray-900">
       <div className="w-[85vw]">
-        <div className="flex bg-white rounded-md items-center justify-between min-h-[60vh] max-h-[90vh]">
+        <div className="flex bg-white rounded-md justify-between min-h-[60vh] max-h-[90vh] shadow-xl gap-5 p-5">
           <div className="w-1/2 p-4">
             <img
               src={imgURL}
@@ -126,6 +127,14 @@ function ProductInfo(props: ProductInfoProps) {
               <span>Thêm vào giỏ</span>
             </button>
           </div>
+          <button
+            onClick={() => {
+              props.onClose?.call([]);
+            }}
+            className="z-50 p-2 text-sm border border-winmart bg-white text-black hover:text-white hover:bg-winmart rounded-lg shadow-lg w-10 h-10 flex items-center justify-center"
+          >
+            <X />
+          </button>
         </div>
 
         <div className="flex gap-x-8 mt-4">

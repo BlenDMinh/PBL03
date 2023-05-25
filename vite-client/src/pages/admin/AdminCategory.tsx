@@ -29,7 +29,7 @@ function AdminCategory() {
       <div className="flex flex-row">
         <AdminNavbar />
         <div className="w-full flex flex-col">
-          <div className="h-32 bg-winmart">
+          <div className="h-32 bg-winmart shadow-xl">
             <span className="ml-52 h-full flex flex-col justify-center text-white font-bold text-3xl">
               Danh mục
             </span>
