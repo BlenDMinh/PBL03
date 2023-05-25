@@ -34,7 +34,7 @@ function AdminCategory() {
               Danh mục
             </span>
           </div>
-          <div className="bg-gray-200 h-full">
+          <div className="bg-gray-100 h-full">
             <div className="ml-32 m-10 flex flex-row justify-between">
               <div></div>
               <div>

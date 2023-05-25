@@ -33,7 +33,7 @@ function AdminCustomer() {
               Khách hàng
             </span>
           </div>
-          <div className="bg-gray-200 h-full max-h-screen">
+          <div className="bg-gray-100 h-full max-h-screen">
             <div className="ml-32 m-10 flex flex-row justify-between">
               <div></div>
               <div>

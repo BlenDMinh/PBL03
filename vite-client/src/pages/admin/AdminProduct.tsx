@@ -94,13 +94,13 @@ function AdminProduct() {
       />
       <AdminNavbar />
       <div className="flex flex-row">
-        <div className="w-full flex flex-col">
+        <div className="bg-gray-100 w-full flex flex-col">
           <div className="h-32 bg-winmart">
             <span className="ml-52 h-full flex flex-col justify-center text-white font-bold text-3xl">
               Sản phẩm
             </span>
           </div>
-          <div className="bg-gray-200 h-full max-h-screen">
+          <div className="h-full">
             <div className="ml-32 m-10 flex flex-row justify-between">
               <div className="flex flex-row gap-5">
                 <button
