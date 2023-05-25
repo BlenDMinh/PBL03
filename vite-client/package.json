@@ -14,7 +14,7 @@
     "@devexpress/dx-react-core": "^4.0.4",
     "@tailwindcss/forms": "^0.5.3",
     "@types/node": "^18.16.2",
-    "chart.js": "^4.3.0",
+    "chart.js": "2.9.3",
     "dotenv": "^16.0.3",
     "localforage": "^1.10.0",
     "lucide-react": "^0.183.0",
