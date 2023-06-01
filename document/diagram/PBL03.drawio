@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-06-01T04:10:48.475Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36 Edg/113.0.1774.57" etag="oBh-twxw0K5wb_4mjr0h" version="21.3.5" type="github" pages="12">
+<mxfile host="app.diagrams.net" modified="2023-06-01T04:11:14.426Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36 Edg/113.0.1774.57" etag="5-pNfVRPGDjQWaF6k8wo" version="21.3.5" type="github" pages="12">
   <diagram id="el7Ye2RGGxl3PQ-WyAvP" name="Features Diagram">
     <mxGraphModel dx="996" dy="541" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -270,7 +270,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="MZsFwDAbx2BlKNpBqkzr" name="Activity Diagram (Login)">
-    <mxGraphModel dx="643" dy="349" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1107" dy="601" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -463,6 +463,12 @@
         </mxCell>
         <mxCell id="-tSS_l-JfEEulRkgFv3a-15" value="Tài khoản và mật khẩu" style="html=1;whiteSpace=wrap;" vertex="1" parent="1">
           <mxGeometry x="520" y="190" width="75" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="-tSS_l-JfEEulRkgFv3a-16" value="" style="endArrow=open;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;endFill=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="-tSS_l-JfEEulRkgFv3a-15" target="-tSS_l-JfEEulRkgFv3a-14">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="490" y="335" as="sourcePoint" />
+            <mxPoint x="530" y="218" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
       </root>
     </mxGraphModel>
