@@ -1,4 +1,3 @@
-import { X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Product } from "../../models/Product";
 import { ProductService } from "../../services/ProductService";
@@ -31,14 +30,10 @@ function ProductBox(props: ProductBoxProps) {
     <div>
       {productInfo ? (
         <div>
-          <button
-            onClick={() => setProductInfo(null)}
-            className="fixed top-0 z-50 right-0 p-4 bg-white text-black hover:text-white hover:bg-winmart"
-          >
-            <X />
-          </button>
-
-          <ProductInfo product={productInfo} />
+          <ProductInfo
+            product={productInfo}
+            onClose={() => setProductInfo(null)}
+          />
         </div>
       ) : null}
 
